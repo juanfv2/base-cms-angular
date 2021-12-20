@@ -3,5 +3,49 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "base-cms": {
+      "projectType": "library",
+      "root": "projects/base-cms",
+      "sourceRoot": "projects/base-cms/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/base-cms/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/base-cms/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/base-cms/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/base-cms/src/test.ts",
+            "tsConfig": "projects/base-cms/tsconfig.spec.json",
+            "karmaConfig": "projects/base-cms/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/base-cms/**/*.ts",
+              "projects/base-cms/**/*.html"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "base-cms",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
   }
 }
