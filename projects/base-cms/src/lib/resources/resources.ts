@@ -1,0 +1,37 @@
+const baseFrontEnd = 'stage/admin'
+const baseBackEnd = 'stage'
+const sBaseBackEnd = `/${baseBackEnd}`
+
+export const routes = {
+  zones: 'zones',
+  regions: 'regions',
+  cities: 'cities',
+
+  frontEnd: {
+    name: 'admin',
+    root: '/admin/',
+  },
+  backEnd: {
+    name: '',
+    root: '/',
+    sRoot: '',
+    assets: `/storage/assets/`,
+  },
+  api: 'api/',
+  auth: {
+    login: 'login',
+    logout: 'logout',
+    users: 'users',
+    roles: 'roles',
+    permissions: 'permissions',
+  },
+  misc: {
+    importCsv: 'import-csv',
+    exportCsv: 'export-csv',
+    file: 'file/',
+    xFiles: 'x_files',
+    seeder: 'seeder',
+    subscribe: 'subscribe',
+    bulkErrors: 'bulk_errors',
+  },
+}

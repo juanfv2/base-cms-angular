@@ -1,0 +1,109 @@
+<div class="row">
+  <div class="col-12 col-md-3">
+    <div class="form-group">
+      <select class="form-control"
+              [(ngModel)]="condition.field"
+              [compareWith]="compareFn">
+        <option *ngFor="let xField of queryFieldOptions"
+                [ngValue]="xField">{{ xField?.label }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-12 col-md-2">
+    <div class="form-group">
+      <select class="form-control"
+              [(ngModel)]="condition.cond">
+        <option *ngFor="let o of conditionalOptions"
+                value="{{o.value}}">{{ o.label }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-12 col-md-5">
+    <div class="form-group">
+
+      <div [ngSwitch]="condition.field?.type">
+        <div *ngSwitchCase="'date'">
+          <div class="input-group">
+            <input name="condition-value-date"
+                   class="form-control"
+                   placeholder="yyyy-mm-dd"
+                   [(ngModel)]="condition.value"
+                   #objectSearchQuery="ngModel"
+                   ngbDatepicker
+                   #d="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary"
+                      (click)="d.toggle()"
+                      type="button">
+                <img src="/assets/images/admin/ic-calendar.svg" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'date-time'">
+          <div class="input-group">
+            <input name="condition-value-date"
+                   class="form-control"
+                   placeholder="yyyy-mm-dd"
+                   [(ngModel)]="condition.value"
+                   #objectSearchQuery="ngModel"
+                   ngbDatepicker
+                   #d="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary"
+                      (click)="d.toggle()"
+                      type="button">
+                <img src="/assets/images/admin/ic-calendar.svg" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'boolean'">
+
+          <div class="d-flex">
+            <label for="condition-value-boolean"
+                   class="switch">
+              <input id="condition-value-boolean"
+                     name="condition-value-boolean"
+                     type="checkbox"
+                     [(ngModel)]="condition.value"
+                     #objectSearchQuery="ngModel">
+              <span class="slider round"></span>
+            </label>
+            <span class="p-1">{{ condition.disabled ? 'Activo' : 'Desactivo' }}</span>
+          </div>
+
+        </div>
+        <div *ngSwitchDefault>
+
+          <input class="form-control"
+                 [(ngModel)]="condition.value"
+                 #objectSearchQuery="ngModel" />
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-1">
+    <div class="form-group">
+      <select class="form-control"
+              [(ngModel)]="condition.oper">
+        <option *ngFor="let o of operatorOptions"
+                value="{{o.value}}">{{ o.label }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-12 col-md-1">
+    <div class="form-group">
+      <button (click)="deleteField()"
+              type="button"
+              title="Borrar"
+              class="btn btn-sm btn-danger btn-round btn-icon btn-icon-mini btn-neutral m-0"
+              data-original-title="Borrar">
+        <i class="fas fa-trash"></i>
+      </button>
+    </div>
+  </div>
+</div>

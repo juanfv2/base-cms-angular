@@ -1,0 +1,168 @@
+import {SearchInputComponent} from '../components/search-input/search-input.component'
+
+import {k} from '../environments/k'
+import {JfResponseList, JfSearchCondition, JfCondition} from '../resources/classes'
+
+import {JfApiRoute} from './jf-api-route'
+import {JfStorageManagement} from './jf-storage-management'
+
+export class JfUtils {
+  static mStorage = JfStorageManagement
+  static mApi = new JfApiRoute('')
+
+  static getBaseLocation(): string {
+    const r = JfUtils.mStorage.saveCountryInLocalStorage()
+    const rDevelop = r.dev ? `${r.dev}/` : ''
+    const entityGlobalId = r.entityGlobalId
+    const rCompanyName = r.cName
+    const r1 = `${k.routes.frontEnd.root}${rCompanyName}/${entityGlobalId}${rDevelop}#/`
+    // console.log('r1', r1)
+    return r1
+  }
+
+  // remove the passed element from the content array.
+  static remove(page: JfResponseList<any>, element: any): void {
+    const indexToRemove: number = page.content.indexOf(element)
+    page.content = page.content.filter((val, i) => i !== indexToRemove)
+    page.totalElements = page.totalElements - 1
+  }
+  // remove the passed element from the content array.
+  static removeFromArray(content: any[], element: any, byField?: string): any[] {
+    if (byField) {
+      return content.filter((e) => e[byField] !== element)
+    }
+    const indexToRemove: number = content.indexOf(element)
+    return content.filter((val, i) => i !== indexToRemove)
+  }
+
+  static convert2PageResponse(arr: any[] = [], rows: number = 0): JfResponseList<any> {
+    return new JfResponseList<any>(Math.ceil(arr.length / rows), arr.length, arr)
+  }
+
+  static downloadFile(data: any, name: string, type: string = 'csv'): void {
+    const link = document.createElement('a')
+    link.href = window.URL.createObjectURL(data)
+    link.download = name + '.' + type
+    link.click()
+  }
+
+  static itemIsSelected(arr: any[], id: number): boolean {
+    if (arr && id > 0) {
+      // console.log('id:', id, ' b', b);
+      return arr.find((p) => p === id) > 0
+    }
+    return false
+    // $event.binary = true
+  }
+
+  static csvColumns(pLabel: any, isImports = false): any {
+    const csvColumns: any = {}
+
+    for (const key in pLabel) {
+      if (pLabel.hasOwnProperty(key)) {
+        const element = pLabel[key]
+        const ExportOrImport = isImports ? element.allowImport : element.allowExport
+        if (element !== null && typeof element === 'object' && ExportOrImport) {
+          const ff = element.field.replace(`${pLabel.tableName}.`, '')
+          if (isImports) {
+            if (element.field.indexOf(`${pLabel.tableName}.`) !== -1) {
+              csvColumns[element.label] = ff
+            } else {
+              csvColumns[element.label] = ff
+            }
+          } else {
+            csvColumns[ff] = element.label
+          }
+        }
+      }
+    }
+
+    return csvColumns
+  }
+
+  static reverseObjKeys(pHeaders: any): any {
+    const obj: any = {}
+    for (const key in pHeaders) {
+      if (pHeaders.hasOwnProperty(key)) {
+        const newValue = pHeaders[key]
+        obj[newValue] = key
+      }
+    }
+
+    return obj
+  }
+
+  static addSearchField(pComponent: any, condition?: JfSearchCondition, condStr = 'like') {
+    if (!pComponent) {
+      return
+    }
+    if (!pComponent.searchField) {
+      return
+    }
+
+    const componentFactory = pComponent.resolver.resolveComponentFactory(SearchInputComponent)
+    const componentRef = pComponent.searchField.viewContainerRef.createComponent(componentFactory)
+    const searchItem = componentRef.instance as SearchInputComponent
+
+    if (!condition) {
+      condition = new JfSearchCondition(condStr)
+      condition.field = pComponent.queryFieldOptions[0]
+
+      if (!pComponent.modelSearch.conditions) {
+        pComponent.modelSearch.conditions = []
+      }
+      pComponent.modelSearch.conditions.push(condition)
+    }
+
+    searchItem.condition = condition
+    searchItem.operatorOptions = pComponent.operatorOptions
+    searchItem.conditionalOptions = pComponent.conditionalOptions
+    searchItem.queryFieldOptions = pComponent.queryFieldOptions
+
+    searchItem.modelSearch = pComponent.modelSearch
+    searchItem.mRef = componentRef
+    return searchItem
+  }
+
+  static x2one({
+    conditions,
+    conditionModel,
+    foreignKName,
+    primaryKName,
+    nextOperator,
+  }: {
+    conditions: any[]
+    conditionModel: JfSearchCondition
+    foreignKName: string
+    primaryKName?: string
+    nextOperator: string
+  }): string {
+    const pkName = primaryKName || 'id'
+
+    if (conditionModel.value && conditionModel.value[pkName]) {
+      conditions.push(
+        new JfCondition(`${nextOperator} ${foreignKName} ${conditionModel.cond}`, conditionModel.value[pkName])
+      )
+      nextOperator = conditionModel.oper
+    }
+
+    return nextOperator
+  }
+
+  static go2login(timeout: number = 4000): void {
+    console.log('go2login', 'go2login')
+    setTimeout(() => {
+      JfUtils.mStorage.clearEnvironment()
+      const newLocal = JfUtils.getBaseLocation()
+      // window.location.href = newLocal + '/login'
+    }, timeout)
+  }
+
+  static jsonValidated(json: string): any {
+    try {
+      return JSON.parse(json)
+    } catch (error) {
+      return null
+    }
+  }
+}
