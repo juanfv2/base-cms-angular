@@ -7,7 +7,7 @@ import {JfCondition, JfLazyLoadEvent, JfResponse, JfSearchCondition, JfSort} fro
 import {JfRequestOption} from '../../support/jf-request-option'
 
 @Component({
-  selector: 'lib-base-auto-complete',
+  selector: 'base-cms-base-auto-complete',
   templateUrl: './base-auto-complete.component.html',
   styleUrls: ['./base-auto-complete.component.scss'],
 })
