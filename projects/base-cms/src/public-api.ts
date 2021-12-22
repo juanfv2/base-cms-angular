@@ -2,12 +2,21 @@
  * Public API Surface of base-cms
  */
 
+export * from './lib/components/search-input/search-input.component'
 export * from './lib/components/toast-container/toast-container.component'
 
 export * from './lib/components/base-auto-complete/base-auto-complete.component'
 
 export * from './lib/base-cms.module'
 export * from './lib/base-cms.module'
+
+/* -------------------------------------------------------------------------- */
+/* pipes                                                                      */
+/* -------------------------------------------------------------------------- */
+
+export * from './lib/pipes/format-item.pipe'
+export * from './lib/pipes/has-x-file.pipe'
+export * from './lib/pipes/safe.pipe'
 
 /* -------------------------------------------------------------------------- */
 /* services                                                                   */

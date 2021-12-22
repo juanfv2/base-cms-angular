@@ -8,7 +8,11 @@ describe('ToastContainerComponent', () => {
   let component: ToastContainerComponent
   let fixture: ComponentFixture<ToastContainerComponent>
   let messageService: JfMessageService
-  const messageServiceStub: jasmine.SpyObj<JfMessageService> = jasmine.createSpyObj('messageService', ['toasts'])
+  const messageServiceStub: jasmine.SpyObj<JfMessageService> = jasmine.createSpyObj(
+    'messageService',
+    ['remove'],
+    ['toasts']
+  )
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -16,7 +20,7 @@ describe('ToastContainerComponent', () => {
       imports: [NgbToastModule],
       providers: [{provide: JfMessageService, useValue: messageServiceStub}],
     }).compileComponents()
-    messageService = TestBed.inject(JfMessageService)
+    // messageService = TestBed.inject(JfMessageService)
   })
 
   beforeEach(() => {

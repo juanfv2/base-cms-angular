@@ -1,5 +1,5 @@
 <ngb-toast
-  *ngFor="let toast of messageService?.toasts"
+  *ngFor="let toast of messageService.toasts"
   [class]="toast.className"
   [autohide]="true"
   [delay]="toast.delay || 5000"

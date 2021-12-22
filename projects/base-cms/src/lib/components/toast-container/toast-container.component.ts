@@ -8,7 +8,7 @@ import { JfMessageService } from '../../services/jf-message.service';
 })
 export class ToastContainerComponent {
 
-  constructor(messageService: JfMessageService) { }
+  constructor(public messageService: JfMessageService) { }
 
   isTemplate(toast: any) {
     return toast.textOrTpl instanceof TemplateRef
