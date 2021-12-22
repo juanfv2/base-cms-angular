@@ -12,7 +12,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/base-cms/ng-package.json"
+            "project": "projects/base-cms/ng-package.json",
           },
           "configurations": {
             "production": {
@@ -35,10 +35,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/base-cms/**/*.ts",
-              "projects/base-cms/**/*.html"
-            ]
+            "lintFilePatterns": ["projects/base-cms/**/*.ts", "projects/base-cms/**/*.html"]
           }
         }
       }
@@ -66,13 +63,8 @@
             "polyfills": "projects/safe-drive/src/polyfills.ts",
             "tsConfig": "projects/safe-drive/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/safe-drive/src/favicon.ico",
-              "projects/safe-drive/src/assets"
-            ],
-            "styles": [
-              "projects/safe-drive/src/styles.scss"
-            ],
+            "assets": ["projects/safe-drive/src/favicon.ico", "projects/safe-drive/src/assets"],
+            "styles": ["projects/safe-drive/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -134,23 +126,15 @@
             "tsConfig": "projects/safe-drive/tsconfig.spec.json",
             "karmaConfig": "projects/safe-drive/karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/safe-drive/src/favicon.ico",
-              "projects/safe-drive/src/assets"
-            ],
-            "styles": [
-              "projects/safe-drive/src/styles.scss"
-            ],
+            "assets": ["projects/safe-drive/src/favicon.ico", "projects/safe-drive/src/assets"],
+            "styles": ["projects/safe-drive/src/styles.scss"],
             "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/safe-drive/**/*.ts",
-              "projects/safe-drive/**/*.html"
-            ]
+            "lintFilePatterns": ["projects/safe-drive/**/*.ts", "projects/safe-drive/**/*.html"]
           }
         }
       }

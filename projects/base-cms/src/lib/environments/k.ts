@@ -51,6 +51,6 @@ export const k = {
     {label: 'Menor o igual', value: '<='},
   ],
   routes: routes,
-  rolesAdmins: [],
-  rolesClients: [],
+  rolesAdmins: [] as never[],
+  rolesClients: [] as never[],
 }

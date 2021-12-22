@@ -20,7 +20,7 @@ export class BaseAutoCompleteComponent implements ControlValueAccessor {
   @Input() multiple = false
   @Input() id = ''
   @Input() kRoute = ''
-  @Input() name = ''
+  @Input() name = 'Demo:::'
   @Input() currentPage = ''
   @Input() selectable: any[] = []
   @Input() avoidable: any[] = []

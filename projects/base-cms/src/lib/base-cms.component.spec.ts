@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BaseCmsComponent } from './base-cms.component';
+import { BaseCmsDemoComponent } from './base-cms-demo.component';
 
 describe('BaseCmsComponent', () => {
-  let component: BaseCmsComponent;
-  let fixture: ComponentFixture<BaseCmsComponent>;
+  let component: BaseCmsDemoComponent;
+  let fixture: ComponentFixture<BaseCmsDemoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BaseCmsComponent ]
+      declarations: [ BaseCmsDemoComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BaseCmsComponent);
+    fixture = TestBed.createComponent(BaseCmsDemoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
