@@ -44,7 +44,7 @@ export class JfCrudService {
     // console.log('parameters', JSON.stringify(parameters));
     // console.log('params', JSON.stringify(params));
 
-    return this.http.get(this.api + entities, options)
+    return this.http.get(`${this.api}${entities}`, options)
   }
 
   /**

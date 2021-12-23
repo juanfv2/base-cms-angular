@@ -5,6 +5,14 @@
   "projects": {
     "base-cms": {
       "projectType": "library",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
       "root": "projects/base-cms",
       "sourceRoot": "projects/base-cms/src",
       "prefix": "base-cms",
@@ -12,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/base-cms/ng-package.json",
+            "project": "projects/base-cms/ng-package.json"
           },
           "configurations": {
             "production": {

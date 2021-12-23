@@ -3,7 +3,7 @@ const baseBackEnd = 'stage'
 const sBaseBackEnd = `/${baseBackEnd}`
 
 export const routes = {
-  zones: 'zones',
+  countries: 'countries',
   regions: 'regions',
   cities: 'cities',
 

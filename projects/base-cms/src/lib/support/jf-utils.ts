@@ -12,7 +12,7 @@ export class JfUtils {
 
   static getBaseLocation(): string {
     const r = JfUtils.mStorage.saveCountryInLocalStorage()
-    const rDevelop = r.dev ? `${r.dev}/` : ''
+    const rDevelop = r.dev ? `/${r.dev}` : ''
     const entityGlobalId = r.entityGlobalId
     const rCompanyName = r.cName
     const r1 = `${k.routes.frontEnd.root}${rCompanyName}/${entityGlobalId}${rDevelop}#/`

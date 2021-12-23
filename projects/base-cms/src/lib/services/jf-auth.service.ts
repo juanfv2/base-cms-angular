@@ -6,15 +6,16 @@ import {k} from '../environments/k'
 import {JfRequestOption} from '../support/jf-request-option'
 import {JfStorageManagement} from '../support/jf-storage-management'
 
-import {User, Role} from '../resources/models'
+import {Role} from '../resources/models'
 
 @Injectable({
   providedIn: 'root',
 })
 export class JfAuthService {
   private readonly api = k.routes.backEnd.root + k.routes.api
+
   isSideBarVisible = new BehaviorSubject(k.isSidebarVisibleOpen)
-  currentUser = new BehaviorSubject({} as User)
+  currentUser = new BehaviorSubject({})
   currentEntityGlobal: any
 
   constructor(private http: HttpClient) {
@@ -48,6 +49,7 @@ export class JfAuthService {
     ]
   ): Observable<any> {
     const user: any = {email, password, includes}
+
     const r = this.http.post(`${this.api}${k.routes.auth.login}`, user, JfRequestOption.getRequestOptions(true))
 
     JfStorageManagement.clearEnvironment()

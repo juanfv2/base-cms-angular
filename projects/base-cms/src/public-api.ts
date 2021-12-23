@@ -2,13 +2,10 @@
  * Public API Surface of base-cms
  */
 
+export * from './lib/components/not-found/not-found.component'
 export * from './lib/components/search-input/search-input.component'
 export * from './lib/components/toast-container/toast-container.component'
-
 export * from './lib/components/base-auto-complete/base-auto-complete.component'
-
-export * from './lib/base-cms.module'
-export * from './lib/base-cms.module'
 
 /* -------------------------------------------------------------------------- */
 /* pipes                                                                      */
@@ -46,3 +43,5 @@ export * from './lib/support/jf-utils'
 
 export * from './lib/environments/k'
 export * from './lib/environments/l'
+
+export * from './lib/base-cms.module'
