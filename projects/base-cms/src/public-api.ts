@@ -11,9 +11,9 @@ export * from './lib/components/base-auto-complete/base-auto-complete.component'
 /* pipes                                                                      */
 /* -------------------------------------------------------------------------- */
 
-export * from './lib/pipes/format-item.pipe'
-export * from './lib/pipes/has-x-file.pipe'
-export * from './lib/pipes/safe.pipe'
+export * from './lib/pipes/jf-format-item.pipe'
+export * from './lib/pipes/jf-has-x-file.pipe'
+export * from './lib/pipes/jf-safe.pipe'
 
 /* -------------------------------------------------------------------------- */
 /* services                                                                   */

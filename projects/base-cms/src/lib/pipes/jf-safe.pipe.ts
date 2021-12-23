@@ -2,13 +2,13 @@ import {Pipe, PipeTransform} from '@angular/core'
 import {DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl} from '@angular/platform-browser'
 
 /**
- * Ex.: <div [innerHtml]="htmlSnippet | safe: 'html'"></div>
+ * Ex.: <div [innerHtml]="htmlSnippet | jfSafe: 'html'"></div>
  */
 
 @Pipe({
-  name: 'safe',
+  name: 'jfSafe',
 })
-export class SafePipe implements PipeTransform {
+export class JfSafePipe implements PipeTransform {
   constructor(protected sanitizer: DomSanitizer) {}
 
   transform(value: string, type: string = 'html'): SafeHtml | SafeStyle | SafeScript | SafeUrl | SafeResourceUrl {

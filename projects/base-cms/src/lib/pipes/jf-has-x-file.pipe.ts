@@ -7,9 +7,9 @@ import {k} from '../environments/k'
  *
  */
 @Pipe({
-  name: 'hasXFile',
+  name: 'jfHasXFile',
 })
-export class HasXFilePipe implements PipeTransform {
+export class JfHasXFilePipe implements PipeTransform {
   transform(image: any, w = 0, h = 0): string {
     // console.log('image', image)
     const kkId = localStorage.getItem(`${k.project_name}:${k.entityGlobalId}`) || 'sv'

@@ -5,9 +5,9 @@ import {CommonModule} from '@angular/common'
 import {HttpClientModule} from '@angular/common/http'
 import {NgbDatepickerModule, NgbToastModule} from '@ng-bootstrap/ng-bootstrap'
 
-import {SafePipe} from './pipes/safe.pipe'
-import {HasXFilePipe} from './pipes/has-x-file.pipe'
-import {FormatItemPipe} from './pipes/format-item.pipe'
+import {JfSafePipe} from './pipes/jf-safe.pipe'
+import {JfHasXFilePipe} from './pipes/jf-has-x-file.pipe'
+import {JfFormatItemPipe} from './pipes/jf-format-item.pipe'
 
 import {NotFoundComponent} from './components/not-found/not-found.component'
 import {SearchInputComponent} from './components/search-input/search-input.component'
@@ -16,9 +16,9 @@ import {BaseAutoCompleteComponent} from './components/base-auto-complete/base-au
 
 @NgModule({
   declarations: [
-    SafePipe,
-    HasXFilePipe,
-    FormatItemPipe,
+    JfSafePipe,
+    JfHasXFilePipe,
+    JfFormatItemPipe,
 
     NotFoundComponent,
     SearchInputComponent,
@@ -26,9 +26,9 @@ import {BaseAutoCompleteComponent} from './components/base-auto-complete/base-au
     BaseAutoCompleteComponent,
   ],
   exports: [
-    SafePipe,
-    HasXFilePipe,
-    FormatItemPipe,
+    JfSafePipe,
+    JfHasXFilePipe,
+    JfFormatItemPipe,
 
     NotFoundComponent,
     SearchInputComponent,

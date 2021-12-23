@@ -1,7 +1,7 @@
-import {HasXFilePipe} from './has-x-file.pipe'
+import {JfHasXFilePipe} from './jf-has-x-file.pipe'
 
-describe('Pipes/HasXFilePipe', () => {
-  const pipe = new HasXFilePipe()
+describe('Pipes/JfHasXFilePipe', () => {
+  const pipe = new JfHasXFilePipe()
   it('create an instance', () => {
     expect(pipe).toBeTruthy()
   })

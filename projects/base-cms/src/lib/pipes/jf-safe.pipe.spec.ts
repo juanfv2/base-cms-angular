@@ -1,9 +1,9 @@
 import {DomSanitizer} from '@angular/platform-browser'
-import {SafePipe} from './safe.pipe'
+import {JfSafePipe} from './jf-safe.pipe'
 
-describe('Pipes/SafePipe', () => {
+describe('Pipes/JfSafePipe', () => {
   it('create an instance', () => {
-    expect(new SafePipe({} as DomSanitizer)).toBeTruthy()
+    expect(new JfSafePipe({} as DomSanitizer)).toBeTruthy()
     // const pipe = new SafePipe();
     // expect(pipe).toBeTruthy();
   })

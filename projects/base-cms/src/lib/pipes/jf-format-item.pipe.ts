@@ -1,9 +1,9 @@
 import {Pipe, PipeTransform} from '@angular/core'
 
 @Pipe({
-  name: 'formatItem',
+  name: 'jfFormatItem',
 })
-export class FormatItemPipe implements PipeTransform {
+export class JfFormatItemPipe implements PipeTransform {
   transform(expr: Function, value: any): unknown {
     return expr(value)
   }

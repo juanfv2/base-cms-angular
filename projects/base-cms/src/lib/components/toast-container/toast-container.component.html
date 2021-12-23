@@ -6,5 +6,5 @@
   (hidden)="messageService.remove(toast)"
   [header]="toast.header || ''"
 >
-  <div [innerHtml]="toast.textOrTpl | safe: 'html'"></div>
+  <div [innerHtml]="toast.textOrTpl | jfSafe: 'html'"></div>
 </ngb-toast>
