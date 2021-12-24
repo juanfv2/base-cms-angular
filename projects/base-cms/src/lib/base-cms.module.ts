@@ -14,6 +14,7 @@ import {SearchInputComponent} from './components/search-input/search-input.compo
 import {ToastContainerComponent} from './components/toast-container/toast-container.component'
 import {BaseAutoCompleteComponent} from './components/base-auto-complete/base-auto-complete.component'
 import {HeaderComponent} from './components/header/header.component'
+import {FooterComponent} from '../public-api'
 
 const c = [
   JfSafePipe,
@@ -21,6 +22,7 @@ const c = [
   JfFormatItemPipe,
 
   HeaderComponent,
+  FooterComponent,
   NotFoundComponent,
   SearchInputComponent,
   ToastContainerComponent,
