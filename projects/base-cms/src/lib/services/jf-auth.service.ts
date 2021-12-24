@@ -14,8 +14,7 @@ import {Role} from '../resources/models'
 export class JfAuthService {
   private readonly api = configs.routes.backEnd.root + configs.routes.api
 
-  isSideBarVisible = new BehaviorSubject(configs.isSidebarVisibleOpen)
-  currentUser = new BehaviorSubject({})
+  currentUser = new BehaviorSubject({} as any)
   currentEntityGlobal: any
 
   constructor(private http: HttpClient) {
@@ -27,10 +26,6 @@ export class JfAuthService {
     // Get auth data, then get user || null.
 
     this.currentUser.next(u)
-
-    const sideBarVisible = +`${JfStorageManagement.getItem(configs.isSidebarVisible)}`
-
-    this.isSideBarVisible.next(sideBarVisible)
   }
 
   /**
@@ -74,7 +69,9 @@ export class JfAuthService {
   }
 
   isFromAdmins(): boolean {
-    return configs.rolesAdmins.map((r: Role) => r.id).includes(+`${`${JfStorageManagement.getItem(configs.user_role_id)}`}`)
+    return configs.rolesAdmins
+      .map((r: Role) => r.id)
+      .includes(+`${`${JfStorageManagement.getItem(configs.user_role_id)}`}`)
   }
 
   userUserId(): number {
@@ -84,13 +81,5 @@ export class JfAuthService {
   entityGlobal(g = configs.entityGlobal): any {
     // can be country, company , etc
     return JSON.parse(`${JfStorageManagement.getItem(g)}`)
-  }
-
-  setSidebarVisible(isSidebarVisible: number): void {
-    this.isSideBarVisible.next(isSidebarVisible)
-    JfStorageManagement.setItem(
-      configs.isSidebarVisible,
-      `${isSidebarVisible ? configs.isSidebarVisibleClose : configs.isSidebarVisibleOpen}`
-    )
   }
 }

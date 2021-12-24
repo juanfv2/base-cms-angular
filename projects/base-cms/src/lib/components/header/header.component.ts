@@ -120,8 +120,6 @@ export class HeaderComponent implements OnInit {
       }, 100)
 
       this.$layer.onclick = () => {
-        // asign a function
-
         html.classList.remove('nav-open')
         this.mobileMenuVisible = 0
         this.$layer.classList.remove('visible')
@@ -142,7 +140,10 @@ export class HeaderComponent implements OnInit {
       this.sidebarOpen()
     }
 
-    this.authService.setSidebarVisible(this.isSidebarVisible)
+    JfStorageManagement.setItem(
+      configs.isSidebarVisible,
+      `${this.isSidebarVisible ? configs.isSidebarVisibleClose : configs.isSidebarVisibleOpen}`
+    )
   }
 
   sidebarOpen() {
