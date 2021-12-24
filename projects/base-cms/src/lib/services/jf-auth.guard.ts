@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core'
 import {
-  ActivatedRouteSnapshot,
+  Router,
+  UrlTree,
   CanActivate,
   CanActivateChild,
-  Router,
   RouterStateSnapshot,
-  UrlTree,
+  ActivatedRouteSnapshot,
 } from '@angular/router'
 import {Observable} from 'rxjs'
+import {k} from '../environments/k'
 import {JfRequestOption} from '../support/jf-request-option'
 
 @Injectable({
@@ -20,12 +21,11 @@ export class JfAuthGuard implements CanActivate, CanActivateChild {
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const isAuthenticate = JfRequestOption.isAuthenticate()
-    // console.log('AuthGuard.isAuthenticate', `"${isAuthenticate}"`);
+    // console.log('AuthGuard.isAuthenticate: ', `"${isAuthenticate}"`)
+    // console.log('     AuthGuard.state.url: ', state.url)
+    // console.log('AuthGuard.isAuthenticate: ', isAuthorized)
     if (isAuthenticate) {
       const isAuthorized = JfRequestOption.isAuthorized(state.url)
-      // console.log('     AuthGuard.state.url: ', state.url);
-      // console.log('AuthGuard.isAuthenticate: ', isAuthorized);
-
       if (!isAuthorized) {
         this.router.navigate(['not-authorized'])
       }
@@ -33,7 +33,7 @@ export class JfAuthGuard implements CanActivate, CanActivateChild {
       return isAuthorized
     }
 
-    this.router.navigate(['login'], {queryParams: {returnUrl: state.url}})
+    this.router.navigate([k.routes.auth.login], {queryParams: {returnUrl: state.url}})
     return false
   }
 

@@ -24,6 +24,7 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
+    "bootstrap": "^5.1.3",
     "@ng-bootstrap/ng-bootstrap": "^11.0.0",
     "@angular-devkit/build-angular": "~13.0.4",
     "@angular-eslint/builder": "13.0.1",
