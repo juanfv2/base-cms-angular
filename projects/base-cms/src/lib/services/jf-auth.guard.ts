@@ -8,7 +8,7 @@ import {
   ActivatedRouteSnapshot,
 } from '@angular/router'
 import {Observable} from 'rxjs'
-import {k} from '../environments/k'
+import {configs} from '../environments/k'
 import {JfRequestOption} from '../support/jf-request-option'
 
 @Injectable({
@@ -33,7 +33,7 @@ export class JfAuthGuard implements CanActivate, CanActivateChild {
       return isAuthorized
     }
 
-    this.router.navigate([k.routes.auth.login], {queryParams: {returnUrl: state.url}})
+    this.router.navigate([configs.routes.auth.login], {queryParams: {returnUrl: state.url}})
     return false
   }
 

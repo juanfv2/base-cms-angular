@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core'
-import {k} from '../../environments/k'
+import {configs} from '../../environments/k'
 
 @Component({
   selector: 'base-cms-footer',
@@ -7,7 +7,7 @@ import {k} from '../../environments/k'
   styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent implements OnInit {
-  project_name = k.project_name
+  project_name = configs.project_name
   today = new Date()
   constructor() {}
 

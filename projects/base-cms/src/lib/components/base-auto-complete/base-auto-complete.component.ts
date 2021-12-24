@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {ControlValueAccessor} from '@angular/forms'
 import {Router} from '@angular/router'
 import {catchError, debounceTime, distinctUntilChanged, map, merge, Observable, of, Subject, switchMap, tap} from 'rxjs'
-import {k} from '../../environments/k'
+import {configs} from '../../environments/k'
 import {JfCondition, JfLazyLoadEvent, JfResponse, JfSearchCondition, JfSort} from '../../resources/classes'
 import {JfRequestOption} from '../../support/jf-request-option'
 

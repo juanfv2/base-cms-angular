@@ -1,5 +1,5 @@
 import {HttpHeaders} from '@angular/common/http'
-import {k} from '../environments/k'
+import {configs} from '../environments/k'
 import {JfStorageManagement} from './jf-storage-management'
 import {JfUtils} from './jf-utils'
 
@@ -16,28 +16,28 @@ export class JfRequestOption {
         // si el token actual es nulo
         JfUtils.go2login()
       }
-      h[k.authorizationK] = 'Bearer ' + token
+      h[configs.authorizationK] = 'Bearer ' + token
     }
-    const mItem = JfStorageManagement.getItem(k.entityGlobalId)
+    const mItem = JfStorageManagement.getItem(configs.entityGlobalId)
     if (mItem) {
-      h[k.entityGlobalK] = mItem
+      h[configs.entityGlobalK] = mItem
     }
-    const mDev = JfStorageManagement.getItem(k.dev)
+    const mDev = JfStorageManagement.getItem(configs.dev)
     if (mDev) {
-      h[k.dev] = mDev
+      h[configs.dev] = mDev
     }
     return {headers: new HttpHeaders(h)}
   }
 
   static isAuthenticate(): string | boolean {
-    const expire = +`${JfStorageManagement.getItem(k.expire)}`
+    const expire = +`${JfStorageManagement.getItem(configs.expire)}`
     if (expire) {
       const now = new Date().getTime()
 
       if (expire > now) {
-        JfStorageManagement.setItem(k.expire, `${new Date().getTime() + k.expireTime * 60 * 60 * 1000}`)
+        JfStorageManagement.setItem(configs.expire, `${new Date().getTime() + configs.expireTime * 60 * 60 * 1000}`)
 
-        const token = `${JfStorageManagement.getItem(k.token)}`
+        const token = `${JfStorageManagement.getItem(configs.token)}`
         return token
       }
     }
@@ -46,7 +46,7 @@ export class JfRequestOption {
   }
 
   static isAuthorized(realUrl: string): boolean {
-    const permissions = JSON.parse(`${JfStorageManagement.getItem(k.permissions)}`) || []
+    const permissions = JSON.parse(`${JfStorageManagement.getItem(configs.permissions)}`) || []
 
     const re = /[0-9]+/
     const str = 'show'

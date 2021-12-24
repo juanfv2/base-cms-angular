@@ -2,7 +2,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http'
 import {Injectable} from '@angular/core'
 import {BehaviorSubject, Observable} from 'rxjs'
 
-import {k} from '../environments/k'
+import {configs} from '../environments/k'
 import {JfRequestOption} from '../support/jf-request-option'
 import {JfStorageManagement} from '../support/jf-storage-management'
 
@@ -12,9 +12,9 @@ import {Role} from '../resources/models'
   providedIn: 'root',
 })
 export class JfAuthService {
-  private readonly api = k.routes.backEnd.root + k.routes.api
+  private readonly api = configs.routes.backEnd.root + configs.routes.api
 
-  isSideBarVisible = new BehaviorSubject(k.isSidebarVisibleOpen)
+  isSideBarVisible = new BehaviorSubject(configs.isSidebarVisibleOpen)
   currentUser = new BehaviorSubject({})
   currentEntityGlobal: any
 
@@ -22,13 +22,13 @@ export class JfAuthService {
     /**
      * If refresh the page, get user saved in storage.
      */
-    const u = this.entityGlobal(k.user)
+    const u = this.entityGlobal(configs.user)
 
     // Get auth data, then get user || null.
 
     this.currentUser.next(u)
 
-    const sideBarVisible = +`${JfStorageManagement.getItem(k.isSidebarVisible)}`
+    const sideBarVisible = +`${JfStorageManagement.getItem(configs.isSidebarVisible)}`
 
     this.isSideBarVisible.next(sideBarVisible)
   }
@@ -50,7 +50,7 @@ export class JfAuthService {
   ): Observable<any> {
     const user: any = {email, password, includes}
 
-    const r = this.http.post(`${this.api}${k.routes.auth.login}`, user, JfRequestOption.getRequestOptions(true))
+    const r = this.http.post(`${this.api}${configs.routes.auth.login}`, user, JfRequestOption.getRequestOptions(true))
 
     JfStorageManagement.clearEnvironment()
 
@@ -58,7 +58,7 @@ export class JfAuthService {
   }
 
   logout(): Observable<any> {
-    const r = this.http.post(`${this.api}${k.routes.auth.logout}`, null, JfRequestOption.getRequestOptions())
+    const r = this.http.post(`${this.api}${configs.routes.auth.logout}`, null, JfRequestOption.getRequestOptions())
 
     JfStorageManagement.clearEnvironment()
 
@@ -70,18 +70,18 @@ export class JfAuthService {
    */
 
   isAdmin(): boolean {
-    return +`${`${JfStorageManagement.getItem(k.user_role_id)}`}` === 1
+    return +`${`${JfStorageManagement.getItem(configs.user_role_id)}`}` === 1
   }
 
   isFromAdmins(): boolean {
-    return k.rolesAdmins.map((r: Role) => r.id).includes(+`${`${JfStorageManagement.getItem(k.user_role_id)}`}`)
+    return configs.rolesAdmins.map((r: Role) => r.id).includes(+`${`${JfStorageManagement.getItem(configs.user_role_id)}`}`)
   }
 
   userUserId(): number {
-    return +`${JfStorageManagement.getItem(k.user_id)}`
+    return +`${JfStorageManagement.getItem(configs.user_id)}`
   }
 
-  entityGlobal(g = k.entityGlobal): any {
+  entityGlobal(g = configs.entityGlobal): any {
     // can be country, company , etc
     return JSON.parse(`${JfStorageManagement.getItem(g)}`)
   }
@@ -89,8 +89,8 @@ export class JfAuthService {
   setSidebarVisible(isSidebarVisible: number): void {
     this.isSideBarVisible.next(isSidebarVisible)
     JfStorageManagement.setItem(
-      k.isSidebarVisible,
-      `${isSidebarVisible ? k.isSidebarVisibleClose : k.isSidebarVisibleOpen}`
+      configs.isSidebarVisible,
+      `${isSidebarVisible ? configs.isSidebarVisibleClose : configs.isSidebarVisibleOpen}`
     )
   }
 }

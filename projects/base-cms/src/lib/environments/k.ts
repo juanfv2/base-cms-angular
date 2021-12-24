@@ -1,6 +1,6 @@
 import {routes} from '../resources/resources'
 
-export const k = {
+export const configs = {
   project_name: 'project_name',
   path: {
     root: 1,
