@@ -7,6 +7,7 @@ import {
   NgbCollapseModule,
   NgbDatepickerModule,
   NgbDropdownModule,
+  NgbModalModule,
   NgbToastModule,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap'
@@ -45,6 +46,7 @@ const c = [
     RouterModule,
     CommonModule,
     HttpClientModule,
+    NgbModalModule,
     NgbToastModule,
     NgbTooltipModule,
     NgbDropdownModule,

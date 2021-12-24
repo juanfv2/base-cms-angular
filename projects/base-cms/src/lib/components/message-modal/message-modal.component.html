@@ -1,0 +1,13 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ header }}</h4>
+  <button type="button" class="close" aria-label="Cerrar" (click)="activeModal.dismiss('close')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div [innerHtml]="message | jfSafe: 'html'"></div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary m-1" (click)="activeModal.close('ok')" *ngIf="withOk">Aceptar</button>
+  <button type="button" class="btn btn-light m-1" (click)="activeModal.dismiss('close')">Cerrar</button>
+</div>
