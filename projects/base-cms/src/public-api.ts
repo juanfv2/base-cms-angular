@@ -5,11 +5,16 @@
 export * from './lib/components/header/header.component'
 export * from './lib/components/footer/footer.component'
 export * from './lib/components/sidebar/sidebar.component'
-export * from './lib/components/message-modal/message-modal.component'
 export * from './lib/components/not-found/not-found.component'
+export * from './lib/components/message-modal/message-modal.component'
 export * from './lib/components/search-input/search-input.component'
 export * from './lib/components/toast-container/toast-container.component'
 export * from './lib/components/base-auto-complete/base-auto-complete.component'
+
+/* -------------------------------------------------------------------------- */
+/* directives                                                                 */
+/* -------------------------------------------------------------------------- */
+export * from './lib/directives/jf-add-component.directive'
 
 /* -------------------------------------------------------------------------- */
 /* pipes                                                                      */

@@ -12,6 +12,8 @@ import {
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap'
 
+import {JfAddComponentDirective} from './directives/jf-add-component.directive'
+
 import {JfSafePipe} from './pipes/jf-safe.pipe'
 import {JfHasXFilePipe} from './pipes/jf-has-x-file.pipe'
 import {JfFormatItemPipe} from './pipes/jf-format-item.pipe'
@@ -25,6 +27,8 @@ import {ToastContainerComponent} from './components/toast-container/toast-contai
 import {BaseAutoCompleteComponent} from './components/base-auto-complete/base-auto-complete.component'
 
 const c = [
+  JfAddComponentDirective,
+
   JfSafePipe,
   JfHasXFilePipe,
   JfFormatItemPipe,
