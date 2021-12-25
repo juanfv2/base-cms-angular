@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit {
 
   isCollapsed = true
   hasPermission2edit = false
+  project_name = configs.project_name
 
   constructor(
     private router: Router,

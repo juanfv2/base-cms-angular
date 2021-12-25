@@ -7,6 +7,7 @@ export const routes = {
   regions: 'regions',
   cities: 'cities',
 
+
   frontEnd: {
     name: 'admin',
     root: '/admin/',
@@ -21,8 +22,9 @@ export const routes = {
   auth: {
     login: 'login',
     logout: 'logout',
-    users: 'users',
     roles: 'roles',
+    users: 'users',
+    accounts: 'accounts',
     permissions: 'permissions',
   },
   misc: {

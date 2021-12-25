@@ -10,11 +10,14 @@ export * from './lib/components/message-modal/message-modal.component'
 export * from './lib/components/search-input/search-input.component'
 export * from './lib/components/toast-container/toast-container.component'
 export * from './lib/components/base-auto-complete/base-auto-complete.component'
+export * from './lib/components/spinner-loading/spinner-loading.component'
+export * from './lib/components/spinner-searching/spinner-searching.component'
 
 /* -------------------------------------------------------------------------- */
 /* directives                                                                 */
 /* -------------------------------------------------------------------------- */
 export * from './lib/directives/jf-add-component.directive'
+export * from './lib/directives/jf-multi-short-meta.directive'
 
 /* -------------------------------------------------------------------------- */
 /* pipes                                                                      */

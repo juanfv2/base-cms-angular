@@ -5,7 +5,8 @@
   </button>
 </div>
 <div class="modal-body">
-  <div [innerHtml]="message | jfSafe: 'html'"></div>
+  <!-- message | jfSafe: 'html' -->
+  <div [innerHtml]="message"></div>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-primary m-1" (click)="activeModal.close('ok')" *ngIf="withOk">Aceptar</button>

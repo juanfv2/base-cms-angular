@@ -100,9 +100,9 @@ export class JfUtils {
       return
     }
 
-    const componentFactory = pComponent.resolver.resolveComponentFactory(SearchInputComponent)
-    const componentRef = pComponent.searchField.viewContainerRef.createComponent(componentFactory)
-    const searchItem = componentRef.instance as SearchInputComponent
+    // const componentFactory = pComponent.resolver.resolveComponentFactory(SearchInputComponent)
+    const componentRef = pComponent.searchField.viewContainerRef.createComponent(SearchInputComponent)
+    const searchItem = componentRef.instance
 
     if (!condition) {
       condition = new JfSearchCondition(condStr)
