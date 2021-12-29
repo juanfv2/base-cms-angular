@@ -3,6 +3,9 @@ import {CommonModule} from '@angular/common'
 import {FormsModule} from '@angular/forms'
 import {RouterModule} from '@angular/router'
 import {HttpClientModule} from '@angular/common/http'
+
+import {FileUploadModule} from 'ng2-file-upload'
+
 import {
   NgbCollapseModule,
   NgbDatepickerModule,
@@ -10,10 +13,11 @@ import {
   NgbModalModule,
   NgbToastModule,
   NgbTooltipModule,
+  NgbTypeaheadModule,
 } from '@ng-bootstrap/ng-bootstrap'
 
 import {JfAddComponentDirective} from './directives/jf-add-component.directive'
-import {JfMultiShortMetaDirective} from './directives/jf-multi-short-meta.directive'
+import {JfMultiSortMetaDirective} from './directives/jf-multi-short-meta.directive'
 
 import {JfSafePipe} from './pipes/jf-safe.pipe'
 import {JfHasXFilePipe} from './pipes/jf-has-x-file.pipe'
@@ -25,14 +29,17 @@ import {SidebarComponent} from './components/sidebar/sidebar.component'
 import {NotFoundComponent} from './components/not-found/not-found.component'
 import {SearchInputComponent} from './components/search-input/search-input.component'
 import {ToastContainerComponent} from './components/toast-container/toast-container.component'
-import {BaseAutoCompleteComponent} from './components/base-auto-complete/base-auto-complete.component'
+import {BaseCmsAutoCompleteComponent} from './components/base-cms-auto-complete/base-cms-auto-complete.component'
 import {SpinnerLoadingComponent} from './components/spinner-loading/spinner-loading.component'
 import {SpinnerSearchingComponent} from './components/spinner-searching/spinner-searching.component'
+import {FileUploadComponent} from './components/file-upload/file-upload.component'
+import {MessageModalComponent} from './components/message-modal/message-modal.component'
+import {BaseCmsListComponent} from './components/base-cms-list/base-cms-list.component'
 
 @NgModule({
   declarations: [
     JfAddComponentDirective,
-    JfMultiShortMetaDirective,
+    JfMultiSortMetaDirective,
 
     JfSafePipe,
     JfHasXFilePipe,
@@ -42,15 +49,18 @@ import {SpinnerSearchingComponent} from './components/spinner-searching/spinner-
     FooterComponent,
     SidebarComponent,
     NotFoundComponent,
+    FileUploadComponent,
     SearchInputComponent,
+    BaseCmsListComponent,
+    MessageModalComponent,
     ToastContainerComponent,
-    BaseAutoCompleteComponent,
+    BaseCmsAutoCompleteComponent,
     SpinnerLoadingComponent,
     SpinnerSearchingComponent,
   ],
   exports: [
     JfAddComponentDirective,
-    JfMultiShortMetaDirective,
+    JfMultiSortMetaDirective,
 
     JfSafePipe,
     JfHasXFilePipe,
@@ -60,9 +70,12 @@ import {SpinnerSearchingComponent} from './components/spinner-searching/spinner-
     FooterComponent,
     SidebarComponent,
     NotFoundComponent,
+    FileUploadComponent,
     SearchInputComponent,
+    BaseCmsListComponent,
+    MessageModalComponent,
     ToastContainerComponent,
-    BaseAutoCompleteComponent,
+    BaseCmsAutoCompleteComponent,
     SpinnerLoadingComponent,
     SpinnerSearchingComponent,
   ],
@@ -71,11 +84,15 @@ import {SpinnerSearchingComponent} from './components/spinner-searching/spinner-
     RouterModule,
     CommonModule,
     HttpClientModule,
+
+    FileUploadModule,
+
     NgbModalModule,
     NgbToastModule,
     NgbTooltipModule,
     NgbDropdownModule,
     NgbCollapseModule,
+    NgbTypeaheadModule,
     NgbDatepickerModule,
   ],
 })

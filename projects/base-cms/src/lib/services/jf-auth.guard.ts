@@ -33,7 +33,7 @@ export class JfAuthGuard implements CanActivate, CanActivateChild {
       return isAuthorized
     }
 
-    this.router.navigate([configs.routes.auth.login], {queryParams: {returnUrl: state.url}})
+    this.router.navigate([configs.routes.login], {queryParams: {returnUrl: state.url}})
     return false
   }
 

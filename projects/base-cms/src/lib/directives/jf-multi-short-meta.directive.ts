@@ -1,26 +1,43 @@
-import {Directive, EventEmitter, HostBinding, HostListener, Input, OnInit, Output} from '@angular/core'
+import {Directive, EventEmitter, Input, Output} from '@angular/core'
 import {JfSort} from '../resources/classes'
-import {JfUtils} from '../support/jf-utils'
 
-export type SortDirection = 'asc' | 'desc' | ''
-const rotate: {[key: string]: SortDirection} = {asc: 'desc', desc: '', '': 'asc'}
-const compare = (v1: string | number, v2: string | number) => (v1 < v2 ? -1 : v1 > v2 ? 1 : 0)
+const rotate: {[key: number]: number} = {'-1': 1, '0': -1, '1': 0}
 
-export interface SortEvent {
-  column: string
-  direction: SortDirection
-}
 @Directive({
-  selector: 'th[baseCmsJfMultiShortMeta]',
-  host: {'[class.asc]': 'direction === "asc"', '[class.desc]': 'direction === "desc"', '(click)': 'rotate()'},
+  selector: 'th[jfMultiSortMeta]',
+  exportAs: 'jfMultiSortMeta',
+  host: {
+    '[class.none]': 'direction === 0',
+    '[class.desc]': 'direction === -1',
+    '[class.asc]': 'direction === 1',
+    '(click)': 'rotate()',
+    sort: 'rotate()',
+  },
 })
-export class JfMultiShortMetaDirective {
-  @Input() baseCmsJfMultiShortMeta = ''
-  @Input() direction: SortDirection = 'asc'
-  @Output() sort = new EventEmitter<SortEvent>()
+export class JfMultiSortMetaDirective {
+  @Input() jfMultiSortMeta = ''
+  @Input() direction = 0
+  @Input()
+  public set sorts(value: JfSort[]) {
+    console.log('value', value, this.jfMultiSortMeta, this.direction)
+    let _sorts = value
+    if (!_sorts) {
+      _sorts = []
+    }
+    const sort0 = _sorts.find((r: any) => r.field === this.jfMultiSortMeta)
+    if (sort0) {
+      this.direction = sort0.order
+    }
+  }
+  @Output() sort = new EventEmitter<JfSort>()
 
+  /**
+   * de  0 pasa a -1
+   * de -1 pasa a  1
+   * de  1 pasa a  0
+   */
   rotate() {
     this.direction = rotate[this.direction]
-    this.sort.emit({column: this.baseCmsJfMultiShortMeta, direction: this.direction})
+    this.sort.emit(new JfSort(this.jfMultiSortMeta, this.direction))
   }
 }

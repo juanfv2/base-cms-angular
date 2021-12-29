@@ -45,7 +45,7 @@ export class JfAuthService {
   ): Observable<any> {
     const user: any = {email, password, includes}
 
-    const r = this.http.post(`${this.api}${configs.routes.auth.login}`, user, JfRequestOption.getRequestOptions(true))
+    const r = this.http.post(`${this.api}${configs.routes.login}`, user, JfRequestOption.getRequestOptions(true))
 
     JfStorageManagement.clearEnvironment()
 
@@ -53,7 +53,7 @@ export class JfAuthService {
   }
 
   logout(): Observable<any> {
-    const r = this.http.post(`${this.api}${configs.routes.auth.logout}`, null, JfRequestOption.getRequestOptions())
+    const r = this.http.post(`${this.api}${configs.routes.logout}`, null, JfRequestOption.getRequestOptions())
 
     JfStorageManagement.clearEnvironment()
 

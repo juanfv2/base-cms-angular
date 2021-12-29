@@ -41,8 +41,8 @@ export class HeaderComponent implements OnInit {
 
     authService.currentUser.subscribe((u) => (this.currentUser = u))
     this.hasPermission2edit =
-      JfRequestOption.isAuthorized(`/${configs.routes.auth.users}/edit`) ||
-      JfRequestOption.isAuthorized(`/${configs.routes.auth.users}/show`)
+      JfRequestOption.isAuthorized(`/${configs.routes.users}/edit`) ||
+      JfRequestOption.isAuthorized(`/${configs.routes.users}/show`)
 
     const s = +`${JfStorageManagement.getItem(configs.isSidebarVisible)}`
     this.isSidebarVisible = s

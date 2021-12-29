@@ -1,21 +1,21 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 import {RouterTestingModule} from '@angular/router/testing'
 
-import {BaseAutoCompleteComponent} from './base-auto-complete.component'
+import {BaseCmsAutoCompleteComponent} from './base-cms-auto-complete.component'
 
 describe('BaseAutoCompleteComponent', () => {
-  let component: BaseAutoCompleteComponent
-  let fixture: ComponentFixture<BaseAutoCompleteComponent>
+  let component: BaseCmsAutoCompleteComponent
+  let fixture: ComponentFixture<BaseCmsAutoCompleteComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BaseAutoCompleteComponent],
+      declarations: [BaseCmsAutoCompleteComponent],
       imports: [RouterTestingModule],
     }).compileComponents()
   })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BaseAutoCompleteComponent)
+    fixture = TestBed.createComponent(BaseCmsAutoCompleteComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })

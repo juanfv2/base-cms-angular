@@ -1,22 +1,22 @@
 /* tables */
 
-.sort-0,
-.sort-1 {
+.none {
   cursor: pointer;
 }
 
-.sort-1::after {
+.asc::after {
   content: '↑';
 }
 
-.sort--1::after {
+.desc::after {
   content: '↓';
 }
 
-.sort-1,
-.sort--1 {
+.asc,
+.desc {
   background-color: #0772bb !important;
   color: white;
+  cursor: pointer;
 }
 
 .table .td-actions .btn {

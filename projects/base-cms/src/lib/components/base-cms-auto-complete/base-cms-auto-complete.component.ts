@@ -1,40 +1,42 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core'
 import {ControlValueAccessor} from '@angular/forms'
 import {Router} from '@angular/router'
-import {catchError, debounceTime, distinctUntilChanged, map, merge, Observable, of, Subject, switchMap, tap} from 'rxjs'
-import {configs} from '../../environments/k'
-import {JfCondition, JfLazyLoadEvent, JfResponse, JfSearchCondition, JfSort} from '../../resources/classes'
+import {NgbTypeahead} from '@ng-bootstrap/ng-bootstrap'
+import {debounceTime, distinctUntilChanged, map, merge, Observable, of, Subject, switchMap, tap} from 'rxjs'
+import {JfCrudService} from '../../services/jf-crud.service'
+import {JfMessageService} from '../../services/jf-message.service'
 import {JfRequestOption} from '../../support/jf-request-option'
 
 @Component({
   selector: 'base-cms-base-auto-complete',
-  templateUrl: './base-auto-complete.component.html',
-  styleUrls: ['./base-auto-complete.component.scss'],
+  templateUrl: './base-cms-auto-complete.component.html',
+  styleUrls: ['./base-cms-auto-complete.component.scss'],
 })
-export class BaseAutoCompleteComponent implements ControlValueAccessor {
-  // @ViewChild('instance', {static: true}) instance?: NgbTypeahead
+export class BaseCmsAutoCompleteComponent {
+  @ViewChild('instance', {static: true}) instance?: NgbTypeahead
 
   @Output() oSelected = new EventEmitter<any>()
 
   @Input() disabled = false
   @Input() multiple = false
   @Input() id = ''
-  @Input() kRoute = ''
-  @Input() name = 'Demo:::'
+  @Input() name = ''
   @Input() currentPage = ''
   @Input() selectable: any[] = []
   @Input() avoidable: any[] = []
   @Input() value?: any
-  @Input() label: any
-  values: any[] = []
 
-  previousTerm = ''
+  kRoute: any
+  labels: any
   searching = false
   searchFailed = false
   hasPermission2show = false
   focus = new Subject<string>()
+  // click$ = new Subject<string>();
+  previousTerm = ''
+  values: any[] = []
 
-  constructor(private router: Router) {
+  constructor(public router: Router, public crudService: JfCrudService, public messageService: JfMessageService) {
     this.hasPermission2show = JfRequestOption.isAuthorized(`/${this.kRoute}/show`)
   }
 
@@ -52,7 +54,7 @@ export class BaseAutoCompleteComponent implements ControlValueAccessor {
   /** ControlValueAccessor.writeValue */
   writeValue(value: any): void {
     // console.log('value', value);
-    this.values = value
+    this.value = value
   }
 
   /** ControlValueAccessor.registerOnChange */
