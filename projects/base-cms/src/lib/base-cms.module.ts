@@ -35,6 +35,7 @@ import {SpinnerSearchingComponent} from './components/spinner-searching/spinner-
 import {FileUploadComponent} from './components/file-upload/file-upload.component'
 import {MessageModalComponent} from './components/message-modal/message-modal.component'
 import {BaseCmsListComponent} from './components/base-cms-list/base-cms-list.component'
+import {ManyToManyComponent} from './components/many-to-many/many-to-many.component'
 
 @NgModule({
   declarations: [
@@ -50,13 +51,14 @@ import {BaseCmsListComponent} from './components/base-cms-list/base-cms-list.com
     SidebarComponent,
     NotFoundComponent,
     FileUploadComponent,
+    ManyToManyComponent,
     SearchInputComponent,
     BaseCmsListComponent,
     MessageModalComponent,
     ToastContainerComponent,
-    BaseCmsAutoCompleteComponent,
     SpinnerLoadingComponent,
     SpinnerSearchingComponent,
+    BaseCmsAutoCompleteComponent,
   ],
   exports: [
     JfAddComponentDirective,
@@ -71,13 +73,14 @@ import {BaseCmsListComponent} from './components/base-cms-list/base-cms-list.com
     SidebarComponent,
     NotFoundComponent,
     FileUploadComponent,
+    ManyToManyComponent,
     SearchInputComponent,
     BaseCmsListComponent,
     MessageModalComponent,
     ToastContainerComponent,
-    BaseCmsAutoCompleteComponent,
     SpinnerLoadingComponent,
     SpinnerSearchingComponent,
+    BaseCmsAutoCompleteComponent,
   ],
   imports: [
     FormsModule,
