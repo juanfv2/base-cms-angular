@@ -36,7 +36,7 @@
         <div class="float-end small">{{ currentUser.role.name }}</div>
       </div>
       <ng-container *ngIf="hasPermission2edit; else noEditProfile">
-        <a [routerLink]="'/users/' + currentUser.id + '/profile'">
+        <a [routerLink]="labels.misc.k.routes.users + '/' + currentUser.id + '/profile'">
           <img [src]="currentUser.photo | jfHasXFile: 35" class="user-image" alt="." />
         </a>
       </ng-container>

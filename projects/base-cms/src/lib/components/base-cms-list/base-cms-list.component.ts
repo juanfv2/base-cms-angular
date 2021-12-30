@@ -63,7 +63,11 @@ export class BaseCmsListComponent {
 
   addNew(): void {
     if (this.isSubComponent) {
-      this.itemCurrent = {id: 'new'}
+      if (this.itemCurrent) {
+        this.itemCurrent.id = 'new'
+      } else {
+        this.itemCurrent = {id: 'new'}
+      }
     } else {
       this.router.navigate([this.kRoute, 'new'])
     }

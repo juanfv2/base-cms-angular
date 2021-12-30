@@ -19,7 +19,7 @@ export class JfMultiSortMetaDirective {
   @Input() direction = 0
   @Input()
   public set sorts(value: JfSort[]) {
-    console.log('value', value, this.jfMultiSortMeta, this.direction)
+    // console.log('value', value, this.jfMultiSortMeta, this.direction)
     let _sorts = value
     if (!_sorts) {
       _sorts = []

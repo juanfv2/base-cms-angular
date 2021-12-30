@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit} from '@angular/core'
+import {Component, ElementRef, Input, OnInit} from '@angular/core'
 import {Location} from '@angular/common'
 import {Router} from '@angular/router'
 
@@ -18,6 +18,7 @@ import {JfStorageManagement} from '../../support/jf-storage-management'
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  @Input() labels: any
   $layer: any
   currentUser: any
   mobileMenuVisible = 0
