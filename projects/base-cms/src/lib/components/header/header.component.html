@@ -1,4 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute bg-primary fixed-top">
+<nav
+  class="navbar navbar-expand-lg navbar-transparent navbar-absolute bg-primary fixed-top"
+  [class.navbar-transparent]="isCollapsed"
+>
   <div class="container-fluid">
     <div class="navbar-wrapper">
       <button class="navbar-toggler navbar-toggler-sidebar" type="button" (click)="sidebarToggle()">
@@ -7,7 +10,7 @@
         <span class="navbar-toggler-bar bar3"></span>
       </button>
       <a class="navbar-brand">
-        {{ project_name }}
+        {{ currentPage }}
         <!-- todo: title current page -->
         <!-- {{ getTitle() }} -->
       </a>
@@ -15,7 +18,7 @@
     <button
       class="navbar-toggler"
       type="button"
-      (click)="collapse()"
+      (click)="isCollapsed = !isCollapsed"
       [attr.aria-expanded]="!isCollapsed"
       aria-controls="collapseExample"
     >
@@ -29,7 +32,7 @@
       id="collapseExample"
       [ngbCollapse]="isCollapsed"
     >
-      <div class="">
+      <div class="m-1">
         <div class="d-none d-md-block">
           <div class="d-inline clearfix">{{ currentUser.name }}</div>
         </div>

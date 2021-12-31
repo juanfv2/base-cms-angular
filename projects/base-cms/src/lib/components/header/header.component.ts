@@ -25,11 +25,11 @@ export class HeaderComponent implements OnInit {
   private toggleButton: any
   private isSidebarVisible = 0
   private listTitles: Permission[] = []
-  menus: Permission[] = []
 
   isCollapsed = true
   hasPermission2edit = false
   project_name = configs.project_name
+  currentPage = ''
 
   constructor(
     private router: Router,
@@ -54,6 +54,7 @@ export class HeaderComponent implements OnInit {
     const navbar: HTMLElement = this.element.nativeElement
     this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0]
     this.router.events.subscribe((event) => {
+      this.getTitle()
       this.sidebarClose()
       const $layer: any = document.getElementsByClassName('close-layer')[0]
       if ($layer) {
@@ -64,26 +65,9 @@ export class HeaderComponent implements OnInit {
     // this.sidebarToggle()
   }
 
-  collapse() {
-    this.isCollapsed = !this.isCollapsed
-    const navbar = document.getElementsByTagName('nav')[0]
-
-    // console.log('this.isCollapsed', this.isCollapsed);
-
-    if (!this.isCollapsed) {
-      navbar.classList.remove('navbar-transparent')
-      // navbar.classList.add('bg-white');
-    } else {
-      navbar.classList.add('navbar-transparent')
-      // navbar.classList.remove('bg-white');
-    }
-  }
-
   sidebarToggle() {
     // console.log('sidebarToggle.1.this.isSidebarVisible', this.isSidebarVisible);
 
-    // const toggleButton = this.toggleButton;
-    // const html = document.getElementsByTagName('html')[0];
     const $toggle = document.getElementsByClassName('navbar-toggler')[0]
     this.$layer = document.createElement('div')
     this.$layer.setAttribute('class', 'close-layer')
@@ -91,7 +75,6 @@ export class HeaderComponent implements OnInit {
     const html = document.getElementsByTagName('html')[0]
 
     if (this.mobileMenuVisible === 1) {
-      // $('html').removeClass('nav-open');
       html.classList.remove('nav-open')
       if (this.$layer) {
         this.$layer.remove()
@@ -102,11 +85,6 @@ export class HeaderComponent implements OnInit {
 
       this.mobileMenuVisible = 0
     } else {
-      // console.log('this.$layer.1', this.$layer);
-
-      // this.$layer = document.createElement('div');
-      // this.$layer.setAttribute('class', 'close-layer');
-
       setTimeout(() => {
         $toggle.classList.add('toggled')
       }, 430)
@@ -184,38 +162,29 @@ export class HeaderComponent implements OnInit {
 
   getTitle() {
     let mTitle = 'Dashboard'
-    const path = this.location.path().split('/')
-    const _title = path[1]
+    const path = this.location.path(true).split('/')
+    const _title = path[0]
 
-    console.log('path', path)
-    console.log('_title', _title)
-    console.log('this.listTitles', this.listTitles)
+    // console.log('path', path)
+    // console.log('_title', _title)
+    // console.log('this.listTitles', this.listTitles)
 
-    const item = this.listTitles.find(
-      (p: any) =>
-        // {
-        //     console.log('titlee', titlee);
-        //     console.log('p.urlFrontEnd', p.urlFrontEnd);
-        //     console.log('p.urlFrontEnd.indexOf(titlee) !== -1', p.urlFrontEnd.indexOf(titlee) !== -1);
-        //     return p.urlFrontEnd.indexOf(titlee) !== -1;
-        // }
-        p.urlFrontEnd.indexOf(_title) !== -1
-    )
+    const item = this.listTitles.find((p) => p.urlFrontEnd?.indexOf(_title) !== -1)
     // console.log('item', item);
 
     if (item) {
       mTitle = item.name!
     }
 
-    return `${configs.project_name} - ${mTitle}`
+    this.currentPage = `${configs.project_name} - ${mTitle}`
   }
 
   getMenuTitles() {
-    this.menus = this.currentUser?.role.menus
-    if (this.menus) {
-      this.menus.forEach((m: any) => {
+    const menus = this.currentUser?.role.menus
+    if (menus) {
+      menus.forEach((m: Permission) => {
         this.listTitles.push(m)
-        m.subMenus.forEach((sm: any) => this.listTitles.push(sm))
+        m.subMenus?.forEach((sm) => this.listTitles.push(sm))
       })
     }
   }

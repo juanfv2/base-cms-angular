@@ -56,7 +56,7 @@ export class JfStorageManagement {
     const vr = localStorage.getItem(kk)
     return vr
   }
-  static setItem(key: any, v: any): void {
+  static setItem(key: any, v: string): void {
     const kk = this.currentKey(key)
     return localStorage.setItem(kk, v)
   }
