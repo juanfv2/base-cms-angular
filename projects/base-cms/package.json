@@ -1,5 +1,5 @@
 {
-  "name": "base-cms",
+  "name": "@juanfv2/base-cms",
   "version": "0.0.1",
   "sass": "./scss/now-ui-dashboard.scss",
   "exports": {
