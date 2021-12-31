@@ -1,5 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core'
-import {ControlValueAccessor} from '@angular/forms'
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core'
 import {Router} from '@angular/router'
 import {NgbTypeahead} from '@ng-bootstrap/ng-bootstrap'
 import {debounceTime, distinctUntilChanged, map, merge, Observable, of, Subject, switchMap, tap} from 'rxjs'
@@ -24,7 +23,15 @@ export class BaseCmsAutoCompleteComponent {
   @Input() currentPage = ''
   @Input() selectable: any[] = []
   @Input() avoidable: any[] = []
-  @Input() value?: any
+  @Input()
+  private _value?: any
+  public get value(): any {
+    return this._value
+  }
+  public set value(value: any) {
+    this.hasPermission2show = JfRequestOption.isAuthorized(`/${this.kRoute}/show`)
+    this._value = value
+  }
 
   kRoute: any
   labels: any
@@ -93,7 +100,7 @@ export class BaseCmsAutoCompleteComponent {
 
   select(e: any): void {
     if (this.multiple) {
-      if (e) {
+      if (e && e.preventDefault) {
         e.preventDefault()
         setTimeout(() => {
           this.focus.next(this.previousTerm)
