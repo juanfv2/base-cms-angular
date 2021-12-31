@@ -49,7 +49,7 @@
       }
     }
   },
-  "defaultProject": "base-cms",
+  "defaultProject": "@juanfv2/base-cms",
   "cli": {
     "defaultCollection": "@angular-eslint/schematics"
   }

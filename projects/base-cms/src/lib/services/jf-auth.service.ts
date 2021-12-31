@@ -39,7 +39,6 @@ export class JfAuthService {
       'person',
       'account',
       'photo',
-      {company: ['country', 'icon', 'logo', 'background']},
       {roles: [{menus: ['subMenus']}, 'urlPermissions']},
     ]
   ): Observable<any> {
