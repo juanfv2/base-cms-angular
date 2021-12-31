@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core'
-import {configs} from '../../environments/k'
+import {configs} from '../../environments/configs'
 
 @Component({
   selector: 'base-cms-footer',

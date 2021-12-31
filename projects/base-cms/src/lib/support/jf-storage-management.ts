@@ -1,4 +1,4 @@
-import {configs} from '../environments/k'
+import {configs} from '../environments/configs'
 
 export class JfStorageManagement {
   static today() {

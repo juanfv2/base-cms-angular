@@ -8,7 +8,7 @@ import {
   ActivatedRouteSnapshot,
 } from '@angular/router'
 import {Observable} from 'rxjs'
-import {configs} from '../environments/k'
+import {configs} from '../environments/configs'
 import {JfRequestOption} from '../support/jf-request-option'
 
 @Injectable({

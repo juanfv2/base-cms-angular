@@ -10,7 +10,7 @@ import {JfMessageService} from '../../services/jf-message.service'
 import {JfStorageManagement} from '../../support/jf-storage-management'
 import {JfApiRoute} from '../../support/jf-api-route'
 import {JfUtils} from '../../support/jf-utils'
-import {configs} from '../../environments/k'
+import {configs} from '../../environments/configs'
 
 @Component({
   selector: 'base-cms-base-cms-list',

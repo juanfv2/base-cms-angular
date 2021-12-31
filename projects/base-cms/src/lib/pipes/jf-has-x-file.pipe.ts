@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core'
-import {configs} from '../environments/k'
+import {configs} from '../environments/configs'
 
 /**
  *

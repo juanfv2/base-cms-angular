@@ -2,7 +2,7 @@ import {Component, ElementRef, Input, OnInit} from '@angular/core'
 import {Location} from '@angular/common'
 import {Router} from '@angular/router'
 
-import {configs} from '../../environments/k'
+import {configs} from '../../environments/configs'
 
 import {Permission, Role} from '../../resources/models'
 

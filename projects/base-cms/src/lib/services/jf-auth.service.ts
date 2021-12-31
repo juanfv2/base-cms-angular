@@ -2,7 +2,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http'
 import {Injectable} from '@angular/core'
 import {BehaviorSubject, Observable} from 'rxjs'
 
-import {configs} from '../environments/k'
+import {configs} from '../environments/configs'
 import {JfRequestOption} from '../support/jf-request-option'
 import {JfStorageManagement} from '../support/jf-storage-management'
 

@@ -1,6 +1,6 @@
 import {SearchInputComponent} from '../components/search-input/search-input.component'
 
-import {configs} from '../environments/k'
+import {configs} from '../environments/configs'
 import {JfResponseList, JfSearchCondition, JfCondition} from '../resources/classes'
 
 import {JfApiRoute} from './jf-api-route'

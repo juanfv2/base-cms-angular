@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
 import {Router} from '@angular/router'
 import {BehaviorSubject, Observable} from 'rxjs'
-import {configs} from '../../environments/k'
+import {configs} from '../../environments/configs'
 import {JfStorageManagement} from '../../support/jf-storage-management'
 
 @Component({

@@ -1,5 +1,5 @@
 import {HttpHeaders} from '@angular/common/http'
-import {configs} from '../environments/k'
+import {configs} from '../environments/configs'
 import {JfStorageManagement} from './jf-storage-management'
 import {JfUtils} from './jf-utils'
 
