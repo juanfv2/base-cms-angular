@@ -21,7 +21,6 @@ export class HeaderComponent implements OnInit {
   @Input() labels: any
   $layer: any
   currentUser: any
-  mobileMenuVisible = 0
   toggleButton = false
   private isSidebarVisible = 0
   private listTitles: Permission[] = []
@@ -50,67 +49,13 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.getMenuTitles()
-    // const navbar: HTMLElement = this.element.nativeElement
     this.router.events.subscribe((event) => {
       this.getTitle()
       this.sidebarClose()
-      const $layer: any = document.getElementsByClassName('close-layer')[0]
-      if ($layer) {
-        $layer.remove()
-        this.mobileMenuVisible = 0
-      }
     })
-    // this.sidebarToggle()
   }
 
   sidebarToggle() {
-    // console.log('sidebarToggle.1.this.isSidebarVisible', this.isSidebarVisible);
-
-    this.$layer = document.createElement('div')
-    this.$layer.setAttribute('class', 'close-layer')
-
-    const html = document.getElementsByTagName('html')[0]
-
-    if (this.mobileMenuVisible === 1) {
-      html.classList.remove('nav-open')
-      if (this.$layer) {
-        this.$layer.remove()
-      }
-      setTimeout(() => {
-        this.toggleButton = false
-      }, 400)
-
-      this.mobileMenuVisible = 0
-    } else {
-      setTimeout(() => {
-        this.toggleButton = true
-      }, 430)
-
-      if (html.querySelectorAll('.main-panel')) {
-        document.getElementsByClassName('main-panel')[0].appendChild(this.$layer)
-      } else if (html.classList.contains('off-canvas-sidebar')) {
-        document.getElementsByClassName('wrapper-full-page')[0].appendChild(this.$layer)
-      }
-
-      setTimeout(() => {
-        this.$layer.classList.add('visible')
-      }, 100)
-
-      this.$layer.onclick = () => {
-        html.classList.remove('nav-open')
-        this.mobileMenuVisible = 0
-        this.$layer.classList.remove('visible')
-
-        setTimeout(() => {
-          this.$layer.remove()
-          this.toggleButton = false
-        }, 400)
-      }
-
-      html.classList.add('nav-open')
-      this.mobileMenuVisible = 1
-    }
-
     if (this.isSidebarVisible) {
       this.sidebarClose()
     } else {
