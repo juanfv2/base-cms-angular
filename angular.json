@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "base-cms": {
+    "@juanfv2/base-cms": {
       "projectType": "library",
       "schematics": {
         "@schematics/angular:component": {
@@ -76,12 +76,15 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/first-app/src/favicon.ico",
-              "projects/first-app/src/assets"
+              "projects/first-app/src/assets",
+              "projects/first-app/src/manifest.webmanifest"
             ],
             "styles": [
               "projects/first-app/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "serviceWorker": true,
+            "ngswConfigPath": "projects/first-app/ngsw-config.json"
           },
           "configurations": {
             "production": {
@@ -144,7 +147,8 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/first-app/src/favicon.ico",
-              "projects/first-app/src/assets"
+              "projects/first-app/src/assets",
+              "projects/first-app/src/manifest.webmanifest"
             ],
             "styles": [
               "projects/first-app/src/styles.scss"
