@@ -4,7 +4,12 @@
 >
   <div class="container-fluid">
     <div class="navbar-wrapper">
-      <button class="navbar-toggler navbar-toggler-sidebar" type="button" (click)="sidebarToggle()">
+      <button
+        class="navbar-toggler navbar-toggler-sidebar"
+        [class.toggled]="toggleButton"
+        type="button"
+        (click)="sidebarToggle()"
+      >
         <span class="navbar-toggler-bar bar1"></span>
         <span class="navbar-toggler-bar bar2"></span>
         <span class="navbar-toggler-bar bar3"></span>

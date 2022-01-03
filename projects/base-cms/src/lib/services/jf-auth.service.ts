@@ -37,7 +37,6 @@ export class JfAuthService {
     includes: any = [
       'token',
       'person',
-      'account',
       'photo',
       {roles: [{menus: ['subMenus']}, 'urlPermissions']},
     ]

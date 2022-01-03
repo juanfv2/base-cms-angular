@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit} from '@angular/core'
+import {Component, Input, OnInit} from '@angular/core'
 import {Location} from '@angular/common'
 import {Router} from '@angular/router'
 
@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
   $layer: any
   currentUser: any
   mobileMenuVisible = 0
-  private toggleButton: any
+  toggleButton = false
   private isSidebarVisible = 0
   private listTitles: Permission[] = []
 
@@ -34,7 +34,6 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private location: Location,
-    private element: ElementRef,
     private authService: JfAuthService,
     private messageService: JfMessageService
   ) {
@@ -51,8 +50,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.getMenuTitles()
-    const navbar: HTMLElement = this.element.nativeElement
-    this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0]
+    // const navbar: HTMLElement = this.element.nativeElement
     this.router.events.subscribe((event) => {
       this.getTitle()
       this.sidebarClose()
@@ -68,7 +66,6 @@ export class HeaderComponent implements OnInit {
   sidebarToggle() {
     // console.log('sidebarToggle.1.this.isSidebarVisible', this.isSidebarVisible);
 
-    const $toggle = document.getElementsByClassName('navbar-toggler')[0]
     this.$layer = document.createElement('div')
     this.$layer.setAttribute('class', 'close-layer')
 
@@ -80,13 +77,13 @@ export class HeaderComponent implements OnInit {
         this.$layer.remove()
       }
       setTimeout(() => {
-        $toggle.classList.remove('toggled')
+        this.toggleButton = false
       }, 400)
 
       this.mobileMenuVisible = 0
     } else {
       setTimeout(() => {
-        $toggle.classList.add('toggled')
+        this.toggleButton = true
       }, 430)
 
       if (html.querySelectorAll('.main-panel')) {
@@ -106,7 +103,7 @@ export class HeaderComponent implements OnInit {
 
         setTimeout(() => {
           this.$layer.remove()
-          $toggle.classList.remove('toggled')
+          this.toggleButton = false
         }, 400)
       }
 
@@ -127,7 +124,6 @@ export class HeaderComponent implements OnInit {
   }
 
   sidebarOpen() {
-    const toggleButton = this.toggleButton
     const mainPanel = document.getElementsByClassName('main-panel')[0] as HTMLElement
     const html = document.getElementsByTagName('html')[0]
     if (window.innerWidth < 991) {
@@ -137,7 +133,7 @@ export class HeaderComponent implements OnInit {
     }
 
     setTimeout(() => {
-      toggleButton.classList.add('toggled')
+      this.toggleButton = true
     }, 500)
 
     html.classList.add('nav-open')
@@ -146,7 +142,7 @@ export class HeaderComponent implements OnInit {
 
   sidebarClose() {
     const html = document.getElementsByTagName('html')[0]
-    this.toggleButton.classList.remove('toggled')
+    this.toggleButton = false
     const mainPanel = document.getElementsByClassName('main-panel')[0] as HTMLElement
 
     if (window.innerWidth < 991) {
