@@ -1,0 +1,306 @@
+<div class="panel-header panel-header-sm" *ngIf="!isSubComponent"></div>
+<div *ngIf="user" [class.main-content]="!isSubComponent">
+  <!-- form -->
+  <form class="card" #modelForm="ngForm">
+    <div class="card-header">
+      <h5 class="title d-inline-block">{{ currentLabels.ownName }}</h5>
+      <h6 class="ps-1 d-inline-block ms-2">{{ currentLabels.id.label }} {{ user.id }}</h6>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 col-md-8 order-12 order-md-1">
+          <!-- name . init -->
+          <div class="form-group">
+            <label for="user-name">{{ labels.user.name.label }} *</label>
+            <input
+              id="user-name"
+              name="user-name"
+              [(ngModel)]="user.name"
+              #user_name="ngModel"
+              class="form-control"
+              type="text"
+              required
+              placeholder="Requerido"
+            />
+            <div
+              *ngIf="!user_name.valid && user_name.dirty && user_name.errors?.['required']"
+              class="alert alert-danger form-text"
+              role="alert"
+            >
+              {{ labels.user.name.label }} es requerido
+            </div>
+          </div>
+          <!-- name . end -->
+          <!-- email . init -->
+          <div class="form-group">
+            <label for="user-email">{{ labels.user.email.label }} *</label>
+            <input
+              id="user-email"
+              name="user-email"
+              [(ngModel)]="user.email"
+              #user_email="ngModel"
+              class="form-control"
+              type="text"
+              required
+              placeholder="Requerido"
+            />
+            <div
+              *ngIf="!user_email.valid && user_email.dirty && user_email.errors?.['required']"
+              class="alert alert-danger form-text"
+              role="alert"
+            >
+              {{ labels.user.email.label }} es requerido
+            </div>
+          </div>
+          <!-- email . end -->
+          <!-- password . init -->
+          <div class="form-group">
+            <label for="user-password">{{ labels.user.password.label }} *</label>
+            <input
+              id="user-password"
+              name="user-password"
+              [(ngModel)]="user.password"
+              #user_password="ngModel"
+              class="form-control"
+              type="text"
+              [required]="!user.id"
+              placeholder="Requerido"
+            />
+            <div
+              *ngIf="!user_password.valid && user_password.dirty && user_password.errors?.['required']"
+              class="alert alert-danger form-text"
+              role="alert"
+            >
+              {{ labels.user.password.label }} es requerido
+            </div>
+          </div>
+          <!-- password . end -->
+          <!-- phoneNumber . init -->
+          <div class="form-group">
+            <label for="user-phoneNumber">{{ labels.user.phoneNumber.label }} </label>
+            <input
+              id="user-phoneNumber"
+              name="user-phoneNumber"
+              [(ngModel)]="user.phoneNumber"
+              #user_phoneNumber="ngModel"
+              class="form-control"
+              type="text"
+            />
+          </div>
+          <!-- phoneNumber . end -->
+          <!-- country . init -->
+          <div class="form-group">
+            <app-country-auto-complete
+              id="user-country"
+              [name]="labels.country.ownName"
+              [(ngModel)]="user.country"
+              #user_country="ngModel"
+              [disabled]="isSubComponentFrom === 'country'"
+              [currentPage]="mApi.show()"
+              required
+            >
+            </app-country-auto-complete>
+            <div
+              *ngIf="!user_country.valid && user_country.dirty && user_country.errors?.['required']"
+              class="alert alert-danger form-text"
+            >
+              {{ labels.country.ownName }} es requerido
+            </div>
+          </div>
+          <!-- country . end -->
+          <!-- region . init -->
+          <div class="form-group">
+            <app-region-auto-complete
+              id="user-region"
+              [name]="labels.region.ownName"
+              [country]="user.country"
+              [(ngModel)]="user.region"
+              #user_region="ngModel"
+              [disabled]="isSubComponentFrom === 'region'"
+              [currentPage]="mApi.show()"
+              required
+            >
+            </app-region-auto-complete>
+            <div
+              *ngIf="!user_region.valid && user_region.dirty && user_region.errors?.['required']"
+              class="alert alert-danger form-text"
+            >
+              {{ labels.region.ownName }} es requerido
+            </div>
+          </div>
+          <!-- region . end -->
+          <!-- city . init -->
+          <div class="form-group">
+            <app-city-auto-complete
+              id="user-city"
+              [name]="labels.city.ownName"
+              [country]="user.country"
+              [region]="user.region"
+              [(ngModel)]="user.city"
+              #user_city="ngModel"
+              [disabled]="isSubComponentFrom === 'city'"
+              [currentPage]="mApi.show()"
+              required
+            >
+            </app-city-auto-complete>
+            <div
+              *ngIf="!user_city.valid && user_city.dirty && user_city.errors?.['required']"
+              class="alert alert-danger form-text"
+            >
+              {{ labels.city.ownName }} es requerido
+            </div>
+          </div>
+          <!-- city . end -->
+          <!-- role . init -->
+          <div *ngIf="currentPath === labels.misc.k.routes.users" class="form-group">
+            <app-role-auto-complete
+              id="user-role"
+              [name]="labels.role.ownName"
+              [(ngModel)]="user.role"
+              #user_role="ngModel"
+              [disabled]="isSubComponentFrom === 'role'"
+              [currentPage]="mApi.show()"
+              required
+            >
+            </app-role-auto-complete>
+            <div
+              *ngIf="!user_role.valid && user_role.dirty && user_role.errors?.['required']"
+              class="alert alert-danger form-text"
+            >
+              {{ labels.role.ownName }} es requerido
+            </div>
+          </div>
+          <!-- role . end -->
+        </div>
+        <div class="col-12 col-md-4 order-1 order-md-12 bg-light">
+          <!-- disabled . init -->
+          <div class="form-group">
+            <label for="user-disabled">{{ labels.user.disabled.label }} *</label>
+            <div class="d-flex">
+              <label for="user-disabled" class="switch">
+                <input
+                  id="user-disabled"
+                  name="user-disabled"
+                  [(ngModel)]="user.disabled"
+                  #user_disabled="ngModel"
+                  type="checkbox"
+                />
+                <span class="slider round"></span>
+              </label>
+              <span class="p-1">{{ user.disabled ? 'Activo' : 'Desactivo' }}</span>
+            </div>
+          </div>
+          <!-- disabled . end -->
+          <!--
+          photoUrl
+          url2upload: /api/file/{tableName}/{fieldName}/{id?}/{color?}
+          url2show:   /api/file/{tableName}/{fieldName}/{id}/{w?}/{h?}/{imageNameOriginal?}
+
+          url2public: /assets/adm/{tableName}/{fieldName}/{imageNameOriginal?}
+          -->
+          <div *ngIf="!user.photo" class="alert alert-danger form-text" role="alert">La imagen es requerida</div>
+
+          <base-cms-file-upload
+            [labels]="labels"
+            [label]="labels.user.photo.label"
+            [name]="labels.user.photo.field!"
+            required
+            [iWidth]="150"
+            minHeight="200px"
+            placeholder="Requerido"
+            [maxFileSize]="1024 * 1024"
+            [allowMultiples]="false"
+            [hideProcess]="!user.id"
+            [autoUpload]="!!user.id"
+            (finish)="onFinishUploadFile($event)"
+            (uploaderQueue)="uploaderQueue($event)"
+            [(ngModel)]="user.photo"
+            [allowedTypes]="['image/gif', 'image/png', 'image/jpeg', 'image/bmp', 'image/webp']"
+          >
+          </base-cms-file-upload>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button (click)="onBack()" type="button" class="btn btn-secondary m-1">Regresar</button>
+      <button
+        *ngIf="hasPermission2edit"
+        (click)="onSave()"
+        type="submit"
+        class="btn btn-primary m-1"
+        [disabled]="!modelForm.form.valid || sending"
+      >
+        Guardar
+        <div *ngIf="sending" class="fa-3x i-sending mx-1 float-end">
+          <i class="fas fa-spinner fa-spin"></i>
+        </div>
+      </button>
+      <button
+        *ngIf="hasPermission2new && !isSubComponent && user.id"
+        (click)="addNew()"
+        type="button"
+        class="btn btn-warning m-1"
+      >
+        Agregar otro
+      </button>
+    </div>
+
+    <input
+      type="hidden"
+      name="user-roles"
+      #userRolesX="ngModel"
+      [(ngModel)]="rolesAreRequired"
+      [required]="currentPath === labels.misc.k.routes.users"
+    />
+  </form>
+  <!-- form . end -->
+  <!-- related . init -->
+  <div>
+    <nav ngbNav #nav="ngbNav" class="nav-tabs">
+      <ng-container *ngIf="currentPath === labels.misc.k.routes.users" ngbNavItem>
+        <a ngbNavLink>{{ labels.role.ownNamePlural }}</a>
+        <ng-template ngbNavContent>
+          <div class="card">
+            <div class="card-body">
+              <div *ngIf="!rolesAreRequired" class="alert alert-danger form-text" role="alert">
+                Debe seleccionar {{ labels.role.ownName }}
+              </div>
+              <app-role-auto-complete
+                id="role-availables"
+                name="Roles disponibles"
+                [multiple]="true"
+                [currentPage]="mApi.show()"
+                (oSelected)="update2roles($event)"
+                [avoidable]="user.roles"
+                [(ngModel)]="user.roles"
+              >
+              </app-role-auto-complete>
+              <base-cms-many-to-many
+                lField="name"
+                [lModel]="labels.role"
+                [gOptions]="user.roles"
+                (rm)="rm2role($event)"
+                (go)="go2role($event)"
+              ></base-cms-many-to-many>
+            </div>
+            <div class="card-footer"></div>
+          </div>
+        </ng-template>
+      </ng-container>
+      <ng-container *ngIf="currentPath === labels.misc.k.routes.users" ngbNavItem>
+        <a ngbNavLink>{{ labels.person.ownNamePlural }}</a>
+        <ng-template ngbNavContent>
+          <app-person-detail [person]="user.person"></app-person-detail>
+        </ng-template>
+      </ng-container>
+      <ng-container *ngIf="currentPath === labels.misc.k.routes.accounts" ngbNavItem>
+        <a ngbNavLink>Información</a>
+        <ng-template ngbNavContent>
+          <app-account-detail [account]="user.account"></app-account-detail>
+        </ng-template>
+      </ng-container>
+    </nav>
+    <div [ngbNavOutlet]="nav" class="bg-white"></div>
+  </div>
+  <!-- related . end -->
+</div>

@@ -1,0 +1,155 @@
+<div class="panel-header panel-header-sm" *ngIf="!isSubComponent"></div>
+<div *ngIf="city" [class.main-content]="!isSubComponent">
+  <!-- form -->
+  <form class="card" #modelForm="ngForm">
+    <div class="card-header">
+      <h5 class="title d-inline-block">{{ labels.city.ownName }}</h5>
+      <h6 class="ps-1 d-inline-block ms-2">{{ labels.city.id.label }} {{ city.id }}</h6>
+    </div>
+    <div class="card-body">
+      <!-- name . init -->
+      <div class="form-group">
+        <label for="city-name">{{ labels.city.name.label }} *</label>
+        <input
+          id="city-name"
+          name="city-name"
+          [(ngModel)]="city.name"
+          #city_name="ngModel"
+          class="form-control"
+          type="text"
+          required
+          placeholder="Requerido"
+        />
+        <div
+          *ngIf="!city_name.valid && city_name.dirty && city_name.errors?.['required']"
+          class="alert alert-danger form-text"
+          role="alert"
+        >
+          {{ labels.city.name.label }} es requerido
+        </div>
+      </div>
+      <!-- name . end -->
+      <!-- latitude . init -->
+      <div class="form-group">
+        <label for="city-latitude">{{ labels.city.latitude.label }} *</label>
+        <input
+          id="city-latitude"
+          name="city-latitude"
+          [(ngModel)]="city.latitude"
+          #city_latitude="ngModel"
+          class="form-control"
+          type="number"
+          required
+          placeholder="Requerido"
+        />
+        <div
+          *ngIf="!city_latitude.valid && city_latitude.dirty && city_latitude.errors?.['required']"
+          class="alert alert-danger form-text"
+          role="alert"
+        >
+          {{ labels.city.latitude.label }} es requerido
+        </div>
+      </div>
+      <!-- latitude . end -->
+      <!-- longitude . init -->
+      <div class="form-group">
+        <label for="city-longitude">{{ labels.city.longitude.label }} *</label>
+        <input
+          id="city-longitude"
+          name="city-longitude"
+          [(ngModel)]="city.longitude"
+          #city_longitude="ngModel"
+          class="form-control"
+          type="number"
+          required
+          placeholder="Requerido"
+        />
+        <div
+          *ngIf="!city_longitude.valid && city_longitude.dirty && city_longitude.errors?.['required']"
+          class="alert alert-danger form-text"
+          role="alert"
+        >
+          {{ labels.city.longitude.label }} es requerido
+        </div>
+      </div>
+      <!-- longitude . end -->
+      <!-- country . init -->
+      <div class="form-group">
+        <app-country-auto-complete
+          id="city-country"
+          [name]="labels.country.ownName"
+          [(ngModel)]="city.country"
+          #city_country="ngModel"
+          [disabled]="isSubComponentFrom === 'country'"
+          [currentPage]="mApi.show()"
+          required
+        >
+        </app-country-auto-complete>
+        <div
+          *ngIf="!city_country.valid && city_country.dirty && city_country.errors?.['required']"
+          class="alert alert-danger form-text"
+        >
+          {{ labels.country.ownName }} es requerido
+        </div>
+      </div>
+      <!-- country . end -->
+      <!-- region . init -->
+      <div class="form-group">
+        <app-region-auto-complete
+          id="city-region"
+          [name]="labels.region.ownName"
+          [country]="city.country"
+          [(ngModel)]="city.region"
+          #city_region="ngModel"
+          [disabled]="isSubComponentFrom === 'region'"
+          [currentPage]="mApi.show()"
+          required
+        >
+        </app-region-auto-complete>
+        <div
+          *ngIf="!city_region.valid && city_region.dirty && city_region.errors?.['required']"
+          class="alert alert-danger form-text"
+        >
+          {{ labels.region.ownName }} es requerido
+        </div>
+      </div>
+      <!-- region . end -->
+    </div>
+    <div class="card-footer">
+      <button (click)="onBack()" type="button" class="btn btn-secondary m-1">Regresar</button>
+      <button
+        *ngIf="hasPermission2edit"
+        (click)="onSave()"
+        type="submit"
+        class="btn btn-primary m-1"
+        [disabled]="!modelForm.form.valid || sending"
+      >
+        Guardar
+        <div *ngIf="sending" class="fa-3x i-sending mx-1 float-end">
+          <i class="fas fa-spinner fa-spin"></i>
+        </div>
+      </button>
+      <button
+        *ngIf="hasPermission2new && !isSubComponent && city.id"
+        (click)="addNew()"
+        type="button"
+        class="btn btn-warning m-1"
+      >
+        Agregar otro
+      </button>
+    </div>
+  </form>
+  <!-- form . end -->
+  <!-- related . init -- >
+<div *ngIf="city?.id">    <nav ngbNav #nav="ngbNav" class="nav-tabs">
+<ng-container ngbNavItem>
+    <a ngbNavLink>{{labels.authUser.ownNamePlural}}</a>
+    <ng-template ngbNavContent>
+    <app-auth-user-list [city]="city"
+                         [isSubComponent]="true">
+    </app-auth-user-list>
+    </ng-template>
+</ng-container>
+</nav><div [ngbNavOutlet]="nav" class="bg-white"></div></div>
+<!-- related . end -->
+</div>
