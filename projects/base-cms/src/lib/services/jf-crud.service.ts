@@ -19,30 +19,38 @@ export class JfCrudService {
    * Load a page (for paginated data-table) of User using the passed
    * user as an example for the search by example facility.
    */
-  export(entities: string, parameters: any): Observable<ArrayBuffer> {
+  export(entities: string, parameters: any, isPost = false): Observable<ArrayBuffer> {
     const params = this.setParams(parameters)
+
+    // console.log('parameters', JSON.stringify(parameters));
+    // console.log('params', JSON.stringify(params));
 
     const options: any = JfRequestOption.getRequestOptions()
     options.params = params
     options.responseType = 'blob'
 
-    return this.http.get(this.api + entities, options)
-    // return this.http.get(
-    //   this.prefixApi + entities,
-    //   { responseType: 'blob', headers: options.headers, params });
+    if (isPost) {
+      return this.http.post(`${this.api}${entities}`, params, options)
+    }
+
+    return this.http.get(`${this.api}${entities}`, options)
   }
 
   /**
    * Load a page (for paginated data-table) of User using the passed
    * user as an example for the search by example facility.
    */
-  getPage(entities: string, parameters: any, isForLoginPage: boolean = false): Observable<any> {
+  getPage(entities: string, parameters: any, isForLoginPage: boolean = false, isPost = false): Observable<any> {
     const params = this.setParams(parameters)
 
     const options: any = JfRequestOption.getRequestOptions(isForLoginPage)
     options.params = params
     // console.log('parameters', JSON.stringify(parameters));
     // console.log('params', JSON.stringify(params));
+
+    if (isPost) {
+      return this.http.post(`${this.api}${entities}`, params, options)
+    }
 
     return this.http.get(`${this.api}${entities}`, options)
   }
@@ -51,7 +59,7 @@ export class JfCrudService {
    * Get a User by id.
    */
   getEntity(entities: string, id: any, isForLoginPage: boolean = false): Observable<any> {
-    const urlStr = this.api + entities + '/' + id
+    const urlStr = `${this.api}${entities}/${id}`
     return this.http.get<any>(urlStr, JfRequestOption.getRequestOptions(isForLoginPage))
   }
 
@@ -63,19 +71,19 @@ export class JfCrudService {
      * Update an Entity by id.
      */
     if (entity.id) {
-      return this.http.put<any>(this.api + entities + '/' + entity.id, entity, JfRequestOption.getRequestOptions())
+      return this.http.put<any>(`${this.api}${entities}/${entity.id}`, entity, JfRequestOption.getRequestOptions())
     }
     /**
      * Create an Entity.
      */
-    return this.http.post<any>(this.api + entities, entity, JfRequestOption.getRequestOptions())
+    return this.http.post<any>(`${this.api}${entities}`, entity, JfRequestOption.getRequestOptions())
   }
 
   /**
    * Delete an Entity by id.
    */
   deleteEntity(entities: string, id: any): Observable<any> {
-    return this.http.delete(this.api + entities + '/' + id, JfRequestOption.getRequestOptions())
+    return this.http.delete(`${this.api}${entities}/${id}`, JfRequestOption.getRequestOptions())
   }
 
   /**
@@ -128,22 +136,18 @@ export class JfCrudService {
       params.includes = this.getConditions(parameters.includes)
     }
     if (parameters.sorts) {
-      params.sorts = this.getMultiSortMeta(parameters.sorts)
+      params.sorts = this.getConditions(parameters.sorts)
     }
     if (parameters.conditions) {
       params.conditions = this.getConditions(parameters.conditions)
     }
-    if (parameters.joins) {
-      params.joins = this.getConditions(parameters.joins)
-    }
     if (parameters.cWith) {
       params.with = this.getConditions(parameters.cWith)
     }
+    if (parameters.joins) {
+      params.joins = this.getConditions(parameters.joins)
+    }
     return new HttpParams({fromObject: params})
-  }
-
-  getMultiSortMeta(multiSortMeta: JfSort[]): string {
-    return JSON.stringify(multiSortMeta)
   }
 
   /**

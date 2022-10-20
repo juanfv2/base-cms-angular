@@ -47,7 +47,7 @@ export class JfLazyLoadEvent {
   constructor(
     public rows: number = 10, // if -1 api returns without limit.
     public first: number = 1,
-    public multiSortMeta?: JfSort[],
+    public sorts?: JfSort[],
     public conditions?: any[],
     public joins?: JfCondition[],
     public additional?: JfCondition[],
