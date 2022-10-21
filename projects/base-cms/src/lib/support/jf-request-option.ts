@@ -6,9 +6,9 @@ import {JfUtils} from './jf-utils'
 export class JfRequestOption {
   static getRequestOptions(withAuth: boolean = true): any {
     const token = JfRequestOption.isAuthenticate()
-    console.log('getRequestOptions token', token);
-    console.log('getRequestOptions !token', !token);
-    console.log('getRequestOptions isForLoginPage', withAuth);
+    // console.log('getRequestOptions withAuth', withAuth)
+    // console.log('getRequestOptions    token', token)
+    // console.log('getRequestOptions   !token', !token)
     const h = {} as any
     if (withAuth) {
       // si no es petición de login

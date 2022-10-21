@@ -17,6 +17,7 @@
   <div class="col-12 col-md-5">
     <div class="form-group">
       <div [ngSwitch]="condition.field?.type">
+        <!-- ***** ***** ***** [date] ***** ***** ***** -->
         <div *ngSwitchCase="'date'">
           <div class="input-group">
             <input
@@ -39,27 +40,32 @@
 
           <owl-date-time [pickerType]="'calendar'" #dateOnly></owl-date-time>
         </div>
-
-        <!-- <div *ngSwitchCase="'date-time'">
-
+        <!-- ***** ***** ***** [date] ***** ***** ***** -->
+        <!-- ***** ***** ***** [date-time] ***** ***** ***** -->
+        <div *ngSwitchCase="'date-time'">
           <div class="input-group">
             <input
-              name="condition-value-date"
+              name="condition-value-date-time"
               class="form-control"
-              placeholder="yyyy-mm-dd"
+              placeholder="yyyy-mm-dd hh:mm"
               [(ngModel)]="condition.value"
               #objectSearchQuery="ngModel"
-              ngbDatepicker
-              #d="ngbDatepicker"
+              [owlDateTime]="dateAndTime"
             />
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
-                <img src="/assets/images/admin/ic-calendar.svg" />
-              </button>
-            </div>
-          </div>
-        </div> -->
 
+            <button
+              title="Fecha y hora de inicio"
+              class="btn btn-info m-0"
+              [owlDateTimeTrigger]="dateAndTime"
+              type="button"
+            >
+              <i class="fa fa-calendar text-white"></i>
+            </button>
+          </div>
+
+          <owl-date-time [startAt]="condition.value || startAt" #dateAndTime></owl-date-time>
+        </div>
+        <!-- ***** ***** ***** [date-time] ***** ***** ***** -->
         <div *ngSwitchCase="'boolean'">
           <div class="d-flex">
             <label for="condition-value-boolean" class="switch">

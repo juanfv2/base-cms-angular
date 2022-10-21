@@ -13,6 +13,11 @@ export class SearchInputComponent {
   @Input() condition: any = {}
   @Input() searchWithFile = false
   mRef: any
+  startAt = new Date()
+
+  constructor() {
+    this.startAt.setHours(0, 0, 0)
+  }
 
   deleteField() {
     this.remove()
