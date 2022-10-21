@@ -4,14 +4,14 @@ import {JfStorageManagement} from './jf-storage-management'
 import {JfUtils} from './jf-utils'
 
 export class JfRequestOption {
-  static getRequestOptions(isForLoginPage: boolean = false): any {
+  static getRequestOptions(withAuth: boolean = true): any {
     const token = JfRequestOption.isAuthenticate()
-    // console.log('getRequestOptions token', token);
-    // console.log('getRequestOptions !token', !token);
-    // console.log('getRequestOptions isForLoginPage', isForLoginPage);
+    console.log('getRequestOptions token', token);
+    console.log('getRequestOptions !token', !token);
+    console.log('getRequestOptions isForLoginPage', withAuth);
     const h = {} as any
-    if (!isForLoginPage) {
-      // si no es peticion de login
+    if (withAuth) {
+      // si no es petición de login
       if (!token) {
         // si el token actual es nulo
         JfUtils.go2login()

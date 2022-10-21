@@ -5,10 +5,11 @@ import {RouterModule} from '@angular/router'
 import {HttpClientModule} from '@angular/common/http'
 
 import {FileUploadModule} from 'ng2-file-upload'
+import {OwlDateTimeModule, OwlNativeDateTimeModule, OwlDateTimeIntl} from 'ng-pick-datetime-ex'
+import {JfDefaultIntlService} from './services/jf-default.intl.service'
 
 import {
   NgbCollapseModule,
-  NgbDatepickerModule,
   NgbDropdownModule,
   NgbModalModule,
   NgbToastModule,
@@ -96,7 +97,10 @@ import {ManyToManyComponent} from './components/many-to-many/many-to-many.compon
     NgbDropdownModule,
     NgbCollapseModule,
     NgbTypeaheadModule,
-    NgbDatepickerModule,
+
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
+  providers: [{provide: OwlDateTimeIntl, useClass: JfDefaultIntlService}],
 })
 export class BaseCmsModule {}

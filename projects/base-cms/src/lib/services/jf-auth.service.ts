@@ -34,16 +34,11 @@ export class JfAuthService {
   login(
     email: string,
     password: string,
-    includes: any = [
-      'token',
-      'person',
-      'photo',
-      {roles: [{menus: ['subMenus']}, 'urlPermissions']},
-    ]
+    includes: any = ['token', 'person', 'photo', {roles: [{menus: ['subMenus']}, 'urlPermissions']}]
   ): Observable<any> {
     const user: any = {email, password, includes}
 
-    const r = this.http.post(`${this.api}${configs.routes.login}`, user, JfRequestOption.getRequestOptions(true))
+    const r = this.http.post(`${this.api}${configs.routes.login}`, user, JfRequestOption.getRequestOptions(false))
 
     JfStorageManagement.clearEnvironment()
 

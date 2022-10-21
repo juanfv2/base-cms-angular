@@ -25,18 +25,23 @@
               placeholder="yyyy-mm-dd"
               [(ngModel)]="condition.value"
               #objectSearchQuery="ngModel"
-              ngbDatepicker
-              #d="ngbDatepicker"
+              [owlDateTime]="dateOnly"
             />
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
-                <img src="/assets/images/admin/ic-calendar.svg" />
-              </button>
-            </div>
+            <button
+              title="Fecha y hora de inicio"
+              class="btn btn-info m-0"
+              [owlDateTimeTrigger]="dateOnly"
+              type="button"
+            >
+              <i class="fa fa-calendar text-white"></i>
+            </button>
           </div>
+
+          <owl-date-time [pickerType]="'calendar'" #dateOnly></owl-date-time>
         </div>
 
-        <div *ngSwitchCase="'date-time'">
+        <!-- <div *ngSwitchCase="'date-time'">
+
           <div class="input-group">
             <input
               name="condition-value-date"
@@ -53,7 +58,7 @@
               </button>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div *ngSwitchCase="'boolean'">
           <div class="d-flex">

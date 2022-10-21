@@ -26,12 +26,13 @@ export class JfCrudService {
     // console.log('params', JSON.stringify(params));
 
     const options: any = JfRequestOption.getRequestOptions()
-    options.params = params
     options.responseType = 'blob'
 
     if (isPost) {
       return this.http.post(`${this.api}${entities}`, params, options)
     }
+
+    options.params = params
 
     return this.http.get(`${this.api}${entities}`, options)
   }
@@ -40,11 +41,10 @@ export class JfCrudService {
    * Load a page (for paginated data-table) of User using the passed
    * user as an example for the search by example facility.
    */
-  getPage(entities: string, parameters: any, isForLoginPage: boolean = false, isPost = false): Observable<any> {
+  getPage(entities: string, parameters: any, withAuth = true, isPost = false): Observable<any> {
     const params = this.setParams(parameters)
 
-    const options: any = JfRequestOption.getRequestOptions(isForLoginPage)
-    options.params = params
+    const options: any = JfRequestOption.getRequestOptions(withAuth)
     // console.log('parameters', JSON.stringify(parameters));
     // console.log('params', JSON.stringify(params));
 
@@ -52,15 +52,17 @@ export class JfCrudService {
       return this.http.post(`${this.api}${entities}`, params, options)
     }
 
+    options.params = params
+
     return this.http.get(`${this.api}${entities}`, options)
   }
 
   /**
    * Get a User by id.
    */
-  getEntity(entities: string, id: any, isForLoginPage: boolean = false): Observable<any> {
+  getEntity(entities: string, id: any, withAuth = true): Observable<any> {
     const urlStr = `${this.api}${entities}/${id}`
-    return this.http.get<any>(urlStr, JfRequestOption.getRequestOptions(isForLoginPage))
+    return this.http.get<any>(urlStr, JfRequestOption.getRequestOptions(withAuth))
   }
 
   /**
@@ -89,17 +91,17 @@ export class JfCrudService {
   /**
    * POST generic.
    */
-  post(url: string, body: any, isLogin: boolean = false): Observable<any> {
+  post(url: string, body: any, withAuth = true): Observable<any> {
     const sUrl = this.api + url
-    return this.http.post<any>(sUrl, body, JfRequestOption.getRequestOptions(isLogin))
+    return this.http.post<any>(sUrl, body, JfRequestOption.getRequestOptions(withAuth))
   }
 
   /**
    * PUT generic.
    */
-  put(url: string, body: any, isLogin: boolean = false): Observable<any> {
+  put(url: string, body: any, withAuth = true): Observable<any> {
     const sUrl = this.api + url
-    return this.http.put<any>(sUrl, body, JfRequestOption.getRequestOptions(isLogin))
+    return this.http.put<any>(sUrl, body, JfRequestOption.getRequestOptions(withAuth))
   }
 
   /**

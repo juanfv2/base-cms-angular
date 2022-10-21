@@ -165,4 +165,59 @@ export class JfUtils {
       return null
     }
   }
+
+  static addCondition(c: JfSearchCondition, nextOperator: string, conditions: any[]): string {
+    if (c.value || c.field.type === 'boolean') {
+      const nCondition = `${nextOperator} ${c.field.field} ${c.cond}`
+      nextOperator = c.oper
+      let valueFormatted = ''
+      switch (c.field.type) {
+        case 'date':
+          valueFormatted = JfUtils.reFormatDate(c.value)
+          break
+        case 'date-time':
+          valueFormatted = JfUtils.reFormatDateTime(c.value)
+          break
+        // case 'boolean':
+        // const bx = !c.value;
+        // conditions.push(new JfCondition(nCondition, bx));
+        // break;
+        default:
+          valueFormatted = c.value
+          break
+      }
+      conditions.push(new JfCondition(nCondition, valueFormatted))
+    }
+
+    return nextOperator
+  }
+
+  static reFormatDate(cDate: string) {
+    const d = new Date(cDate)
+    return [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-')
+  }
+
+  static reFormatDateTime(cDate: string) {
+    // console.log({cDate})
+    const dt = new Date(cDate)
+    const _dt_ = this.toLocale(dt)
+    if (_dt_) {
+      return (
+        [_dt_.getFullYear(), _dt_.getMonth() + 1, _dt_.getDate()].join('-') +
+        ' ' +
+        [_dt_.getHours(), _dt_.getMinutes()].join(':')
+      )
+    }
+    return ''
+    // console.log({dt, dts, _dt_})
+  }
+
+  static toLocale(date: Date): Date | null {
+    if (date) {
+      date.setMinutes(date.getMinutes() - date.getTimezoneOffset())
+
+      return date
+    }
+    return null
+  }
 }
