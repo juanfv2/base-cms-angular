@@ -11,7 +11,6 @@ import {JfStorageManagement} from '../../support/jf-storage-management'
 })
 export class SidebarComponent implements OnInit {
   project_name = configs.project_name
-  @Input() labels: any
   @Input() menus: any[] = []
 
   isActive = false

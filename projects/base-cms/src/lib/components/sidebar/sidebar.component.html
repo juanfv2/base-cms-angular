@@ -2,7 +2,7 @@
   <div class="logo">
     <a [routerLink]="['/dashboard']" class="simple-text logo-mini">
       <div class="logo-img">
-        <img src="{{ labels.misc.k.routes.backEnd.assets }}images/logo.png" class="img-fluid" alt="dashboard" />
+        <ng-content select="[imgLogo]"></ng-content>
       </div>
     </a>
     <a [routerLink]="['/dashboard']" class="simple-text logo-normal text-center"> {{ project_name }} </a>
