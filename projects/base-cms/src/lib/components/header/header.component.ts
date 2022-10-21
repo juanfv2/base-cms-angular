@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core'
 import {Location} from '@angular/common'
 import {Router} from '@angular/router'
 
-import {configs} from '../../environments/configs'
+import {k} from '../../environments/k'
 
 import {Permission, Role} from '../../resources/models'
 
@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
 
   isCollapsed = true
   hasPermission2edit = false
-  project_name = configs.project_name
+  project_name = k.project_name
   currentPage = ''
 
   constructor(
@@ -40,10 +40,10 @@ export class HeaderComponent implements OnInit {
 
     authService.currentUser.subscribe((u) => (this.currentUser = u))
     this.hasPermission2edit =
-      JfRequestOption.isAuthorized(`/${configs.routes.users}/edit`) ||
-      JfRequestOption.isAuthorized(`/${configs.routes.users}/show`)
+      JfRequestOption.isAuthorized(`/${k.routes.users}/edit`) ||
+      JfRequestOption.isAuthorized(`/${k.routes.users}/show`)
 
-    const s = +`${JfStorageManagement.getItem(configs.isSidebarVisible)}`
+    const s = +`${JfStorageManagement.getItem(k.isSidebarVisible)}`
     this.isSidebarVisible = s
   }
 
@@ -63,8 +63,8 @@ export class HeaderComponent implements OnInit {
     }
 
     JfStorageManagement.setItem(
-      configs.isSidebarVisible,
-      `${this.isSidebarVisible ? configs.isSidebarVisibleClose : configs.isSidebarVisibleOpen}`
+      k.isSidebarVisible,
+      `${this.isSidebarVisible ? k.isSidebarVisibleClose : k.isSidebarVisibleOpen}`
     )
   }
 
@@ -82,7 +82,7 @@ export class HeaderComponent implements OnInit {
     }, 500)
 
     html.classList.add('nav-open')
-    this.isSidebarVisible = configs.isSidebarVisibleOpen
+    this.isSidebarVisible = k.isSidebarVisibleOpen
   }
 
   sidebarClose() {
@@ -98,7 +98,7 @@ export class HeaderComponent implements OnInit {
       }, 500)
     }
     html.classList.remove('nav-open')
-    this.isSidebarVisible = configs.isSidebarVisibleClose
+    this.isSidebarVisible = k.isSidebarVisibleClose
   }
 
   getTitle() {
@@ -117,7 +117,7 @@ export class HeaderComponent implements OnInit {
       mTitle = item.name!
     }
 
-    this.currentPage = `${configs.project_name} - ${mTitle}`
+    this.currentPage = `${k.project_name} - ${mTitle}`
   }
 
   getMenuTitles() {
@@ -134,7 +134,7 @@ export class HeaderComponent implements OnInit {
     this.authService.logout().subscribe({
       next: (data) => {
         // remove user from local storage to log user out
-        this.messageService.success(configs.project_name, 'Ahora estás desconectado.')
+        this.messageService.success(k.project_name, 'Ahora estás desconectado.')
       },
       error: (error) => {
         console.log('HeaderComponent.onLogOut error', error)
@@ -152,8 +152,8 @@ export class HeaderComponent implements OnInit {
     // console.log('this.currentRole', this.currentRole);
     this.currentUser!.role = cRole
 
-    JfStorageManagement.setItem(configs.user, JSON.stringify(this.currentUser))
-    JfStorageManagement.setItem(configs.permissions, JSON.stringify(cRole.urlPermissions))
+    JfStorageManagement.setItem(k.user, JSON.stringify(this.currentUser))
+    JfStorageManagement.setItem(k.permissions, JSON.stringify(cRole.urlPermissions))
 
     this.authService.currentUser.next(this.currentUser!)
     this.getMenuTitles()

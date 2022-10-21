@@ -10,7 +10,7 @@ import {JfMessageService} from '../../services/jf-message.service'
 import {JfStorageManagement} from '../../support/jf-storage-management'
 import {JfApiRoute} from '../../support/jf-api-route'
 import {JfUtils} from '../../support/jf-utils'
-import {configs} from '../../environments/configs'
+import {k} from '../../environments/k'
 
 @Component({
   selector: 'base-cms-base-cms-list',
@@ -36,8 +36,8 @@ export class BaseCmsListComponent {
   responseList: JfResponseList<any> = new JfResponseList<any>(0, 0, [])
 
   modelSearch: any = {}
-  operatorOptions: any[] = configs.operatorOptions
-  conditionalOptions: any[] = configs.conditionalOptions
+  operatorOptions: any[] = k.operatorOptions
+  conditionalOptions: any[] = k.conditionalOptions
   searchFieldAdded: any[] = []
   queryFieldOptions: any[] = []
 
@@ -78,9 +78,9 @@ export class BaseCmsListComponent {
     this.crudService.deleteEntity(this.kRoute, id).subscribe(
       (resp: JfResponse) => {
         JfUtils.remove(this.responseList, itemToDelete)
-        this.messageService.info(configs.project_name, `${this.labels.role.ownName} Eliminado`)
+        this.messageService.info(k.project_name, `${this.labels.role.ownName} Eliminado`)
       },
-      (error) => this.messageService.danger(configs.project_name, error, this.labels.role.ownName)
+      (error) => this.messageService.danger(k.project_name, error, this.labels.role.ownName)
     )
   }
 
@@ -188,18 +188,18 @@ export class BaseCmsListComponent {
     this.csv.keys = csvColumns
     this.loading = true
     // console.log('resp.csv', this.csv);
-    this.crudService.updateEntity(configs.routes.misc.importCsv, this.csv).subscribe({
+    this.crudService.updateEntity(k.routes.misc.importCsv, this.csv).subscribe({
       next: (resp: JfResponse) => {
         this.loading = false
         // console.log('resp', resp);
         this.onLazyLoad()
-        this.messageService.success(configs.project_name, resp.data.updated + ' Guardados')
+        this.messageService.success(k.project_name, resp.data.updated + ' Guardados')
         this.csv = {}
       },
       error: (error: any) => {
         this.loading = false
         // console.log('error', error);
-        this.messageService.danger(configs.project_name, error)
+        this.messageService.danger(k.project_name, error)
         this.csv = {}
         this.csv.error = error
       },

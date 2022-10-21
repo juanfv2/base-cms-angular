@@ -1,5 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing'
-import {configs} from '../../environments/configs'
+import {k} from '../../environments/k'
 import {JfHasXFilePipe} from '../../pipes/jf-has-x-file.pipe'
 import {DBType, JfCondition} from '../../resources/classes'
 
@@ -20,7 +20,7 @@ describe('FileUploadComponent', () => {
     component = fixture.componentInstance
     component.labels = {
       misc: {
-        k: configs,
+        k: k,
         slug: new DBType('Slug', 'stores.slug', 'string'),
         csv: `images/admin/ic-csv.svg`,
         zip: `images/admin/ic-zip.svg`,

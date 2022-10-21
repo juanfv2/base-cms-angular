@@ -1,6 +1,6 @@
 import {SearchInputComponent} from '../components/search-input/search-input.component'
 
-import {configs} from '../environments/configs'
+import {k} from '../environments/k'
 import {JfResponseList, JfSearchCondition, JfCondition} from '../resources/classes'
 
 import {JfApiRoute} from './jf-api-route'
@@ -15,7 +15,7 @@ export class JfUtils {
     const rDevelop = r.dev ? `/${r.dev}` : ''
     const entityGlobalId = r.entityGlobalId
     const rCompanyName = r.cName
-    const r1 = `${configs.routes.frontEnd.root}${rCompanyName}/${entityGlobalId}${rDevelop}#/`
+    const r1 = `${k.routes.frontEnd.root}${rCompanyName}/${entityGlobalId}${rDevelop}#/`
     // console.log('r1', r1)
     return r1
   }

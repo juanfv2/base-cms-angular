@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 import {RouterTestingModule} from '@angular/router/testing'
-import {configs} from '../../environments/configs'
+import {k} from '../../environments/k'
 import {DBType, JfCondition} from '../../resources/classes'
 
 import {SidebarComponent} from './sidebar.component'
@@ -21,7 +21,7 @@ describe('SidebarComponent', () => {
     component = fixture.componentInstance
     component.labels = {
       misc: {
-        k: configs,
+        k: k,
         slug: new DBType('Slug', 'stores.slug', 'string'),
         csv: `images/admin/ic-csv.svg`,
         zip: `images/admin/ic-zip.svg`,

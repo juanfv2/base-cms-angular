@@ -1,4 +1,4 @@
-import {configs} from '../environments/configs'
+import {k} from '../environments/k'
 
 export class JfStorageManagement {
   static today() {
@@ -8,24 +8,24 @@ export class JfStorageManagement {
   static saveCountryInLocalStorage(): any {
     const paths = location.pathname.split('/')
 
-    const dev = paths[configs.path.dev] || ''
-    const cName = paths[configs.path.company] || '-'
-    const entityGlobalId = paths[configs.path.country] || 'sv'
+    const dev = paths[k.path.dev] || ''
+    const cName = paths[k.path.company] || '-'
+    const entityGlobalId = paths[k.path.country] || 'sv'
 
-    localStorage.setItem(`${configs.project_name}:${configs.entityGlobalId}`, entityGlobalId)
-    JfStorageManagement.setItem(configs.entityGlobalId, entityGlobalId)
-    JfStorageManagement.setItem(configs.dev, dev)
-    JfStorageManagement.setItem(configs.company_name, cName)
+    localStorage.setItem(`${k.project_name}:${k.entityGlobalId}`, entityGlobalId)
+    JfStorageManagement.setItem(k.entityGlobalId, entityGlobalId)
+    JfStorageManagement.setItem(k.dev, dev)
+    JfStorageManagement.setItem(k.company_name, cName)
 
     return {dev, entityGlobalId, cName}
   }
 
   static clearEnvironment(): void {
-    const entityGlobalId = `${JfStorageManagement.getItem(configs.entityGlobalId)}`
-    const isDev = `${JfStorageManagement.getItem(configs.dev)}`
-    const sideBar = `${JfStorageManagement.getItem(configs.isSidebarVisible)}`
-    const cName = `${JfStorageManagement.getItem(configs.company_name)}`
-    const c = `${JfStorageManagement.getItem(configs.company)}`
+    const entityGlobalId = `${JfStorageManagement.getItem(k.entityGlobalId)}`
+    const isDev = `${JfStorageManagement.getItem(k.dev)}`
+    const sideBar = `${JfStorageManagement.getItem(k.isSidebarVisible)}`
+    const cName = `${JfStorageManagement.getItem(k.company_name)}`
+    const c = `${JfStorageManagement.getItem(k.company)}`
 
     const keys = Object.keys(localStorage)
     // console.log('localStorage', localStorage)
@@ -33,22 +33,22 @@ export class JfStorageManagement {
 
     while (i--) {
       const key = keys[i]
-      if (key.indexOf(configs.project_name) > -1) {
+      if (key.indexOf(k.project_name) > -1) {
         // console.log('key', key)
         localStorage.removeItem(key)
       }
     }
 
-    localStorage.setItem(`${configs.project_name}:${configs.entityGlobalId}`, entityGlobalId)
-    JfStorageManagement.setItem(configs.entityGlobalId, entityGlobalId)
-    JfStorageManagement.setItem(configs.dev, isDev)
-    JfStorageManagement.setItem(configs.isSidebarVisible, sideBar)
-    JfStorageManagement.setItem(configs.company_name, cName)
-    JfStorageManagement.setItem(configs.company, c)
+    localStorage.setItem(`${k.project_name}:${k.entityGlobalId}`, entityGlobalId)
+    JfStorageManagement.setItem(k.entityGlobalId, entityGlobalId)
+    JfStorageManagement.setItem(k.dev, isDev)
+    JfStorageManagement.setItem(k.isSidebarVisible, sideBar)
+    JfStorageManagement.setItem(k.company_name, cName)
+    JfStorageManagement.setItem(k.company, c)
   }
   static currentKey(key: any): string {
-    const kkId = localStorage.getItem(`${configs.project_name}:${configs.entityGlobalId}`)
-    const kk = `${configs.project_name}:${kkId}:${JfStorageManagement.today()}:${key}`
+    const kkId = localStorage.getItem(`${k.project_name}:${k.entityGlobalId}`)
+    const kk = `${k.project_name}:${kkId}:${JfStorageManagement.today()}:${key}`
     return kk
   }
   static getItem(key: any): string | null {

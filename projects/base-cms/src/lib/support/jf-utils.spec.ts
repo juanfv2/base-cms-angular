@@ -1,4 +1,4 @@
-import {configs} from '../environments/configs'
+import {k} from '../environments/k'
 import {JfStorageManagement} from './jf-storage-management'
 import {JfUtils} from './jf-utils'
 

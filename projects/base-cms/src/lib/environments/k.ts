@@ -1,6 +1,6 @@
 import {routes} from '../resources/resources'
 
-export const configs = {
+export const k: any = {
   project_name: 'project_name',
   path: {
     root: 1,
@@ -35,6 +35,8 @@ export const configs = {
   dev: 'dev',
   sentry: 'https://b3fd2b0b5f8b4f5db584557c97146692@sentry.io/1283879',
   authorizationK: 'Authorization',
+  versionK: 'r-version',
+  versionV: 'd-2022_10_21T21_02_27_002Z',
   suggestions: 'suggestions.',
   registers: 'registers.',
   operatorOptions: [

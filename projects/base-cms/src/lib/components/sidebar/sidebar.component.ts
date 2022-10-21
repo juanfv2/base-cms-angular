@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
 import {Router} from '@angular/router'
 import {BehaviorSubject, Observable} from 'rxjs'
-import {configs} from '../../environments/configs'
+import {k} from '../../environments/k'
 import {JfStorageManagement} from '../../support/jf-storage-management'
 
 @Component({
@@ -10,7 +10,7 @@ import {JfStorageManagement} from '../../support/jf-storage-management'
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
-  project_name = configs.project_name
+  project_name = k.project_name
   @Input() menus: any[] = []
 
   isActive = false
@@ -23,13 +23,13 @@ export class SidebarComponent implements OnInit {
   private readonly menuSelectedK = 'menuSelected'
   private readonly subMenuOpenedK = 'subMenuOpened'
 
-  isSideBarVisible = new BehaviorSubject(configs.isSidebarVisibleOpen)
+  isSideBarVisible = new BehaviorSubject(k.isSidebarVisibleOpen)
 
   constructor(public router: Router) {
     this.menuSelected = JfStorageManagement.getItem(this.menuSelectedK) || 'dashboard'
     this.subMenuOpened = JfStorageManagement.getItem(this.subMenuOpenedK) || '-'
 
-    const sideBarVisible = +`${JfStorageManagement.getItem(configs.isSidebarVisible)}`
+    const sideBarVisible = +`${JfStorageManagement.getItem(k.isSidebarVisible)}`
 
     this.isSideBarVisible.next(sideBarVisible)
   }
@@ -48,7 +48,7 @@ export class SidebarComponent implements OnInit {
     this.router.navigate([urlStr])
     JfStorageManagement.setItem(this.menuSelectedK, this.menuSelected)
 
-    this.setSidebarVisible(configs.isSidebarVisibleClose)
+    this.setSidebarVisible(k.isSidebarVisibleClose)
   }
 
   showSubMenu(element: any) {
@@ -67,8 +67,8 @@ export class SidebarComponent implements OnInit {
   setSidebarVisible(isSidebarVisible: number): void {
     this.isSideBarVisible.next(isSidebarVisible)
     JfStorageManagement.setItem(
-      configs.isSidebarVisible,
-      `${isSidebarVisible ? configs.isSidebarVisibleClose : configs.isSidebarVisibleOpen}`
+      k.isSidebarVisible,
+      `${isSidebarVisible ? k.isSidebarVisibleClose : k.isSidebarVisibleOpen}`
     )
   }
 }

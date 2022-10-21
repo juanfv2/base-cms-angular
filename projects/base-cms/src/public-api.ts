@@ -56,6 +56,6 @@ export * from './lib/support/jf-api-route'
 export * from './lib/support/jf-request-option'
 export * from './lib/support/jf-storage-management'
 
-export * from './lib/environments/configs'
+export * from './lib/environments/k'
 
 export * from './lib/base-cms.module'

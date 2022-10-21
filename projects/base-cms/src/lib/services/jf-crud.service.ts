@@ -2,7 +2,7 @@ import {HttpClient, HttpParams} from '@angular/common/http'
 import {Injectable} from '@angular/core'
 import {Observable} from 'rxjs'
 
-import {configs} from '../environments/configs'
+import {k} from '../environments/k'
 import {JfSort} from '../resources/classes'
 
 import {JfRequestOption} from '../support/jf-request-option'
@@ -11,7 +11,7 @@ import {JfRequestOption} from '../support/jf-request-option'
   providedIn: 'root',
 })
 export class JfCrudService {
-  private readonly api = configs.routes.backEnd.root + configs.routes.api
+  private readonly api = k.routes.backEnd.root + k.routes.api
 
   constructor(private http: HttpClient) {}
 
