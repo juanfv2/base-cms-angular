@@ -40,7 +40,7 @@ export const routes = {
 }
 
 export const jfTemplateAutoComplete = `
-<div class="form-group">
+<div class="form-group position-relative">
 <label for="{{ id }}-role-typeahead">{{ name }}:</label>
 <ng-template #rt let-r="result" let-t="term"> {{ formatter | jfFormatItem: r }} </ng-template>
 <div class="input-group">
