@@ -67,7 +67,7 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
   url2showInSquare: any = ''
   hasBaseDropZoneOver?: boolean
   imgLoading = ''
-  uploader = new FileUploader({})
+  uploader = new FileUploader({} as FileUploaderOptions)
 
   constructor(private messageService: JfMessageService) {}
 
