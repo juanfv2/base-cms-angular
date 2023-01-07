@@ -12,8 +12,7 @@ import {Role} from '../resources/models'
   providedIn: 'root',
 })
 export class JfAuthService {
-  private readonly api = k.routes.backEnd.root + k.routes.api
-
+  private readonly api = k.routes.backEnd.rootServer + k.routes.api
   currentUser = new BehaviorSubject({} as any)
   currentEntityGlobal: any
 
