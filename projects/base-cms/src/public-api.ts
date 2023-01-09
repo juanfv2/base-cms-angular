@@ -20,7 +20,7 @@ export * from './lib/components/base-cms-auto-complete/base-cms-auto-complete.co
 /* directives                                                                 */
 /* -------------------------------------------------------------------------- */
 export * from './lib/directives/jf-add-component.directive'
-export * from './lib/directives/jf-multi-short-meta.directive'
+export * from './lib/directives/jf-multi-sort-meta.directive'
 
 /* -------------------------------------------------------------------------- */
 /* pipes                                                                      */

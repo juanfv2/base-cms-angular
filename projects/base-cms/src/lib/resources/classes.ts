@@ -1,18 +1,31 @@
 export class DBType {
-  constructor(
-    public label: string,
-    public field?: string,
-    public type?: string,
-    public allowExport = true,
-    public allowImport = true,
-    public table?: string,
-    public allowNull?: string,
-    public key?: string,
-    public defaultValue?: any,
-    public extra?: string
-  ) {}
-}
+  public name = ''
+  public label = ''
+  public field = ''
+  public type = ''
+  public allowExport = true
+  public allowImport = true
+  public table?: string
+  public extra?: any
+  public allowNull?: string
+  public key?: string
+  public defaultValue?: any
+  public alias = ''
+  public sorting = true
 
+  constructor(public me?: DBType) {
+    Object.assign(this, this.me)
+    delete this.me
+    // console.log({dbtype: this})
+  }
+
+  getFieldName() {
+    const _field = this.field?.split('.') || ['']
+    this.name = _field.length > 1 ? _field[1] : _field[0]
+    // console.log({field: this.field})
+    return this.name
+  }
+}
 export class JfCondition {
   constructor(public c: string, public v?: any) {}
 }

@@ -18,7 +18,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap'
 
 import {JfAddComponentDirective} from './directives/jf-add-component.directive'
-import {JfMultiSortMetaDirective} from './directives/jf-multi-short-meta.directive'
+import {JfMultiSortMetaDirective} from './directives/jf-multi-sort-meta.directive'
 
 import {JfSafePipe} from './pipes/jf-safe.pipe'
 import {JfHasXFilePipe} from './pipes/jf-has-x-file.pipe'

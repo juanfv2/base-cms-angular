@@ -2,7 +2,7 @@ import {Component, Input, ViewChild} from '@angular/core'
 import {Router} from '@angular/router'
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap'
 
-import {JfResponseList, JfSearchCondition, JfSort, JfCondition, JfResponse} from '../../resources/classes'
+import {JfResponseList, JfSearchCondition, JfCondition, JfResponse} from '../../resources/classes'
 import {JfAddComponentDirective} from '../../directives/jf-add-component.directive'
 import {MessageModalComponent} from '../message-modal/message-modal.component'
 import {JfCrudService} from '../../services/jf-crud.service'
@@ -80,7 +80,7 @@ export class BaseCmsListComponent {
         JfUtils.remove(this.responseList, itemToDelete)
         this.messageService.info(k.project_name, `${this.labels.role.ownName} Eliminado`)
       },
-      (error) => this.messageService.danger(k.project_name, error, this.labels.role.ownName)
+      (error: any) => this.messageService.danger(k.project_name, error, this.labels.role.ownName)
     )
   }
 
@@ -108,13 +108,13 @@ export class BaseCmsListComponent {
     modalRef.componentInstance.message = `¿Desea eliminar ${this.labels.user.ownName} # ${item2delete.id}?`
     modalRef.componentInstance.withOk = true
     modalRef.result
-      .then((result) => {
+      .then((result: any) => {
         // console.log('result', result);
         if (result === 'ok') {
           this.deleteItem(item2delete)
         }
       })
-      .catch((error) => {
+      .catch((error: any) => {
         // console.log('error', error);
       })
   }
@@ -141,38 +141,6 @@ export class BaseCmsListComponent {
       this.modelSearch.lazyLoadEvent.first = 1
       this.onLazyLoad()
     }
-  }
-
-  /**
-   * de  0 pasa a -1
-   * de -1 pasa a  1
-   * de  1 pasa a  0
-   */
-  onSort(e: JfSort): void {
-    // console.log('e', e)
-
-    if (!this.modelSearch.lazyLoadEvent.sorts) {
-      this.modelSearch.lazyLoadEvent.sorts = []
-    }
-
-    switch (e.order) {
-      case 0:
-        this.modelSearch.lazyLoadEvent.sorts = this.modelSearch.lazyLoadEvent.sorts.filter(
-          (s: JfSort) => s.field !== e.field
-        )
-        break
-
-      default:
-        const s = this.modelSearch.lazyLoadEvent.sorts.find((s: JfSort) => s.field === e.field)
-
-        if (s) {
-          s.order = e.order
-        } else {
-          this.modelSearch.lazyLoadEvent.sorts.push(e)
-        }
-        break
-    }
-    this.onLazyLoad()
   }
 
   massiveInsert(jCondition: JfCondition, modelLabels: any): void {
