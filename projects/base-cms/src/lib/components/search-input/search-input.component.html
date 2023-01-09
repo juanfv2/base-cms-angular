@@ -3,7 +3,7 @@
   <div class="col-12 col-md-3">
     <div class="form-group">
       <select class="form-control" [(ngModel)]="condition.field" [compareWith]="compareFn">
-        <option *ngFor="let xField of queryFieldOptions" [ngValue]="xField">{{ xField?.label }}</option>
+        <option *ngFor="let xField of fieldsSearchable" [ngValue]="xField">{{ xField?.label }}</option>
       </select>
     </div>
   </div>

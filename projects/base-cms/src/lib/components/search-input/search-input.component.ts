@@ -6,7 +6,7 @@ import {Component, Input} from '@angular/core'
   styleUrls: ['./search-input.component.scss'],
 })
 export class SearchInputComponent {
-  @Input() queryFieldOptions?: any[]
+  @Input() fieldsSearchable?: any[]
   @Input() conditionalOptions?: any[]
   @Input() operatorOptions?: any[]
   @Input() modelSearch: any = {}

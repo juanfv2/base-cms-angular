@@ -39,7 +39,8 @@ export class BaseCmsListComponent {
   operatorOptions: any[] = k.operatorOptions
   conditionalOptions: any[] = k.conditionalOptions
   searchFieldAdded: any[] = []
-  queryFieldOptions: any[] = []
+  fieldsSearchable: any[] = []
+  fieldsInList: any[] = []
 
   public router!: Router
   public modalService!: NgbModal

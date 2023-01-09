@@ -106,7 +106,7 @@ export class JfUtils {
 
     if (!condition) {
       condition = new JfSearchCondition(condStr)
-      condition.field = pComponent.queryFieldOptions[0]
+      condition.field = pComponent.fieldsSearchable[0]
 
       if (!pComponent.modelSearch.conditions) {
         pComponent.modelSearch.conditions = []
@@ -117,7 +117,7 @@ export class JfUtils {
     searchItem.condition = condition
     searchItem.operatorOptions = pComponent.operatorOptions
     searchItem.conditionalOptions = pComponent.conditionalOptions
-    searchItem.queryFieldOptions = pComponent.queryFieldOptions
+    searchItem.fieldsSearchable = pComponent.fieldsSearchable
 
     searchItem.modelSearch = pComponent.modelSearch
     searchItem.mRef = componentRef
