@@ -25,6 +25,7 @@ export class BaseCmsListComponent {
 
   itemCurrent?: any
   labels: any
+  label: any
   csv: any
   loading = false
   hasPermission2new = false
@@ -79,9 +80,9 @@ export class BaseCmsListComponent {
     this.crudService.deleteEntity(this.kRoute, id).subscribe(
       (resp: JfResponse) => {
         JfUtils.remove(this.responseList, itemToDelete)
-        this.messageService.info(k.project_name, `${this.labels.role.ownName} Eliminado`)
+        this.messageService.info(k.project_name, `${this.label.ownName} Eliminado`)
       },
-      (error: any) => this.messageService.danger(k.project_name, error, this.labels.role.ownName)
+      (error: any) => this.messageService.danger(k.project_name, error, this.label.ownName)
     )
   }
 
@@ -106,7 +107,7 @@ export class BaseCmsListComponent {
   showDeleteDialog(item2delete: any): void {
     const modalRef = this.modalService.open(MessageModalComponent)
     modalRef.componentInstance.header = 'Confirmación'
-    modalRef.componentInstance.message = `¿Desea eliminar ${this.labels.user.ownName} # ${item2delete.id}?`
+    modalRef.componentInstance.message = `¿Desea eliminar ${this.label.ownName} # ${item2delete.id}?`
     modalRef.componentInstance.withOk = true
     modalRef.result
       .then((result: any) => {

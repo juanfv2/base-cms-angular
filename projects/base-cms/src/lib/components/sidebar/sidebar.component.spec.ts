@@ -19,24 +19,6 @@ describe('SidebarComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SidebarComponent)
     component = fixture.componentInstance
-    component.labels = {
-      misc: {
-        k: k,
-        slug: new DBType('Slug', 'stores.slug', 'string'),
-        csv: `images/admin/ic-csv.svg`,
-        zip: `images/admin/ic-zip.svg`,
-        pdf: `images/admin/ic-pdf.svg`,
-        upload: `images/admin/ic-upload.svg`,
-        loading: `images/admin/ic-loading.svg`,
-        pageLimit: [
-          new JfCondition('5', 5),
-          new JfCondition('10', 10),
-          new JfCondition('50', 50),
-          new JfCondition('100', 100),
-          new JfCondition('Todos', -1),
-        ],
-      },
-    }
     fixture.detectChanges()
   })
 
