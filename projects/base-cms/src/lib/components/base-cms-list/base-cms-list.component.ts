@@ -24,8 +24,8 @@ export class BaseCmsListComponent {
   @Input() isSubComponent = false
 
   itemCurrent?: any
+  itemLabels: any
   labels: any
-  label: any
   csv: any
   loading = false
   hasPermission2new = false
@@ -80,9 +80,9 @@ export class BaseCmsListComponent {
     this.crudService.deleteEntity(this.kRoute, id).subscribe(
       (resp: JfResponse) => {
         JfUtils.remove(this.responseList, itemToDelete)
-        this.messageService.info(k.project_name, `${this.label.ownName} Eliminado`)
+        this.messageService.info(k.project_name, `${this.itemLabels.ownName} Eliminado`)
       },
-      (error: any) => this.messageService.danger(k.project_name, error, this.label.ownName)
+      (error: any) => this.messageService.danger(k.project_name, error, this.itemLabels.ownName)
     )
   }
 
@@ -107,7 +107,7 @@ export class BaseCmsListComponent {
   showDeleteDialog(item2delete: any): void {
     const modalRef = this.modalService.open(MessageModalComponent)
     modalRef.componentInstance.header = 'Confirmación'
-    modalRef.componentInstance.message = `¿Desea eliminar ${this.label.ownName} # ${item2delete.id}?`
+    modalRef.componentInstance.message = `¿Desea eliminar ${this.itemLabels.ownName} # ${item2delete.id}?`
     modalRef.componentInstance.withOk = true
     modalRef.result
       .then((result: any) => {
@@ -145,13 +145,13 @@ export class BaseCmsListComponent {
     }
   }
 
-  massiveInsert(jCondition: JfCondition, modelLabels: any): void {
+  massiveInsert(jCondition: JfCondition): void {
     // console.log('jCondition', jCondition);
-    const csvColumns: any = JfUtils.csvColumns(modelLabels, true)
+    const csvColumns: any = JfUtils.csvColumns(this.itemLabels, true)
     this.csv = {}
     this.csv.cp = this.mApi.store()
-    this.csv.table = modelLabels.tableName
-    this.csv.primaryKeyName = modelLabels.tablePK
+    this.csv.table = this.itemLabels.tableName
+    this.csv.primaryKeyName = this.itemLabels.tablePK
     this.csv.massiveInsert = jCondition.v.name
     this.csv.massiveQueryFieldName = jCondition.c
     this.csv.massiveQueryFileName = jCondition.v.name
@@ -169,9 +169,43 @@ export class BaseCmsListComponent {
       error: (error: any) => {
         this.loading = false
         // console.log('error', error);
-        this.messageService.danger(k.project_name, error)
+        this.messageService.danger(k.project_name, error, this.itemLabels.ownName)
         this.csv = {}
         this.csv.error = error
+      },
+    })
+  }
+
+  onLazyLoadExport(strAction: string) {
+    const csvColumns: any = JfUtils.csvColumns(this.itemLabels)
+    this.modelSearch.lazyLoadEvent.additional.push(new JfCondition('action', strAction))
+    this.modelSearch.lazyLoadEvent.additional.push(new JfCondition('title', this.itemLabels.ownNamePlural))
+    this.modelSearch.lazyLoadEvent.additional.push(new JfCondition('fields', JSON.stringify(csvColumns)))
+    this.crudService.export(this.kRoute, this.modelSearch.lazyLoadEvent).subscribe({
+      next: (resp: any) => {
+        this.loading = false
+        JfUtils.downloadFile(resp, this.itemLabels.ownNamePlural)
+      },
+      error: (error: any) => {
+        this.loading = false
+        this.messageService.danger(k.project_name, error, this.itemLabels.ownName)
+      }
+    })
+    this.modelSearch.lazyLoadEvent.additional = []
+  }
+
+  onLazyLoadList(mSearch: any) {
+    this.crudService.getPage(this.kRoute, this.modelSearch.lazyLoadEvent).subscribe({
+      next: (resp: JfResponse) => {
+        this.loading = false
+        this.responseList = resp.data
+        if (!this.isSubComponent) {
+          JfStorageManagement.setItem(this.kConditions, mSearch)
+        }
+      },
+      error: (error: any) => {
+        this.loading = false
+        this.messageService.danger(k.project_name, error, this.itemLabels.ownName)
       },
     })
   }
