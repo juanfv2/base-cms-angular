@@ -11,9 +11,7 @@ describe('BaseCmsListComponent', () => {
       declarations: [ BaseCmsListComponent ]
     })
     .compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(BaseCmsListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -21,9 +21,7 @@ describe('ToastContainerComponent', () => {
       providers: [{provide: JfMessageService, useValue: messageServiceStub}],
     }).compileComponents()
     // messageService = TestBed.inject(JfMessageService)
-  })
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(ToastContainerComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
