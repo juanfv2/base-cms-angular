@@ -41,17 +41,17 @@ export const routes = {
 
 export const jfTemplateAutoComplete = `
 <div class="form-group position-relative">
-<label for="{{ id }}-role-typeahead">{{ name }}:</label>
+<label for="{{ acId }}-entity-typeahead">{{ acName }}:</label>
 <ng-template #rt let-r="result" let-t="term"> {{ formatter | jfFormatItem: r }} </ng-template>
 <div class="input-group">
 <input
   type="text"
   class="form-control"
-  id="{{ id }}-role-typeahead"
-  name="{{ id }}-role-typeahead"
+  id="{{ acId }}-entity-typeahead"
+  name="{{ acId }}-entity-typeahead"
   [class.bad-value]="searchFailed"
   [placeholder]="'Escriba para filtrar...'"
-  [disabled]="disabled"
+  [disabled]="acDisabled"
   [editable]="false"
   [inputFormatter]="formatter"
   [resultTemplate]="rt"
@@ -65,7 +65,7 @@ export const jfTemplateAutoComplete = `
 <button
   title="Limpiar"
   class="btn btn-outline-danger m-0"
-  *ngIf="value && !disabled"
+  *ngIf="value && !acDisabled"
   (click)="actClear()"
   type="button"
 >

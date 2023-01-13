@@ -16,10 +16,10 @@ export class BaseCmsAutoCompleteComponent {
 
   @Output() oSelected = new EventEmitter<any>()
 
-  @Input() disabled = false
-  @Input() multiple = false
-  @Input() id = ''
-  @Input() name = ''
+  @Input() acDisabled = false
+  @Input() acMultiple = false
+  @Input() acId = ''
+  @Input() acName = ''
   @Input() currentPage = ''
   @Input() selectable: any[] = []
   @Input() avoidable: any[] = []
@@ -99,7 +99,7 @@ export class BaseCmsAutoCompleteComponent {
   formatter = (x: any) => `${x.name || ''}`
 
   select(e: any): void {
-    if (this.multiple) {
+    if (this.acMultiple) {
       if (e && e.preventDefault) {
         e.preventDefault()
         setTimeout(() => {

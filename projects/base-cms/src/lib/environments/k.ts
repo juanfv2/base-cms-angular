@@ -33,7 +33,7 @@ export const k: any = {
   canReceiveNotifications: '/reports/files',
 
   dev: 'dev',
-  sentry: 'https://b3fd2b0b5f8b4f5db584557c97146692@sentry.io/1283879',
+  sentry: '',
   authorizationK: 'Authorization',
   versionK: 'r-version',
   versionV: 'd-2022_10_21T21_02_27_002Z',
