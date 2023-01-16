@@ -67,7 +67,7 @@
         </div>
         <!-- ***** ***** ***** [date-time] ***** ***** ***** -->
         <div *ngSwitchCase="'boolean'">
-          <div class="d-flex">
+          <div class="d-flex p-1">
             <label for="condition-value-boolean" class="switch">
               <input
                 id="condition-value-boolean"
@@ -78,7 +78,7 @@
               />
               <span class="slider round"></span>
             </label>
-            <span class="p-1">{{ condition.disabled ? 'Activo' : 'Desactivo' }}</span>
+            <span class="p-1">{{ condition.value ? 'Si' : 'No' }}</span>
           </div>
         </div>
         <div *ngSwitchDefault>
