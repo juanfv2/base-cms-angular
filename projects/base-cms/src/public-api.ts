@@ -38,6 +38,7 @@ export * from './lib/services/jf-auth.guard'
 export * from './lib/services/jf-auth.service'
 export * from './lib/services/jf-crud.service'
 export * from './lib/services/jf-message.service'
+export * from './lib/services/jf-error-handler.service'
 
 /* -------------------------------------------------------------------------- */
 /* resources                                                                  */
