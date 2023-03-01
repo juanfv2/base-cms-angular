@@ -15,7 +15,7 @@ export class JfUtils {
     const rDevelop = r.dev ? `/${r.dev}` : ''
     const entityGlobalId = r.entityGlobalId
     const rCompanyName = r.cName
-    const r1 = `${k.routes.frontEnd.root}${rCompanyName}/${entityGlobalId}${rDevelop}#/`
+    const r1 = `${k.routes.frontEnd.root}${rCompanyName}/${entityGlobalId}${rDevelop}/`
     // console.log('r1', r1)
     return r1
   }

@@ -51,7 +51,11 @@ export class JfRequestOption {
     const re = /[0-9]+/
     const str = 'show'
     const tempUrl = realUrl.replace(re, str)
-    const tempUrlSplitted = tempUrl.split('/')
+    const tempUrl0 = tempUrl.split('#')
+    const tempUrl1 = tempUrl0.length > 1 ? tempUrl0[1] : tempUrl0[0]
+    const tempUrlSplitted = tempUrl1.split('/')
+    // console.log('tempUrl0', JSON.stringify(tempUrl0))
+    // console.log('tempUrlSplitted', JSON.stringify(tempUrlSplitted))
 
     const base = tempUrlSplitted[1] || ''
     const section = tempUrlSplitted[2] ? `/${tempUrlSplitted[2]}` : ''
@@ -60,13 +64,13 @@ export class JfRequestOption {
     const indexOf = permissions.indexOf(evalUrl)
     const hasAuthorization = indexOf > -1
 
-    // console.log('            base', `"${base}"`);
-    // console.log('         section', `"${section}"`);
-    // console.log('         indexOf', `"${indexOf}"`);
-    // console.log('         tempUrl', `"${tempUrl}"`);
-    // console.log('         evalUrl', `"${evalUrl}"`);
-    // console.log('         realUrl', `"${realUrl}"`);
-    // console.log('hasAuthorization', hasAuthorization);
+    // console.log('            base', `"${base}"`)
+    // console.log('         section', `"${section}"`)
+    // console.log('         indexOf', `"${indexOf}"`)
+    // console.log('         tempUrl', `"${tempUrl}"`)
+    // console.log('         realUrl', `"${realUrl}"`)
+    // console.log('         evalUrl', `"${evalUrl}"`)
+    // console.log('hasAuthorization', hasAuthorization)
     // /\\ //\\ console.log('hasAuthorization', JSON.stringify(permissions));
 
     return hasAuthorization
