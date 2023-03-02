@@ -9,6 +9,7 @@ export * from './lib/components/not-found/not-found.component'
 export * from './lib/components/file-upload/file-upload.component'
 export * from './lib/components/search-input/search-input.component'
 export * from './lib/components/many-to-many/many-to-many.component'
+export * from './lib/components/generic-table/generic-table.component'
 export * from './lib/components/base-cms-list/base-cms-list.component'
 export * from './lib/components/message-modal/message-modal.component'
 export * from './lib/components/toast-container/toast-container.component'
@@ -19,6 +20,8 @@ export * from './lib/components/base-cms-auto-complete/base-cms-auto-complete.co
 /* -------------------------------------------------------------------------- */
 /* directives                                                                 */
 /* -------------------------------------------------------------------------- */
+export * from './lib/directives/sticky.directive'
+export * from './lib/directives/sticky-table.directive'
 export * from './lib/directives/jf-add-component.directive'
 export * from './lib/directives/jf-multi-sort-meta.directive'
 

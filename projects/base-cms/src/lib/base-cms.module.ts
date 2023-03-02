@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common'
 import {FormsModule} from '@angular/forms'
 import {RouterModule} from '@angular/router'
 import {HttpClientModule} from '@angular/common/http'
+import {DragDropModule} from '@angular/cdk/drag-drop'
 
 import {FileUploadModule} from 'ng2-file-upload'
 import {OwlDateTimeModule, OwlNativeDateTimeModule, OwlDateTimeIntl} from 'ng-pick-datetime-ex'
@@ -15,8 +16,11 @@ import {
   NgbToastModule,
   NgbTooltipModule,
   NgbTypeaheadModule,
+  NgbPaginationModule,
 } from '@ng-bootstrap/ng-bootstrap'
 
+import {StickyDirective} from './directives/sticky.directive'
+import {StickyTableDirective} from './directives/sticky-table.directive'
 import {JfAddComponentDirective} from './directives/jf-add-component.directive'
 import {JfMultiSortMetaDirective} from './directives/jf-multi-sort-meta.directive'
 
@@ -37,52 +41,37 @@ import {FileUploadComponent} from './components/file-upload/file-upload.componen
 import {MessageModalComponent} from './components/message-modal/message-modal.component'
 import {BaseCmsListComponent} from './components/base-cms-list/base-cms-list.component'
 import {ManyToManyComponent} from './components/many-to-many/many-to-many.component'
+import {GenericTableComponent} from './components/generic-table/generic-table.component'
+
+const _components = [
+  StickyDirective,
+  StickyTableDirective,
+  JfAddComponentDirective,
+  JfMultiSortMetaDirective,
+
+  JfSafePipe,
+  JfHasXFilePipe,
+  JfFormatItemPipe,
+
+  HeaderComponent,
+  FooterComponent,
+  SidebarComponent,
+  NotFoundComponent,
+  FileUploadComponent,
+  ManyToManyComponent,
+  SearchInputComponent,
+  GenericTableComponent,
+  BaseCmsListComponent,
+  MessageModalComponent,
+  ToastContainerComponent,
+  SpinnerLoadingComponent,
+  SpinnerSearchingComponent,
+  BaseCmsAutoCompleteComponent,
+]
 
 @NgModule({
-  declarations: [
-    JfAddComponentDirective,
-    JfMultiSortMetaDirective,
-
-    JfSafePipe,
-    JfHasXFilePipe,
-    JfFormatItemPipe,
-
-    HeaderComponent,
-    FooterComponent,
-    SidebarComponent,
-    NotFoundComponent,
-    FileUploadComponent,
-    ManyToManyComponent,
-    SearchInputComponent,
-    BaseCmsListComponent,
-    MessageModalComponent,
-    ToastContainerComponent,
-    SpinnerLoadingComponent,
-    SpinnerSearchingComponent,
-    BaseCmsAutoCompleteComponent,
-  ],
-  exports: [
-    JfAddComponentDirective,
-    JfMultiSortMetaDirective,
-
-    JfSafePipe,
-    JfHasXFilePipe,
-    JfFormatItemPipe,
-
-    HeaderComponent,
-    FooterComponent,
-    SidebarComponent,
-    NotFoundComponent,
-    FileUploadComponent,
-    ManyToManyComponent,
-    SearchInputComponent,
-    BaseCmsListComponent,
-    MessageModalComponent,
-    ToastContainerComponent,
-    SpinnerLoadingComponent,
-    SpinnerSearchingComponent,
-    BaseCmsAutoCompleteComponent,
-  ],
+  declarations: [..._components],
+  exports: [..._components],
   imports: [
     FormsModule,
     RouterModule,
@@ -97,6 +86,9 @@ import {ManyToManyComponent} from './components/many-to-many/many-to-many.compon
     NgbDropdownModule,
     NgbCollapseModule,
     NgbTypeaheadModule,
+    NgbPaginationModule,
+
+    DragDropModule,
 
     OwlDateTimeModule,
     OwlNativeDateTimeModule,

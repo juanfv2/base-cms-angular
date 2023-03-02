@@ -39,10 +39,10 @@ export class JfUtils {
     return new JfResponseList<any>(Math.ceil(arr.length / rows), arr.length, arr)
   }
 
-  static downloadFile(data: any, name: string, type: string = 'csv'): void {
+  static downloadFile(data: any, name: string, type: string = 'csv', wDate = true): void {
     const link = document.createElement('a')
     link.href = window.URL.createObjectURL(data)
-    link.download = name + '.' + type
+    link.download = name + (wDate ? `-${JfStorageManagement.today()}` : '') + '.' + type
     link.click()
   }
 

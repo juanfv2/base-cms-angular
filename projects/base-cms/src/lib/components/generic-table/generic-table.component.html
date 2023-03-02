@@ -1,0 +1,232 @@
+<div class="card">
+  <div class="card-header [onLazyLoad]">
+    <button
+      (click)="onLazyLoad()"
+      type="submit"
+      class="btn btn-primary m-1"
+      [disabled]="loading"
+      *ngIf="!isSubComponent"
+    >
+      Buscar
+    </button>
+    <button (click)="onAddNew()" type="button" class="btn btn-warning m-1" *ngIf="isSubComponent && hasPermission2new">
+      Crear {{ itemLabels?.ownName }}
+    </button>
+  </div>
+  <div class="card-header [clearFilters]">
+    <button (click)="clearFilters()" type="button" class="m-1 btn btn-link" *ngIf="!isSubComponent">
+      Limpiar filtros de búsqueda
+    </button>
+    <small class="m-1 float-end fw-light p-1">
+      {{ responseList?.totalElements | number }}
+    </small>
+  </div>
+  <div class="card-body position-relative [responseList?.content]" *ngIf="responseList?.content">
+    <div class="table-full-width t-responsive table-responsive">
+      <table jfStickyTable class="table table-xm table-striped table-hover table-bordered">
+        <thead class="text-primary text-nowrap">
+          <tr>
+            <th
+              *ngFor="let _field of modelSearch.fieldsSelected"
+              [jfMultiSortMeta]="_field"
+              [host]="this"
+              [jfSticky]="_field.fixed"
+              scope="col"
+            >
+              <div class="w-100 h-100" [class.border-end]="_field.fixed">
+                {{ _field.label }}
+              </div>
+            </th>
+            <th *ngIf="hasPermission2delete"></th>
+          </tr>
+        </thead>
+        <tbody class="text-nowrap">
+          <tr *ngFor="let model of responseList?.content">
+            <td *ngFor="let _field of modelSearch.fieldsSelected" [ngSwitch]="_field.type" [jfSticky]="_field.fixed">
+              <div class="w-100 h-100" [class.border-end]="_field.fixed">
+                <div class="d-none d-sm-block d-md-none fw-bold">
+                  {{ _field.label }}
+                </div>
+
+                <!-- ***** ***** ***** [pre-code] ***** ***** ***** -->
+                <ng-container *ngSwitchCase="'pre-code'">
+                  <pre><code>{{ model[_field.name] | json }}</code></pre>
+                </ng-container>
+                <!-- ***** ***** ***** [pre-code] ***** ***** ***** -->
+
+                <!-- ***** ***** ***** [custom] ***** ***** ***** -->
+                <ng-container *ngSwitchCase="'custom'">
+                  <ng-container *ngIf="!!model.customLabels[_field.name + '_label']">
+                    {{ model.customLabels[_field.name + '_label'] }}: <small>( {{ model[_field.name] }} )</small>
+                  </ng-container>
+                </ng-container>
+                <!-- ***** ***** ***** [custom] ***** ***** ***** -->
+
+                <!-- ***** ***** ***** [pk] ***** ***** ***** -->
+                <ng-container *ngSwitchCase="'pk'">
+                  <button
+                    (click)="onRowSelect(model, _field.field)"
+                    type="button"
+                    class="btn btn-info m-0 px-2 py-1 row-select-{{ _field.name }}-{{ model[_field.name] }}"
+                    title="Ver {{ itemLabels?.ownName }} {{ _field.label }}: {{ model[_field.name] }}"
+                    [disabled]="!hasPermission2show"
+                  >
+                    {{ model[_field.name] }}
+                  </button>
+                </ng-container>
+                <!-- ***** ***** ***** [pk] ***** ***** ***** -->
+
+                <!-- ***** ***** ***** [date] ***** ***** ***** -->
+                <ng-container *ngSwitchCase="'date'">
+                  {{ model[_field.name] | date : 'd/M/y' }}
+                </ng-container>
+                <!-- ***** ***** ***** [date] ***** ***** ***** -->
+
+                <!-- ***** ***** ***** [date-time] ***** ***** ***** -->
+                <ng-container *ngSwitchCase="'date-time'">
+                  {{ model[_field.name] | date : 'd/M/y, hh:mm a' }}
+                </ng-container>
+                <!-- ***** ***** ***** [date-time] ***** ***** ***** -->
+
+                <!-- ***** ***** ***** [boolean] ***** ***** ***** -->
+                <ng-container *ngSwitchCase="'boolean'">
+                  {{ model[_field.name] ? 'Si' : 'No' }}
+                </ng-container>
+                <!-- ***** ***** ***** [boolean] ***** ***** ***** -->
+
+                <!-- ***** ***** ***** [number] ***** ***** ***** -->
+                <ng-container *ngSwitchCase="'number'">
+                  {{ model[_field.name] }}
+                </ng-container>
+                <!-- ***** ***** ***** [number] ***** ***** ***** -->
+
+                <!-- ***** ***** ***** [default] ***** ***** ***** -->
+                <ng-container *ngSwitchDefault>
+                  {{ model[_field.name] }}
+                </ng-container>
+              </div>
+            </td>
+
+            <td *ngIf="hasPermission2delete">
+              <button
+                (click)="showDeleteDialog(model)"
+                type="button"
+                [title]="'Borrar ' + itemLabels?.ownName"
+                class="btn btn-sm btn-danger btn-round btn-icon btn-icon-mini btn-neutral"
+              >
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card-footer [export]">
+    <div class="row">
+      <div *ngIf="responseList?.totalElements" class="col-12 col-md-6">
+        <button
+          (click)="openScrollableContent(longContent)"
+          type="button"
+          class="btn btn-sm btn-round btn-icon text-white bg-primary p-0 m-1"
+        >
+          <i class="fas fa-cog"></i>
+        </button>
+        <ngb-pagination
+          [collectionSize]="responseList.totalElements"
+          [page]="modelSearch.lazyLoadEvent.first"
+          [pageSize]="modelSearch.lazyLoadEvent.rows"
+          size="sm"
+          [maxSize]="5"
+          [boundaryLinks]="true"
+          (pageChange)="changePage($event)"
+          class="d-inline-block"
+        ></ngb-pagination>
+        <div class="ui-paginator ui-dropdown d-inline-block">
+          <select
+            id="select-qty-table"
+            name="select-qty-table"
+            class="form-control m-1"
+            [(ngModel)]="modelSearch.lazyLoadEvent.rows"
+            (change)="changePageLimit($event)"
+          >
+            <option *ngFor="let q of labels.misc.pageLimit" [value]="q.v">{{ q.c }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <button (click)="onLazyLoad('export')" type="button" class="btn btn-primary m-1 w-100">
+          Exportar resultados
+        </button>
+        <base-cms-file-upload
+          [additionalParameter]="modelSearch.csv"
+          [labels]="labels"
+          id="model-importer"
+          class="h-100"
+          minHeight="100px"
+          label="Importar CSV"
+          name="massive-inserts"
+          [showPublicPath]="false"
+          [error]="csv?.error?.error"
+          (finish)="massiveInsert($event)"
+          [url2showStaticImage]="labels.misc.csv"
+          [value]="{id: -1, entity: itemLabels?.tableName, field: 'massive-inserts'}"
+          [allowedTypes]="['text/csv', 'application/vnd.ms-excel']"
+        ></base-cms-file-upload>
+      </div>
+    </div>
+    <base-cms-spinner-loading *ngIf="loading" class="m-4"></base-cms-spinner-loading>
+  </div>
+</div>
+
+<ng-template #longContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Personalización lista</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <table class="table table-xm table-striped table-hover table-bordered">
+      <thead class="text-primary text-nowrap">
+        <tr>
+          <th scope="col">Ver</th>
+          <th scope="col">Fijar</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Orden</th>
+        </tr>
+      </thead>
+      <tbody cdkDropList [cdkDropListData]="modelSearch.fields" (cdkDropListDropped)="drop($event)">
+        <tr
+          *ngFor="let _field of modelSearch.fields; let i = index"
+          cdkDrag
+          class="table-success text-center"
+          [class.table-light]="!_field.allowExport"
+        >
+          <td>
+            <input
+              class="form-check-input mx-1"
+              type="checkbox"
+              [name]="_field.field + '-selected'"
+              [(ngModel)]="_field.allowExport"
+            />
+          </td>
+          <td>
+            <input
+              class="form-check-input mx-1"
+              type="checkbox"
+              [name]="_field.field + '-fixed'"
+              [(ngModel)]="_field.fixed"
+            />
+          </td>
+          <th scope="row" class="text-start cursor-move">
+            {{ _field.label }}
+          </th>
+          <td>{{ i + 1 }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="saveFields()">Cerrar</button>
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cerrar</button>
+  </div>
+</ng-template>

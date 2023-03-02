@@ -2,7 +2,7 @@ import {Component, Input, ViewChild} from '@angular/core'
 import {Router} from '@angular/router'
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap'
 
-import {JfResponseList, JfSearchCondition, JfCondition, JfResponse} from '../../resources/classes'
+import {JfResponseList, JfSearchCondition, JfCondition, JfResponse, DBType} from '../../resources/classes'
 import {JfAddComponentDirective} from '../../directives/jf-add-component.directive'
 import {MessageModalComponent} from '../message-modal/message-modal.component'
 import {JfCrudService} from '../../services/jf-crud.service'
@@ -24,7 +24,7 @@ export class BaseCmsListComponent {
   @Input() isSubComponent = false
 
   itemCurrent?: any
-  itemLabels: any
+  itemLabels?: any
   labels: any
   csv: any
   loading = false
@@ -58,12 +58,12 @@ export class BaseCmsListComponent {
       this.itemCurrent = {id: item.id}
     } else {
       // todo: #if($entity.hasCompositePk())
-      const id = item.id
+      const id = item.v?.id
       this.router.navigate([this.kRoute, id])
     }
   }
 
-  addNew(): void {
+  onAddNew(m: any): void {
     if (this.isSubComponent) {
       if (this.itemCurrent) {
         this.itemCurrent.id = 'new'
@@ -75,11 +75,11 @@ export class BaseCmsListComponent {
     }
   }
 
-  deleteItem(itemToDelete: any): void {
-    const id = itemToDelete.id
+  onDelete(model: any): void {
+    const id = model.id
     this.crudService.deleteEntity(this.kRoute, id).subscribe(
       (resp: JfResponse) => {
-        JfUtils.remove(this.responseList, itemToDelete)
+        JfUtils.remove(this.responseList, model)
         this.messageService.info(k.project_name, `${this.itemLabels.ownName} Eliminado`)
       },
       (error: any) => this.messageService.danger(k.project_name, error, this.itemLabels.ownName)
@@ -91,7 +91,7 @@ export class BaseCmsListComponent {
     this.onLazyLoad()
   }
 
-  clearFilters(): void {
+  clearFilters(m: any): void {
     this.searchFieldAdded.forEach((f: any) => f.deleteField())
     this.searchFieldAdded = []
     JfStorageManagement.removeItem(this.kConditions)
@@ -102,23 +102,6 @@ export class BaseCmsListComponent {
   addFilter(condition?: JfSearchCondition): void {
     const c = JfUtils.addSearchField(this, condition)
     this.searchFieldAdded.push(c)
-  }
-
-  showDeleteDialog(item2delete: any): void {
-    const modalRef = this.modalService.open(MessageModalComponent)
-    modalRef.componentInstance.header = 'Confirmación'
-    modalRef.componentInstance.message = `¿Desea eliminar ${this.itemLabels.ownName} # ${item2delete.id}?`
-    modalRef.componentInstance.withOk = true
-    modalRef.result
-      .then((result: any) => {
-        // console.log('result', result);
-        if (result === 'ok') {
-          this.deleteItem(item2delete)
-        }
-      })
-      .catch((error: any) => {
-        // console.log('error', error);
-      })
   }
 
   changePage(event: any): void {
@@ -146,37 +129,28 @@ export class BaseCmsListComponent {
   }
 
   massiveInsert(jCondition: JfCondition): void {
-    // console.log('jCondition', jCondition);
-    const csvColumns: any = JfUtils.csvColumns(this.itemLabels, true)
-    this.csv = {}
-    this.csv.cp = this.mApi.store()
-    this.csv.table = this.itemLabels.tableName
-    this.csv.primaryKeyName = this.itemLabels.tablePK
-    this.csv.massiveInsert = jCondition.v.name
-    this.csv.massiveQueryFieldName = jCondition.c
-    this.csv.massiveQueryFileName = jCondition.v.name
-    this.csv.keys = csvColumns
-    this.loading = true
-    // console.log('resp.csv', this.csv);
-    this.crudService.updateEntity(k.routes.misc.importCsv, this.csv).subscribe({
-      next: (resp: JfResponse) => {
-        this.loading = false
-        // console.log('resp', resp);
-        this.onLazyLoad()
-        this.messageService.success(k.project_name, resp.data.updated + ' Guardados')
-        this.csv = {}
-      },
-      error: (error: any) => {
-        this.loading = false
-        // console.log('error', error);
-        this.messageService.danger(k.project_name, error, this.itemLabels.ownName)
-        this.csv = {}
-        this.csv.error = error
-      },
-    })
+    // console.log('jCondition', jCondition)
+    this.onLazyLoad()
+    this.messageService.success(k.project_name, jCondition.v?.updated + ' Guardados')
   }
 
-  onLazyLoadExport(strAction: string) {
+  currentFields(modelSearch: any): void {
+    const csvColumns: any = JfUtils.csvColumns(this.itemLabels, true)
+    const csv: any = {}
+    csv.cp = this.mApi.store()
+    csv.table = this.itemLabels.tableName
+    csv.primaryKeyName = this.itemLabels.tablePK
+    csv.cModel = modelSearch.cModel
+    csv.keys = csvColumns
+
+    modelSearch.csv = JSON.stringify(csv)
+
+    modelSearch.fields = this.fieldsInList
+
+    modelSearch.fieldsSelected = modelSearch.fields.filter((_f: DBType) => _f.allowExport)
+  }
+
+  onLazyLoadExport(strAction: string, fType = 'csv', fDate = true) {
     const csvColumns: any = JfUtils.csvColumns(this.itemLabels)
     this.modelSearch.lazyLoadEvent.additional.push(new JfCondition('action', strAction))
     this.modelSearch.lazyLoadEvent.additional.push(new JfCondition('title', this.itemLabels.ownNamePlural))
@@ -184,12 +158,12 @@ export class BaseCmsListComponent {
     this.crudService.export(this.kRoute, this.modelSearch.lazyLoadEvent).subscribe({
       next: (resp: any) => {
         this.loading = false
-        JfUtils.downloadFile(resp, this.itemLabels.ownNamePlural)
+        JfUtils.downloadFile(resp, this.itemLabels.ownNamePlural, fType, fDate)
       },
       error: (error: any) => {
         this.loading = false
         this.messageService.danger(k.project_name, error, this.itemLabels.ownName)
-      }
+      },
     })
     this.modelSearch.lazyLoadEvent.additional = []
   }
