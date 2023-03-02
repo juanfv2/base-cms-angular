@@ -141,9 +141,9 @@ export class BaseCmsListComponent {
     csv.table = this.itemLabels.tableName
     csv.primaryKeyName = this.itemLabels.tablePK
     csv.cModel = modelSearch.cModel
-    csv.keys = csvColumns
+    csv.keys = JSON.stringify(csvColumns)
 
-    modelSearch.csv = JSON.stringify(csv)
+    modelSearch.csv = csv
 
     modelSearch.fields = this.fieldsInList
 

@@ -159,6 +159,7 @@
           Exportar resultados
         </button>
         <base-cms-file-upload
+          *ngIf="loadCsv"
           [additionalParameter]="modelSearch.csv"
           [labels]="labels"
           id="model-importer"
