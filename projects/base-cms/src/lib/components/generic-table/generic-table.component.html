@@ -9,7 +9,7 @@
     >
       Buscar
     </button>
-    <button (click)="onAddNew()" type="button" class="btn btn-warning m-1" *ngIf="isSubComponent && hasPermission2new">
+    <button (click)="onAddNew()" type="button" class="btn btn-warning m-1" *ngIf="hasPermission2new">
       Crear {{ itemLabels?.ownName }}
     </button>
   </div>
