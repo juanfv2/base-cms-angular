@@ -137,7 +137,7 @@ export class BaseCmsListComponent {
   currentFields(modelSearch: any): void {
     const csvColumns: any = JfUtils.csvColumns(this.itemLabels, true)
     const csv: any = {}
-    csv.cp = this.mApi.store()
+    // csv.cp = this.mApi.store()
     csv.table = this.itemLabels.tableName
     csv.primaryKeyName = this.itemLabels.tablePK
     csv.cModel = modelSearch.cModel

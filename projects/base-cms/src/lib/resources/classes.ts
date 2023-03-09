@@ -55,7 +55,16 @@ export interface JfResponse {
   data: any
   message?: string
 }
-
+/**
+ *
+ * joins::
+ * joinType === '<' leftJoin, '>' rightJoin
+ * 'joinTable.joinTablePK.ownTableFK'
+ * 'joinTable.joinTablePK.ownTableFK.joinType'
+ * 'joinTable.joinTablePK.ownTable.ownTableFK'
+ * 'joinTable.joinTablePK.ownTable.ownTableFK.joinType'
+ * :::
+ */
 export class JfLazyLoadEvent {
   constructor(
     public rows: number = 10, // if -1 api returns without limit.
