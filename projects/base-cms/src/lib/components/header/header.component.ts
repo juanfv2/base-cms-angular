@@ -22,13 +22,13 @@ export class HeaderComponent implements OnInit {
   $layer: any
   currentUser: any
   toggleButton = false
-  private isSidebarVisible = 0
   private listTitles: Permission[] = []
 
   isCollapsed = true
   hasPermission2edit = false
   project_name = k.project_name
   currentPage = ''
+  sb: any
 
   constructor(
     private router: Router,
@@ -36,36 +36,35 @@ export class HeaderComponent implements OnInit {
     private authService: JfAuthService,
     private messageService: JfMessageService
   ) {
-    // console.log('constructor this.isSidebarVisible', this.isSidebarVisible);
-
-    authService.currentUser.subscribe((u) => (this.currentUser = u))
+    authService.currentUser.subscribe((u: any) => (this.currentUser = u))
     this.hasPermission2edit =
-      JfRequestOption.isAuthorized(`/${k.routes.users}/edit`) ||
-      JfRequestOption.isAuthorized(`/${k.routes.users}/show`)
+      JfRequestOption.isAuthorized(`/${k.routes.users}/edit`) || JfRequestOption.isAuthorized(`/${k.routes.users}/show`)
+  }
 
-    const s = +`${JfStorageManagement.getItem(k.isSidebarVisible)}`
-    this.isSidebarVisible = s
+  private setupSideBar() {
+    const val = JfStorageManagement.getItem(k.isSidebarVisible) || ''
+    this.sb = JSON.parse(val) || {isSideBarVisible: false}
   }
 
   ngOnInit() {
     this.getMenuTitles()
-    this.router.events.subscribe((event) => {
+    this.router.events.subscribe((event: any) => {
       this.getTitle()
+      this.setupSideBar()
       this.sidebarClose()
     })
   }
 
   sidebarToggle() {
-    if (this.isSidebarVisible) {
+    if (this.sb?.isSidebarVisible) {
       this.sidebarClose()
     } else {
       this.sidebarOpen()
     }
 
-    JfStorageManagement.setItem(
-      k.isSidebarVisible,
-      `${this.isSidebarVisible ? k.isSidebarVisibleClose : k.isSidebarVisibleOpen}`
-    )
+    const val_sb = JSON.stringify(this.sb)
+
+    JfStorageManagement.setItem(k.isSidebarVisible, val_sb)
   }
 
   sidebarOpen() {
@@ -82,7 +81,7 @@ export class HeaderComponent implements OnInit {
     }, 500)
 
     html.classList.add('nav-open')
-    this.isSidebarVisible = k.isSidebarVisibleOpen
+    this.sb.isSideBarVisible = true
   }
 
   sidebarClose() {
@@ -98,7 +97,7 @@ export class HeaderComponent implements OnInit {
       }, 500)
     }
     html.classList.remove('nav-open')
-    this.isSidebarVisible = k.isSidebarVisibleClose
+    this.sb.isSideBarVisible = false
   }
 
   getTitle() {

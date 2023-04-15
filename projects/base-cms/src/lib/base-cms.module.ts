@@ -30,6 +30,7 @@ import {JfFormatItemPipe} from './pipes/jf-format-item.pipe'
 
 import {HeaderComponent} from './components/header/header.component'
 import {FooterComponent} from './components/footer/footer.component'
+import {SubMenuComponent} from './components/sidebar/menu/sub-menu.component'
 import {SidebarComponent} from './components/sidebar/sidebar.component'
 import {NotFoundComponent} from './components/not-found/not-found.component'
 import {SearchInputComponent} from './components/search-input/search-input.component'
@@ -53,6 +54,7 @@ const _components = [
   JfHasXFilePipe,
   JfFormatItemPipe,
 
+  SubMenuComponent,
   HeaderComponent,
   FooterComponent,
   SidebarComponent,

@@ -11,12 +11,12 @@
     <ul class="nav">
       <li
         *ngFor="let menu of menus"
-        class="nav-item --{{ menu.urlFrontEnd }}--"
-        [class.active]="menu.urlFrontEnd === menuSelected"
+        class="nav-item --{{ menu.name }}--{{ (sideBarObj | async)?.menu }} "
+        [class.active]="menu.name === (sideBarObj | async)?.menu || menu.urlFrontEnd === linkSelected"
       >
         <a
-          (click)="menu.subMenus ? showSubMenu(menu.name) : navTo(menu.urlFrontEnd!)"
-          [disableTooltip]="!!(isClosedSideBar | async)"
+          (click)="menu.subMenus?.length ? showSubMenu(menu.name) : navTo(menu.urlFrontEnd!)"
+          [disableTooltip]="!!(sideBarObj | async)?.isSideBarVisible"
           [ngbTooltip]="menu.name"
           container="body"
           placement="right"
@@ -24,24 +24,13 @@
           <i class="fas fa-{{ menu.icon }}"></i>
           <p>{{ menu.name }}</p>
         </a>
-        <ul *ngIf="subMenuOpened === menu.name" class="nav" id="{{ menu.icon }}" role="menu">
-          <li
-            *ngFor="let subMenu of menu.subMenus"
-            class="nav-item --{{ subMenu.urlFrontEnd }}--"
-            [class.active]="subMenu.urlFrontEnd === menuSelected"
-          >
-            <a
-              (click)="navTo(subMenu.urlFrontEnd!)"
-              [disableTooltip]="!!(isClosedSideBar | async)"
-              [ngbTooltip]="subMenu.name"
-              container="body"
-              placement="right"
-            >
-              <i class="fas fa-{{ subMenu.icon }}"></i>
-              <p>{{ subMenu.name }}</p>
-            </a>
-          </li>
-        </ul>
+        <base-cms-sub-menu
+          *ngIf="menu.name === (sideBarObj | async)?.menu"
+          [menu]="menu"
+          [sideBarObj]="sideBarObj"
+          [linkSelected]="linkSelected"
+          (navToOutput)="navTo($event)"
+        ></base-cms-sub-menu>
       </li>
     </ul>
   </div>
