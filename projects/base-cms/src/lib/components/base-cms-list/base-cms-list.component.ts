@@ -53,12 +53,12 @@ export class BaseCmsListComponent {
   initSearch(): void {}
   onLazyLoad(strAction = ''): void {}
 
-  onRowSelect(item: any): void {
+  onRowSelect(item: JfCondition): void {
     if (this.isSubComponent) {
-      this.itemCurrent = {id: item.id}
+      this.itemCurrent = {id: item?.v?.id}
     } else {
       // todo: #if($entity.hasCompositePk())
-      const id = item.v?.id
+      const id = item?.v?.id
       this.router.navigate([this.kRoute, id])
     }
   }
@@ -77,13 +77,13 @@ export class BaseCmsListComponent {
 
   onDelete(model: any): void {
     const id = model.id
-    this.crudService.deleteEntity(this.kRoute, id).subscribe(
-      (resp: JfResponse) => {
+    this.crudService.deleteEntity(this.kRoute, id).subscribe({
+      next: (resp: JfResponse) => {
         JfUtils.remove(this.responseList, model)
         this.messageService.info(k.project_name, `${this.itemLabels.ownName} Eliminado`)
       },
-      (error: any) => this.messageService.danger(k.project_name, error, this.itemLabels.ownName)
-    )
+      error: (error: any) => this.messageService.danger(k.project_name, error, this.itemLabels.ownName),
+    })
   }
 
   saveFormClicked(event: any): void {
@@ -147,7 +147,7 @@ export class BaseCmsListComponent {
 
     modelSearch.fields = this.fieldsInList
 
-    modelSearch.fieldsSelected = modelSearch.fields.filter((_f: DBType) => _f.allowExport)
+    modelSearch.fieldsSelected = modelSearch.fields.filter((_f: DBType) => _f.allowInList)
   }
 
   onLazyLoadExport(strAction: string, fType = 'csv', fDate = true) {

@@ -5,6 +5,7 @@ export class DBType {
   public type = ''
   public allowExport = true
   public allowImport = true
+  public allowInList = true
   public table?: string
   public extra?: any
   public allowNull?: string

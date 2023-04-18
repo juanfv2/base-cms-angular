@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card shadow-none">
   <div class="card-header [onLazyLoad]">
     <button
       (click)="onLazyLoad()"
@@ -44,9 +44,15 @@
           <tr *ngFor="let model of responseList?.content">
             <td *ngFor="let _field of modelSearch.fieldsSelected" [ngSwitch]="_field.type" [jfSticky]="_field.fixed">
               <div class="w-100 h-100" [class.border-end]="_field.fixed">
-                <div class="d-none d-sm-block d-md-none fw-bold">
-                  {{ _field.label }}
-                </div>
+                <div class="d-none d-sm-block d-md-none fw-bold">{{ _field.label }} x</div>
+
+                <!-- ***** ***** ***** [pre-code] ***** ***** ***** -->
+                <ng-container *ngSwitchCase="'projection'">
+                  <ng-container
+                    *ngTemplateOutlet="templateRef; context: {pItem: model, pType: _field.name}"
+                  ></ng-container>
+                </ng-container>
+                <!-- ***** ***** ***** [pre-code] ***** ***** ***** -->
 
                 <!-- ***** ***** ***** [pre-code] ***** ***** ***** -->
                 <ng-container *ngSwitchCase="'pre-code'">

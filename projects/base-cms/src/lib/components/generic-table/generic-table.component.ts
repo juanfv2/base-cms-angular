@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core'
+import {Component, ContentChild, EventEmitter, Input, Output, TemplateRef} from '@angular/core'
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap'
 import {JfCondition, DBType} from '../../resources/classes'
 import {MessageModalComponent} from '../message-modal/message-modal.component'
@@ -27,6 +27,8 @@ export class GenericTableComponent {
   @Output() _onDelete = new EventEmitter<any>()
   @Output() _onClearFilters = new EventEmitter<any>()
   @Output() _onMassiveInsert = new EventEmitter<any>()
+
+  @ContentChild(TemplateRef) templateRef!: TemplateRef<any>
 
   constructor(private modalService: NgbModal) {}
 
