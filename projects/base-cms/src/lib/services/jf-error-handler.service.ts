@@ -1,7 +1,6 @@
 import {ErrorHandler, Injectable} from '@angular/core'
 
 import {k} from '../environments/k'
-import {JfStorageManagement} from '../support/jf-storage-management'
 import {JfUtils} from '../support/jf-utils'
 import {JfCrudService} from './jf-crud.service'
 
@@ -15,17 +14,24 @@ export class JfErrorHandlerService implements ErrorHandler {
     const message = error.message ? error.message : error.toString()
     const stack = error.stack
     const location = window.location.href
-    const err = {message, stack, location}
+    const navigator: any = {}
 
-    // console.log('error', err)
-    // console.log('-error', error)
-
-    const _id = Number(JfStorageManagement.getItem(k.user_id))
-    const _cc = JfStorageManagement.getItem(k.entityGlobalId)
+    const _id = JfUtils.mStorage.getItem(k.user_id)
+    const _cc = JfUtils.mStorage.getItem(k.entityGlobalId)
     const _td = new Date().toISOString()
-    const e: any = {}
+    const queue = JfUtils.snakeCase(`${_cc}__admin-angular-u_${_id}_d_${_td}`)
+
+    navigator.queue = queue
+    navigator.userAgent = window.navigator.userAgent
+    navigator.language = window.navigator.language
+    navigator.platform = window.navigator.platform
+    navigator.hardwareConcurrency = window.navigator.hardwareConcurrency
+    navigator.version = k.versionV
+
+    const err = {message, stack, location, navigator}
+    const e = {} as any
     e.payload = JSON.stringify(err)
-    e.queue = JfUtils.snakeCase(`${_cc}__admin-angular_${_id}__${_td}`)
+    e.queue = '-admin-angular-'
     e.container_id = _id
 
     this.sent2server(e)
