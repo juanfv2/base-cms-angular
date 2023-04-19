@@ -65,12 +65,22 @@ export class GenericTableComponent {
       })
   }
 
+  formatInput(input: HTMLInputElement) {
+    input.value = input.value.replace(this.labels.misc.filter_pag_regex, '')
+  }
+
   changePage(event: number): void {
     if (this.loading) {
       return
     }
-    // console.log('changePage this.loading', this.loading);
-    // console.log('page', event);
+
+    // console.log('changePage this.loading', this.loading)
+    // console.log('page', event)
+
+    if (this.responseList.totalPages < event) {
+      event = this.responseList.totalPages
+    }
+
     if (event) {
       this.modelSearch.lazyLoadEvent.first = event
       this.onLazyLoad()
