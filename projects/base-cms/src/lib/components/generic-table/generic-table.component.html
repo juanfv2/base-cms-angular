@@ -133,29 +133,6 @@
           <i class="fas fa-cog"></i>
         </button>
 
-        <div class="ui-paginator ui-dropdown d-inline-block p-1 m-0" *ngIf="responseList.totalElements > 100">
-          <div class="input-group">
-            <input
-              #i
-              type="number"
-              inputmode="numeric"
-              pattern="[0-9]*"
-              class="form-control"
-              ngbTooltip="Ir a Nro de página"
-              id="go-to-page-input"
-              aria-describedby="got-to-page-button"
-            />
-            <button
-              class="btn btn-outline-secondary"
-              type="button"
-              id="got-to-page-button"
-              (click)="changePage(+i.value); i.value = ''"
-            >
-              Nro de página
-            </button>
-          </div>
-        </div>
-
         <ngb-pagination
           [collectionSize]="responseList.totalElements"
           [page]="modelSearch.lazyLoadEvent.first"
@@ -180,6 +157,29 @@
           >
             <option *ngFor="let q of labels.misc.pageLimit" [value]="q.v">{{ q.c }}</option>
           </select>
+        </div>
+
+        <div class="ui-paginator ui-dropdown d-inline-block p-1 m-0" *ngIf="responseList.totalElements > 100">
+          <div class="input-group">
+            <input
+              #i
+              type="number"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              class="form-control"
+              ngbTooltip="Ir a Nro de página"
+              id="go-to-page-input"
+              aria-describedby="got-to-page-button"
+            />
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              id="got-to-page-button"
+              (click)="changePage(+i.value); i.value = ''"
+            >
+              Nro de página
+            </button>
+          </div>
         </div>
       </div>
       <div class="col-12 col-md-6">
