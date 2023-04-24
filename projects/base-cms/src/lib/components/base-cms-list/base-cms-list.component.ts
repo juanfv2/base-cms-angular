@@ -7,7 +7,6 @@ import {JfAddComponentDirective} from '../../directives/jf-add-component.directi
 import {MessageModalComponent} from '../message-modal/message-modal.component'
 import {JfCrudService} from '../../services/jf-crud.service'
 import {JfMessageService} from '../../services/jf-message.service'
-import {JfStorageManagement} from '../../support/jf-storage-management'
 import {JfApiRoute} from '../../support/jf-api-route'
 import {JfUtils} from '../../support/jf-utils'
 import {k} from '../../environments/k'
@@ -31,6 +30,7 @@ export class BaseCmsListComponent {
   hasPermission2new = false
   hasPermission2show = false
   hasPermission2delete = false
+  storageSession = true
   kRoute = ''
   kConditions = ''
   mApi = new JfApiRoute('')
@@ -92,9 +92,9 @@ export class BaseCmsListComponent {
   }
 
   clearFilters(m: any): void {
-    this.searchFieldAdded.forEach((f: any) => f.deleteField())
     this.searchFieldAdded = []
-    JfStorageManagement.removeItem(this.kConditions)
+    this.searchFieldAdded.forEach((f: any) => f?.deleteField())
+    JfUtils.mStorage.removeItem(this.kConditions, this.storageSession)
     this.initSearch()
     this.onLazyLoad()
   }
@@ -174,7 +174,7 @@ export class BaseCmsListComponent {
         this.loading = false
         this.responseList = resp.data
         if (!this.isSubComponent) {
-          JfStorageManagement.setItem(this.kConditions, mSearch)
+          JfUtils.mStorage.setItem(this.kConditions, mSearch, this.storageSession)
         }
       },
       error: (error: any) => {
