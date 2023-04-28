@@ -6,13 +6,14 @@ export class DBType {
   public allowExport = true
   public allowImport = true
   public allowInList = true
+  public allowNull?: string
+  public fixed = true
+  public sorting = true
   public table?: string
   public extra?: any
-  public allowNull?: string
   public key?: string
   public defaultValue?: any
   public alias = ''
-  public sorting = true
 
   constructor(public me?: DBType) {
     Object.assign(this, this.me)
