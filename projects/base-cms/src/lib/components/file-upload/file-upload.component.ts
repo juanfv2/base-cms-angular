@@ -72,7 +72,7 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
   constructor(private messageService: JfMessageService) {}
 
   ngOnInit(): void {
-    this.imgLoading = this.labels.misc.k.loading
+    this.imgLoading = this.labels.k.loading
     this.prepare2server()
   }
 
@@ -87,8 +87,8 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
   private url2upload() {
     // console.log('this.mXXFile', this.mXXfile)
     if (this.mXXfile) {
-      this.url2uploadStr = `${this.labels.misc.k.routes.backEnd.root}${this.labels.misc.k.routes.api}${
-        this.labels.misc.k.routes.misc.file
+      this.url2uploadStr = `${this.labels.k.routes.backEnd.root}${this.labels.k.routes.api}${
+        this.labels.k.routes.misc.file
       }${this.mXXfile.entity}/${this.mXXfile.field}/${this.mXXfile.entity_id > 0 ? this.mXXfile.entity_id : '0'}/${
         this.withColors ? 1 : 0
       }`
@@ -175,7 +175,7 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
       item.remove()
 
       if (!this.allowMultiples) {
-        this.messageService.success(this.labels.misc.k.project_name, 'Subido')
+        this.messageService.success(this.labels.k.project_name, 'Subido')
       }
     }
   }
@@ -184,9 +184,9 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
     return {
       headers: [
         {name: 'Accept', value: 'application/json'},
-        {name: this.labels.misc.k.authorizationK, value: `Bearer ${JfRequestOption.isAuthenticate()}`},
-        {name: this.labels.misc.k.entityGlobalK, value: JfStorageManagement.getItem(this.labels.misc.k.entityGlobalId)},
-        {name: this.labels.misc.k.dev, value: JfStorageManagement.getItem(this.labels.misc.k.dev)},
+        {name: this.labels.k.authorizationK, value: `Bearer ${JfRequestOption.isAuthenticate()}`},
+        {name: this.labels.k.entityGlobalK, value: JfStorageManagement.getItem(this.labels.k.entityGlobalId)},
+        {name: this.labels.k.dev, value: JfStorageManagement.getItem(this.labels.k.dev)},
         {name: 'isMulti', value: this.allowMultiples ? '1' : '0'},
       ],
       isHTML5: true,

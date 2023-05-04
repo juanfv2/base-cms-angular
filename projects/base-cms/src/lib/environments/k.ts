@@ -3,10 +3,10 @@ import {routes} from '../resources/resources'
 export const k: any = {
   project_name: 'project_name',
   path: {
-    root: 1,
-    company: 2,
-    country: 3,
-    dev: 4,
+    root: 0,
+    company: 1,
+    country: 2,
+    dev: 3,
   },
   expireTimeOut: 15,
   expireTime: 3,

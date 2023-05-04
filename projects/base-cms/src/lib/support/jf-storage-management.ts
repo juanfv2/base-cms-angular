@@ -9,6 +9,7 @@ export class JfStorageManagement {
     // console.log('saveCountryInLocalStorage.paths', paths)
     // console.log('saveCountryInLocalStorage.paths', location.pathname)
     // console.log('saveCountryInLocalStorage.paths', location.hash)
+    // console.log('saveCountryInLocalStorage.paths', k.path)
 
     const dev = paths[k.path.dev] === 'dev' ? 'dev' : ''
     const cName = paths[k.path.company] || 'admin'

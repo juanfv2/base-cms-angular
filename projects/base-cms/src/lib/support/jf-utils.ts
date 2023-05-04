@@ -11,15 +11,26 @@ export class JfUtils {
   static mApi = new JfApiRoute('')
 
   static getBaseLocation(): string {
+    JfUtils.removeHash()
     const r = JfUtils.mStorage.saveCountryInLocalStorage()
     const rDevelop = r.dev ? `/${r.dev}` : ''
     const entityGlobalId = r.entityGlobalId
     const rCompanyName = r.cName
-    const r1 = `${k.routes.frontEnd.root}${rCompanyName}/${entityGlobalId}${rDevelop}/`
-    // console.log('r1', r1)
+    const r1 = `${k.routes.backEnd.rootServer}${rCompanyName}/${entityGlobalId}${rDevelop}/`
+    // console.log('r1', r1, r)
     return r1
   }
 
+  static removeHash() {
+    const h = location.href
+    // console.log('h', h, h.indexOf('#'))
+
+    if (h.indexOf('#') !== -1) {
+      const newLocal = h.replace('#', '')
+      // console.log('newLocal', newLocal)
+      location.href = newLocal
+    }
+  }
   // remove the passed element from the content array.
   static remove(page: JfResponseList<any>, element: any): void {
     const indexToRemove: number = page.content.indexOf(element)
