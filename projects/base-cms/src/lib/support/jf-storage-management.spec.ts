@@ -52,15 +52,15 @@ describe('JfStorageManagement', () => {
   it('base-path should be "clear" storage', () => {
     const result = JfStorageManagement.saveCountryInLocalStorage()
     const cCode = localStorage.getItem(`${k.project_name}:${k.entityGlobalId}`)
-    const gIdKey = `${k.project_name}:${cCode}:${JfStorageManagement.today()}:${k.token}`
+    const gIdKey = `${k.project_name}:${cCode}:${JfStorageManagement.today()}:${k._10_token}`
 
-    JfStorageManagement.setItem(k.token, 'toke-e-en')
+    JfStorageManagement.setItem(k._10_token, 'toke-e-en')
 
     expect(result.entityGlobalId).toBe('sv')
     expect(result.cName).toBe('-')
     expect(result.dev).toBe('')
 
-    // const newLocal1 = JfStorageManagement.getItem(k.token)
+    // const newLocal1 = JfStorageManagement.getItem(k._10_token)
     // console.log('newLocal1', gIdKey, newLocal1)
     // console.log('newLocal', localStore)
 
@@ -68,7 +68,7 @@ describe('JfStorageManagement', () => {
 
     expect(cCode).toBe('sv')
 
-    const newLocal2 = JfStorageManagement.getItem(k.token)
+    const newLocal2 = JfStorageManagement.getItem(k._10_token)
 
     // console.log('newLocal2', gIdKey, newLocal2)
     // console.log('newLocal', localStore)

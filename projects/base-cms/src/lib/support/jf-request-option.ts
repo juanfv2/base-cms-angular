@@ -18,7 +18,7 @@ export class JfRequestOption {
       }
       h[k.authorizationK] = 'Bearer ' + token
     }
-    const mItem = JfStorageManagement.getItem(k.entityGlobalId)
+    const mItem = JfStorageManagement.getItem(k._7_entityGlobalId)
     if (mItem) {
       h[k.entityGlobalK] = mItem
     }
@@ -37,7 +37,7 @@ export class JfRequestOption {
       if (expire > now) {
         JfStorageManagement.setItem(k.expire, `${new Date().getTime() + k.expireTime * 60 * 60 * 1000}`)
 
-        const token = `${JfStorageManagement.getItem(k.token)}`
+        const token = `${JfStorageManagement.getItem(k._10_token)}`
         return token
       }
     }
@@ -46,7 +46,7 @@ export class JfRequestOption {
   }
 
   static isAuthorized(realUrl: string): boolean {
-    const permissions = JSON.parse(`${JfStorageManagement.getItem(k.permissions)}`) || []
+    const permissions = JSON.parse(`${JfStorageManagement.getItem(k._11_permissions)}`) || []
 
     const re = /[0-9]+/
     const str = 'show'

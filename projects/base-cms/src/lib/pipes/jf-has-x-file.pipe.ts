@@ -12,7 +12,7 @@ import {k} from '../environments/k'
 export class JfHasXFilePipe implements PipeTransform {
   transform(image: any, w = 0, h = 0, params = ''): string {
     // console.log('image', image)
-    const p = k.routes.backEnd.root + k.routes.api + k.routes.misc.file
+    const p = k.routes.backEnd.rootServer + k.routes.api + k.routes.misc.file
     const cc = params ? `${params}` : ''
     let ui = `${p}e/f/0/${w}/${h}/---${cc}`
 

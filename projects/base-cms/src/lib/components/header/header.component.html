@@ -45,12 +45,20 @@
       </div>
       <ng-container *ngIf="hasPermission2edit; else noEditProfile">
         <a [routerLink]="labels.k.routes.users + '/' + currentUser.id + '/profile'">
-          <img [src]="currentUser.photo | jfHasXFile: 35" class="user-image" alt="." />
+          <img
+            [src]="currentUser.photo | jfHasXFile : 35 : 0 : '?rCountry=' + labels.k.entityGlobalV"
+            class="user-image"
+            alt="."
+          />
         </a>
       </ng-container>
       <ng-template #noEditProfile>
         <a href="#">
-          <img [src]="currentUser.photo | jfHasXFile: 35" class="user-image" alt="." />
+          <img
+            [src]="currentUser.photo | jfHasXFile : 35 : 0 : '?rCountry=' + labels.k.entityGlobalV"
+            class="user-image"
+            alt="."
+          />
         </a>
       </ng-template>
       <ul class="navbar-nav">

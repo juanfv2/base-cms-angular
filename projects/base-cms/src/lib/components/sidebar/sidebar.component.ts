@@ -25,7 +25,7 @@ export class SidebarComponent implements OnInit {
   sideBarObj = new BehaviorSubject({isSideBarVisible: false, menu: '', subMenu: ''})
 
   constructor(public router: Router) {
-    const val = JfUtils.mStorage.getItem(k.isSidebarVisible) || '{"isSideBarVisible": false}'
+    const val = JfUtils.mStorage.getItem(k._8_isSidebarVisible) || '{"isSideBarVisible": false}'
     const sb: any = JSON.parse(val) || {isSideBarVisible: false}
 
     this.setSidebarVisible(sb)
@@ -44,7 +44,7 @@ export class SidebarComponent implements OnInit {
     this.router.navigate([p.urlFrontEnd])
     this.linkSelected = p.urlFrontEnd + ''
 
-    const val = JfUtils.mStorage.getItem(k.isSidebarVisible) || '{"isSideBarVisible": false}'
+    const val = JfUtils.mStorage.getItem(k._8_isSidebarVisible) || '{"isSideBarVisible": false}'
     const sb: any = JSON.parse(val) || {isSideBarVisible: false}
 
     sb.link = this.linkSelected
@@ -58,7 +58,7 @@ export class SidebarComponent implements OnInit {
     this.isSubMenuOpen = element === this.menuSelected
     this.menuSelected = element
 
-    const val = JfUtils.mStorage.getItem(k.isSidebarVisible) || '{"isSideBarVisible": false}'
+    const val = JfUtils.mStorage.getItem(k._8_isSidebarVisible) || '{"isSideBarVisible": false}'
     const sb: any = JSON.parse(val) || {isSideBarVisible: false}
 
     if (sb.menu === element) {
@@ -84,6 +84,6 @@ export class SidebarComponent implements OnInit {
     this.sideBarObj.next(sb)
     const val = JSON.stringify(sb)
 
-    JfUtils.mStorage.setItem(k.isSidebarVisible, val)
+    JfUtils.mStorage.setItem(k._8_isSidebarVisible, val)
   }
 }

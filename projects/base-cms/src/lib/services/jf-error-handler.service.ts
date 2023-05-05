@@ -16,8 +16,8 @@ export class JfErrorHandlerService implements ErrorHandler {
     const location = window.location.href
     const navigator: any = {}
 
-    const _id = JfUtils.mStorage.getItem(k.user_id)
-    const _cc = JfUtils.mStorage.getItem(k.entityGlobalId)
+    const _id = JfUtils.mStorage.getItem(k._3_user_id)
+    const _cc = JfUtils.mStorage.getItem(k._7_entityGlobalId)
     const _td = new Date().toISOString()
     const queue = JfUtils.snakeCase(`${_cc}__admin-angular-u_${_id}_d_${_td}`)
 

@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit {
   }
 
   private setupSideBar() {
-    const val = JfStorageManagement.getItem(k.isSidebarVisible) || ''
+    const val = JfStorageManagement.getItem(k._8_isSidebarVisible) || ''
     this.sb = JSON.parse(val) || {isSideBarVisible: false}
   }
 
@@ -64,7 +64,7 @@ export class HeaderComponent implements OnInit {
 
     const val_sb = JSON.stringify(this.sb)
 
-    JfStorageManagement.setItem(k.isSidebarVisible, val_sb)
+    JfStorageManagement.setItem(k._8_isSidebarVisible, val_sb)
   }
 
   sidebarOpen() {
@@ -151,8 +151,8 @@ export class HeaderComponent implements OnInit {
     // console.log('this.currentRole', this.currentRole);
     this.currentUser!.role = cRole
 
-    JfStorageManagement.setItem(k.user, JSON.stringify(this.currentUser))
-    JfStorageManagement.setItem(k.permissions, JSON.stringify(cRole.urlPermissions))
+    JfStorageManagement.setItem(k._1_user, JSON.stringify(this.currentUser))
+    JfStorageManagement.setItem(k._11_permissions, JSON.stringify(cRole.urlPermissions))
 
     this.authService.currentUser.next(this.currentUser!)
     this.getMenuTitles()

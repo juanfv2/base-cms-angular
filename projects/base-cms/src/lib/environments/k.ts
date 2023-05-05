@@ -12,24 +12,27 @@ export const k: any = {
   expireTime: 3,
   expire: 0,
 
-  user: 1,
-  user_role_id: 2,
-  user_id: 3,
+  _1_user: 1,
+  _2_user_role_id: 2,
+  _3_user_id: 3,
 
-  company: 4,
-  company_name: 5,
+  _4_company: 4,
+  _5_company_name: 5,
 
-  entityGlobal: 6,
-  entityGlobalId: 7,
+  _6_entityGlobal: 6,
+  _7_entityGlobalId: 7,
   entityGlobalK: 'r-country',
+  entityGlobalV: '--',
 
-  isSidebarVisible: 8,
+  _8_isSidebarVisible: 8,
   isSidebarVisibleOpen: 1,
   isSidebarVisibleClose: 0,
 
-  role: 9,
-  token: 10,
-  permissions: 11,
+  _9_role: 9,
+  _10_token: 10,
+  _11_permissions: 11,
+  _12_entityGlobalTimeZone: 12,
+  _13_entityGlobalTimeZoneStr: 13,
   canReceiveNotifications: '/reports/files',
 
   dev: 'dev',

@@ -20,7 +20,7 @@ export class JfAuthService {
     /**
      * If refresh the page, get user saved in storage.
      */
-    const u = this.entityGlobal(k.user)
+    const u = this.entityGlobal(k._1_user)
 
     // Get auth data, then get user || null.
 
@@ -57,20 +57,18 @@ export class JfAuthService {
    */
 
   isAdmin(): boolean {
-    return +`${`${JfStorageManagement.getItem(k.user_role_id)}`}` === 1
+    return +`${`${JfStorageManagement.getItem(k._2_user_role_id)}`}` === 1
   }
 
   isFromAdmins(): boolean {
-    return k.rolesAdmins
-      .map((r: Role) => r.id)
-      .includes(+`${`${JfStorageManagement.getItem(k.user_role_id)}`}`)
+    return k.rolesAdmins.map((r: Role) => r.id).includes(+`${`${JfStorageManagement.getItem(k._2_user_role_id)}`}`)
   }
 
   userUserId(): number {
-    return +`${JfStorageManagement.getItem(k.user_id)}`
+    return +`${JfStorageManagement.getItem(k._3_user_id)}`
   }
 
-  entityGlobal(g = k.entityGlobal): any {
+  entityGlobal(g = k._6_entityGlobal): any {
     // can be country, company , etc
     return JSON.parse(`${JfStorageManagement.getItem(g)}`)
   }

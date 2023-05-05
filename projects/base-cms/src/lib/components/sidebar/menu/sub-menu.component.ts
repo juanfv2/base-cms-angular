@@ -50,7 +50,7 @@ export class SubMenuComponent implements OnInit {
   showSubMenu(element: any) {
     this.isSubMenuOpen = element === this.menu.name
 
-    const val = JfStorageManagement.getItem(k.isSidebarVisible) || ''
+    const val = JfStorageManagement.getItem(k._8_isSidebarVisible) || ''
     const sb: any = JSON.parse(val) || {isSideBarVisible: false}
 
     if (sb.subMenu === element) {
@@ -69,6 +69,6 @@ export class SubMenuComponent implements OnInit {
 
     this.sideBarObj.next(sb)
 
-    JfStorageManagement.setItem(k.isSidebarVisible, JSON.stringify(sb))
+    JfStorageManagement.setItem(k._8_isSidebarVisible, JSON.stringify(sb))
   }
 }

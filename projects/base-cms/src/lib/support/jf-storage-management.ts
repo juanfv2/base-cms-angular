@@ -1,7 +1,7 @@
 import {k} from '../environments/k'
 
 export class JfStorageManagement {
-  static kkkEntityGlobalId = `${k.project_name_short}:${k.company}:${k.entityGlobalId}`
+  static kkkEntityGlobalId = `${k.project_name_short}:${k._4_company}:${k._7_entityGlobalId}`
 
   static saveCountryInLocalStorage(): any {
     const paths = JfStorageManagement.getPath()
@@ -15,11 +15,12 @@ export class JfStorageManagement {
     const cName = paths[k.path.company] || 'admin'
     const entityGlobalId = paths[k.path.country] || 'sv'
 
-    JfStorageManagement.setItem(k.entityGlobalId, entityGlobalId)
-    JfStorageManagement.setItem(k.company_name, cName)
+    JfStorageManagement.setItem(k._7_entityGlobalId, entityGlobalId)
+    JfStorageManagement.setItem(k._5_company_name, cName)
     JfStorageManagement.setItem(k.dev, dev)
 
     k.routes.frontEnd.name = cName
+    k.entityGlobalV = entityGlobalId
 
     return {dev, entityGlobalId, cName}
   }
@@ -31,12 +32,12 @@ export class JfStorageManagement {
     const sessionKey = `${k.project_name_short}:${cName}:${entityGlobalId}`
     const _2save = [
       k.dev,
-      k.company,
-      k.company_name,
-      k.entityGlobalId,
-      k.isSidebarVisible,
-      k.entityGlobalTimeZone,
-      k.entityGlobalTimeZoneStr,
+      k._4_company,
+      k._5_company_name,
+      k._7_entityGlobalId,
+      k._8_isSidebarVisible,
+      k._12_entityGlobalTimeZone,
+      k._13_entityGlobalTimeZoneStr,
     ]
     const saved = []
 

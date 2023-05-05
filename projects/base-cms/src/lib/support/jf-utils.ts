@@ -11,7 +11,6 @@ export class JfUtils {
   static mApi = new JfApiRoute('')
 
   static getBaseLocation(): string {
-    JfUtils.removeHash()
     const r = JfUtils.mStorage.saveCountryInLocalStorage()
     const rDevelop = r.dev ? `/${r.dev}` : ''
     const entityGlobalId = r.entityGlobalId
