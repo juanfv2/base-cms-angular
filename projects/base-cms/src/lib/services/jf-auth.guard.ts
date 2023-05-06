@@ -21,11 +21,15 @@ export class JfAuthGuard implements CanActivate, CanActivateChild {
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const isAuthenticate = JfRequestOption.isAuthenticate()
+
     // console.log('AuthGuard.isAuthenticate: ', `"${isAuthenticate}"`)
     // console.log('     AuthGuard.state.url: ', state.url)
-    // console.log('AuthGuard.isAuthenticate: ', isAuthorized)
+
     if (isAuthenticate) {
       const isAuthorized = JfRequestOption.isAuthorized(state.url)
+
+      // console.log('AuthGuard.isAuthenticate: ', isAuthorized)
+
       if (!isAuthorized) {
         this.router.navigate(['not-authorized'])
       }

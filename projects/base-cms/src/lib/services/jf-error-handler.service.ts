@@ -38,7 +38,7 @@ export class JfErrorHandlerService implements ErrorHandler {
   }
 
   sent2server(e: any) {
-    this.crudService.post(k.routes.misc.visor_log_errors + '-index', e).subscribe({
+    this.crudService.post(k.routes.misc.visorLogErrors + '-index', e).subscribe({
       next: (resp: any) => {
         // console.log('Main.getPermission AngularFireMessaging.4: resp', resp);
       },
