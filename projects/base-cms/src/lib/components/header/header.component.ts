@@ -101,9 +101,8 @@ export class HeaderComponent implements OnInit {
   }
 
   getTitle() {
-    let mTitle = 'Dashboard'
-    const path = this.location.path(true).split('/')
-    const _title = path[0]
+    const path = this.location.path().split('/')
+    const _title = path[1]
 
     // console.log('path', path)
     // console.log('_title', _title)
@@ -112,9 +111,7 @@ export class HeaderComponent implements OnInit {
     const item = this.listTitles.find((p) => p.urlFrontEnd?.indexOf(_title) !== -1)
     // console.log('item', item);
 
-    if (item) {
-      mTitle = item.name!
-    }
+    const mTitle = item?.name ?? 'Dashboard'
 
     this.currentPage = `${k.project_name} - ${mTitle}`
   }
