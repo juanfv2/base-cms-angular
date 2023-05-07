@@ -76,7 +76,8 @@ export class JfLazyLoadEvent {
     public joins?: JfCondition[],
     public additional?: JfCondition[],
     public includes?: any[],
-    public select?: string[]
+    public select?: string[],
+    public cWith?: any[]
   ) {}
 }
 

@@ -16,6 +16,8 @@ export class BaseCmsAutoCompleteComponent {
 
   @Output() oSelected = new EventEmitter<any>()
 
+  _value?: any
+
   @Input() acDisabled = false
   @Input() acMultiple = false
   @Input() acId = ''
@@ -24,7 +26,6 @@ export class BaseCmsAutoCompleteComponent {
   @Input() selectable: any[] = []
   @Input() avoidable: any[] = []
   @Input()
-  private _value?: any
   public get value(): any {
     return this._value
   }
@@ -60,8 +61,12 @@ export class BaseCmsAutoCompleteComponent {
 
   /** ControlValueAccessor.writeValue */
   writeValue(value: any): void {
-    // console.log('value', value);
-    this.value = value
+    // console.log('value', value)
+    if (this.acMultiple) {
+      this.values = value as any[]
+    } else {
+      this.value = value
+    }
   }
 
   /** ControlValueAccessor.registerOnChange */
