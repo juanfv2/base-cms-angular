@@ -4,9 +4,9 @@
   <div class="row" *ngIf="error">
     <div class="col-12">
       <div class="alert alert-danger form-text" role="alert">
-        <div class="d-block" [innerHtml]="error?.message | jfSafe: 'html'"></div>
+        <div class="d-block" [innerHtml]="error?.message | jfSafe : 'html'"></div>
         <div class="d-block">
-          <small [innerHtml]="error?.data?.message | jfSafe: 'html'"> {{ error?.data?.message }} </small>
+          <small [innerHtml]="error?.data?.message | jfSafe : 'html'"> {{ error?.data?.message }} </small>
         </div>
       </div>
     </div>
@@ -18,7 +18,7 @@
     [style.max-height]="maxHeight"
   >
     <img
-      [src]="url2showStaticImage || (mXXfile | jfHasXFile: iWidth:iHeight)"
+      [src]="url2showStaticImage || (mXXfile | jfHasXFile : iWidth : iHeight : '?rCountry=' + labels.k.entityGlobalV)"
       class="img-fluid img-field {{ landscape }}"
     />
     <div
@@ -44,12 +44,18 @@
         </label>
       </div>
     </div>
-    <a *ngIf="showPublicPath" [href]="mXXfile | jfHasXFile" target="_blank" rel="noopener" class="watch-file ...">
+    <a
+      *ngIf="showPublicPath"
+      [href]="mXXfile | jfHasXFile : iWidth : iHeight : '?rCountry=' + labels.k.entityGlobalV"
+      target="_blank"
+      rel="noopener"
+      class="watch-file ..."
+    >
       <i class="fa fa-search m-1"></i>
     </a>
   </div>
   <p class="text-center" *ngIf="maxFileSize">
-    Tamaño máximo de archivo: {{ maxFileSize / 1024 / 1024 | number: '.2' }} MB
+    Tamaño máximo de archivo: {{ maxFileSize / 1024 / 1024 | number : '.2' }} MB
   </p>
   <!-- Subir a servidor -->
   <div class="row" *ngIf="!hideProcess && uploader?.queue?.length">
@@ -70,7 +76,7 @@
               <tr *ngFor="let item of uploader.queue">
                 <td>
                   <strong>{{ item?.file?.name }}</strong>
-                  <p>{{ item?.file?.size / 1024 / 1024 | number: '.2' }} MB</p>
+                  <p>{{ item?.file?.size / 1024 / 1024 | number : '.2' }} MB</p>
                   <p class="text-center">
                     <span *ngIf="item.isSuccess"><i class="fa fa-check-circle"></i></span>
                     <span *ngIf="item.isCancel"><i class="fa fa-ban"></i></span>
