@@ -1,5 +1,6 @@
 import {Injectable, TemplateRef} from '@angular/core'
 import {Subject, BehaviorSubject} from 'rxjs'
+import {JfUtils} from '../support/jf-utils'
 
 @Injectable({
   providedIn: 'root',
@@ -30,48 +31,46 @@ export class JfMessageService {
 
   danger(header: any, msg: string, page: string = '') {
     const msg1 = JfMessageService.getErrors(msg, page)
+    this.timeOut = 1000 * 60 * 2
     this.show(msg1, {className: 'bg-danger text-light', delay: this.timeOut, header})
   }
 
   static getErrors(errorObj: any, page = '', includeHeader = true): string {
-    // console.log('errorObj', errorObj);
-    const br = '\n.' // &lt;br&gt;
-    if (errorObj.status === 401) {
-      // MyUtils.go2login()
-    }
+    console.log('errorObj', errorObj)
+
+    const br = '<br>.\n '
     let errorStr = ''
-    if (typeof errorObj === 'string') {
-      errorStr = errorObj + br
+
+    if (errorObj.status === 401) {
+      JfUtils.go2login()
     }
+
+    if (typeof errorObj === 'string') {
+      errorStr = errorObj
+    }
+
     if (errorObj.error) {
       if (typeof errorObj.error === 'string') {
-        errorStr += errorObj.error + br
+        errorStr += errorObj.error
       }
+
       if (includeHeader && errorObj.error.message) {
-        errorStr += errorObj.error.message + br
+        errorStr += errorObj.error.message
       }
+
       if (errorObj.error.errors) {
-        // && errorObj.error.errors.length > 0
-        // const erValues = Object.values(errorObj.error.errors);
         const erValues = Object.keys(errorObj.error.errors).map((itm) => errorObj.error.errors[itm])
-        // console.log('erValues', erValues);
+
         erValues.forEach((e1: string[]) => {
-          // console.log('e1', e1);
-          errorStr += `${br} · ${e1.join('${br} # ')}`
+          errorStr += br + e1.join(br)
         })
-        // console.log('errorStr', errorStr);
       }
+
+      errorStr = errorStr.replace(/The given data was invalid./g, 'Los datos proporcionados no son válidos.')
     }
-    // if (errorObj.message) {
-    //   errorStr += errorObj.message + br;
-    // }
-    // if (errorObj.status) {
-    //   errorStr += `Status: ${errorObj.status}  - Texto: ${errorObj.statusText}`;
-    // } else {
-    //   errorStr += 'Server error';
-    // }
+
     if (page) {
-      errorStr += '\n(' + page + ')'
+      errorStr += `${br}(${page})`
     }
     return errorStr
   }
