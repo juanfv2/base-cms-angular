@@ -5,7 +5,6 @@ import {FileUploader, FileUploaderOptions} from 'ng2-file-upload'
 
 import {JfMessageService} from '../../services/jf-message.service'
 
-import {JfStorageManagement} from '../../support/jf-storage-management'
 import {JfRequestOption} from '../../support/jf-request-option'
 import {JfUtils} from '../../support/jf-utils'
 
@@ -185,8 +184,8 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
       headers: [
         {name: 'Accept', value: 'application/json'},
         {name: this.labels.k.authorizationK, value: `Bearer ${JfRequestOption.isAuthenticate()}`},
-        {name: this.labels.k.entityGlobalK, value: JfStorageManagement.getItem(this.labels.k.entityGlobalId)},
-        {name: this.labels.k.dev, value: JfStorageManagement.getItem(this.labels.k.dev)},
+        {name: this.labels.k.entityGlobalK, value: JfUtils.mStorage.getItem(this.labels.k._7_entityGlobalId)},
+        {name: this.labels.k.dev, value: JfUtils.mStorage.getItem(this.labels.k.dev)},
         {name: 'isMulti', value: this.allowMultiples ? '1' : '0'},
       ],
       isHTML5: true,
