@@ -42,7 +42,7 @@ export class JfMessageService {
     let errorStr = ''
 
     if (errorObj.status === 401) {
-      JfUtils.go2login()
+      // JfUtils.go2login()
     }
 
     if (typeof errorObj === 'string') {
