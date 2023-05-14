@@ -141,6 +141,7 @@ export class BaseCmsListComponent {
     csv.table = this.itemLabels.tableName
     csv.primaryKeyName = this.itemLabels.tablePK
     csv.cModel = modelSearch.cModel
+    csv.immediate = true
     csv.keys = JSON.stringify(csvColumns)
 
     modelSearch.csv = csv
@@ -151,10 +152,18 @@ export class BaseCmsListComponent {
   }
 
   onLazyLoadExport(strAction: string, fType = 'csv', fDate = true) {
-    const csvColumns: any = JfUtils.csvColumns(this.itemLabels)
+    const csvColumns: any = {}
+
+    this.modelSearch.fields.forEach((_f: DBType) => {
+      if (_f.allowExport && _f.allowInList) csvColumns[_f.name] = _f.label
+    })
+
+    const csvColumnsStr = JSON.stringify(csvColumns)
+
+    // const csvColumns: any = JfUtils.csvColumns(this.itemLabels)
     this.modelSearch.lazyLoadEvent.additional.push(new JfCondition('action', strAction))
     this.modelSearch.lazyLoadEvent.additional.push(new JfCondition('title', this.itemLabels.ownNamePlural))
-    this.modelSearch.lazyLoadEvent.additional.push(new JfCondition('fields', JSON.stringify(csvColumns)))
+    this.modelSearch.lazyLoadEvent.additional.push(new JfCondition('fields', csvColumnsStr))
     this.crudService.export(this.kRoute, this.modelSearch.lazyLoadEvent).subscribe({
       next: (resp: any) => {
         this.loading = false

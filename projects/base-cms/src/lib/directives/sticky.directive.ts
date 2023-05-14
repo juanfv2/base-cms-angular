@@ -7,21 +7,37 @@ import {StickyTableDirective} from './sticky-table.directive'
 })
 export class StickyDirective {
   @Input() jfSticky = true
-  constructor(private el: ElementRef, @Optional() private table: StickyTableDirective) {}
+  constructor(private tableCell: ElementRef, @Optional() private table: StickyTableDirective) {}
 
   ngAfterViewInit() {
     if (this.jfSticky) {
-      const el = this.el.nativeElement as HTMLElement
-      const {x} = el.getBoundingClientRect()
-      // const {x} = el.getBoundingClientRect()
-      // console.log('x, table.x', el.innerHTML, x, this.table.x)
-      // el.style.borderWidth = '1px'
-      el.style.left = this.table ? `${x - this.table.x}px` : '0px'
-      el.style.position = 'sticky'
-      el.style.left = '0px'
-      el.style.background = 'white'
-      el.style.borderStyle = 'solid'
-      el.style.padding = '0'
+      setTimeout(() => {
+        const tableCell = this.tableCell.nativeElement as HTMLTableCellElement
+        const tableRow = tableCell.parentElement as HTMLTableRowElement
+        const cells = tableRow.cells
+
+        // console.log('tableCell', tableCell)
+
+        let _width = 0
+
+        for (var i = 0; i < cells.length; i++) {
+          // console.log( 'current-i', tableCell.cellIndex, i, cells[i].style.position, cells[i].offsetWidth, tableCell.cellIndex >= i)
+          if (tableCell.cellIndex > i) {
+            const _x_ = cells[tableCell.cellIndex - 1 - i].offsetWidth
+            // console.log('_x_', i, _x_)
+            _width = _width + _x_
+          } else break
+        }
+
+        const _left = Math.floor(_width) // this.table ? `${_width}px` : '0px'
+        // console.log('current-i', tableCell.cellIndex, tableCell.offsetWidth, _width, this.table.x, _left)
+        tableCell.style.left = '0px'
+        tableCell.style.left = _left + 'px'
+        tableCell.style.position = 'sticky'
+        tableCell.style.background = 'white'
+        tableCell.style.borderStyle = 'solid'
+        // tableCell.style.padding = '0'
+      }, 100)
     }
   }
 }

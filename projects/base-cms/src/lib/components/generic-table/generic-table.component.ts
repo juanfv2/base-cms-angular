@@ -111,7 +111,7 @@ export class GenericTableComponent {
     this.modelSearch.fieldsSelected = []
 
     setTimeout(() => {
-      this.modelSearch.fieldsSelected = this.modelSearch.fields.filter((_f: DBType) => _f.allowExport)
+      this.modelSearch.fieldsSelected = this.modelSearch.fields.filter((_f: DBType) => _f.allowInList)
       this.onLazyLoad()
       this.modalService.dismissAll()
     }, 80)

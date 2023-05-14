@@ -43,7 +43,7 @@
         <tbody class="text-nowrap">
           <tr *ngFor="let model of responseList?.content">
             <td *ngFor="let _field of modelSearch.fieldsSelected" [ngSwitch]="_field.type" [jfSticky]="_field.fixed">
-              <div class="w-100 h-100" [class.border-end]="_field.fixed">
+              <div class="w-100 h-100" [class.jf-sticky]="_field.fixed">
                 <div class="d-none d-sm-block d-md-none fw-bold">{{ _field.label }}</div>
 
                 <!-- ***** ***** ***** [pre-code] ***** ***** ***** -->
@@ -228,14 +228,14 @@
           *ngFor="let _field of modelSearch.fields; let i = index"
           cdkDrag
           class="table-success text-center"
-          [class.table-light]="!_field.allowExport"
+          [class.table-light]="!_field.allowInList"
         >
           <td>
             <input
               class="form-check-input mx-1"
               type="checkbox"
               [name]="_field.field + '-selected'"
-              [(ngModel)]="_field.allowExport"
+              [(ngModel)]="_field.allowInList"
             />
           </td>
           <td>
@@ -255,7 +255,7 @@
     </table>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-success" (click)="saveFields()">Cerrar</button>
+    <button type="button" class="btn btn-success" (click)="saveFields()">Seleccionar</button>
     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cerrar</button>
   </div>
 </ng-template>
