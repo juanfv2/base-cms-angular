@@ -151,7 +151,8 @@ export class BaseCmsListComponent {
     modelSearch.fieldsSelected = modelSearch.fields.filter((_f: DBType) => _f.allowInList)
   }
 
-  onLazyLoadExport(strAction: string, fType = 'csv', fDate = true) {
+  onLazyLoadExport(strAction: string, fDate = true) {
+    const tFile = this.modelSearch.exportFileType || k.exportFileTypes[0].c
     const csvColumns: any = {}
 
     this.modelSearch.fields.forEach((_f: DBType) => {
@@ -164,10 +165,12 @@ export class BaseCmsListComponent {
     this.modelSearch.lazyLoadEvent.additional.push(new JfCondition('action', strAction))
     this.modelSearch.lazyLoadEvent.additional.push(new JfCondition('title', this.itemLabels.ownNamePlural))
     this.modelSearch.lazyLoadEvent.additional.push(new JfCondition('fields', csvColumnsStr))
-    this.crudService.export(this.kRoute, this.modelSearch.lazyLoadEvent).subscribe({
+    this.modelSearch.lazyLoadEvent.additional.push(new JfCondition('ext', tFile))
+
+    this.crudService.export(this.kRoute, this.modelSearch.lazyLoadEvent, true).subscribe({
       next: (resp: any) => {
         this.loading = false
-        JfUtils.downloadFile(resp, this.itemLabels.ownNamePlural, fType, fDate)
+        JfUtils.downloadFile(resp, this.itemLabels.ownNamePlural, tFile, fDate)
       },
       error: (error: any) => {
         this.loading = false

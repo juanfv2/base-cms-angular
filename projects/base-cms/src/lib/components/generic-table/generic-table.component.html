@@ -183,9 +183,26 @@
         </div>
       </div>
       <div class="col-12 col-md-6">
-        <button (click)="onLazyLoad('export')" type="button" class="btn btn-primary m-1 w-100">
-          Exportar resultados
-        </button>
+        <div class="d-block w-100">
+          <div class="d-inline-block">
+            <div class="ui-paginator ui-dropdown d-inline-block p-2">
+              <select
+                id="select-type-table"
+                name="select-type-table"
+                class="form-control m-1"
+                [(ngModel)]="modelSearch.exportFileType"
+              >
+                <option *ngFor="let item of labels.k.exportFileTypes" [value]="item.c">{{ item.v }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="d-inline-block">
+            <button (click)="onLazyLoad('export')" type="button" class="btn btn-primary m-1 w-100">
+              Exportar resultados
+            </button>
+          </div>
+        </div>
+
         <base-cms-file-upload
           *ngIf="loadCsv && hasPermission2new"
           [additionalParameter]="modelSearch.csv"

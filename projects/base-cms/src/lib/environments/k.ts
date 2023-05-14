@@ -1,4 +1,4 @@
-import {routes} from '../resources/resources'
+import {exportFileTypes, routes} from '../resources/resources'
 
 export const k: any = {
   project_name: 'project_name',
@@ -58,4 +58,5 @@ export const k: any = {
   routes: routes,
   rolesAdmins: [] as never[],
   rolesClients: [] as never[],
+  exportFileTypes: exportFileTypes,
 }

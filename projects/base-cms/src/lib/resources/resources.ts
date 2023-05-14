@@ -1,3 +1,5 @@
+import {JfCondition} from './classes'
+
 const baseFrontEnd = 'stage/admin'
 const baseBackEnd = 'stage'
 const sBaseBackEnd = `/${baseBackEnd}`
@@ -38,6 +40,8 @@ export const routes = {
     bulkErrors: 'bulk_errors',
   },
 }
+
+export const exportFileTypes = [new JfCondition('csv', 'CSV'), new JfCondition('xlsx', 'XLSX')]
 
 export const jfTemplateAutoComplete = `
 <div class="form-group position-relative">
