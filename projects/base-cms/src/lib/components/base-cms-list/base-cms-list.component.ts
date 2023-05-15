@@ -213,8 +213,8 @@ export class BaseCmsListComponent {
     this.modelSearch.lazyLoadEvent.additional = []
   }
 
-  onLazyLoadList(mSearch: any) {
-    this.crudService.getPage(this.kRoute, this.modelSearch.lazyLoadEvent).subscribe({
+  onLazyLoadList(mSearch: any, withAuth = true, isPost = true) {
+    this.crudService.getPage(this.kRoute, this.modelSearch.lazyLoadEvent, withAuth, isPost).subscribe({
       next: (resp: JfResponse) => {
         this.loading = false
         this.responseList = resp.data
