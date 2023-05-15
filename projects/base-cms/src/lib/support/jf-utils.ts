@@ -110,7 +110,6 @@ export class JfUtils {
       return
     }
 
-    // const componentFactory = pComponent.resolver.resolveComponentFactory(SearchInputComponent)
     const componentRef = pComponent.searchField.viewContainerRef.createComponent(SearchInputComponent)
     const searchItem = componentRef.instance
 
@@ -128,6 +127,39 @@ export class JfUtils {
     searchItem.operatorOptions = pComponent.operatorOptions
     searchItem.conditionalOptions = pComponent.conditionalOptions
     searchItem.fieldsSearchable = pComponent.fieldsSearchable
+
+    searchItem.modelSearch = pComponent.modelSearch
+    searchItem.mRef = componentRef
+    return searchItem
+  }
+
+  static addSearchFieldWithFile(pComponent: any, condition?: JfSearchCondition, condStr = 'like') {
+    console.log('pComponent.searchFieldWithFile', pComponent.searchFieldWithFile)
+    if (!pComponent) {
+      return
+    }
+    if (!pComponent.searchFieldWithFile) {
+      return
+    }
+
+    const componentRef = pComponent.searchFieldWithFile.viewContainerRef.createComponent(SearchInputComponent)
+    const searchItem = componentRef.instance
+
+    if (!condition) {
+      condition = new JfSearchCondition(condStr)
+      condition.field = pComponent.fieldsSearchable[0]
+
+      if (!pComponent.modelSearch.conditionsWithFile) {
+        pComponent.modelSearch.conditionsWithFile = []
+      }
+      pComponent.modelSearch.conditionsWithFile.push(condition)
+    }
+
+    searchItem.condition = condition
+    searchItem.operatorOptions = pComponent.operatorOptions
+    searchItem.conditionalOptions = pComponent.conditionalOptionsWithFile
+    searchItem.fieldsSearchable = pComponent.fieldsSearchable
+    searchItem.searchWithFile = true
 
     searchItem.modelSearch = pComponent.modelSearch
     searchItem.mRef = componentRef

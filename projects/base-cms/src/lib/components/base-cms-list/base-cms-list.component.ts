@@ -4,12 +4,13 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap'
 
 import {JfResponseList, JfSearchCondition, JfCondition, JfResponse, DBType} from '../../resources/classes'
 import {JfAddComponentDirective} from '../../directives/jf-add-component.directive'
-import {MessageModalComponent} from '../message-modal/message-modal.component'
+import {JfAddComponentFileDirective} from '../../directives/jf-add-component-file.directive'
 import {JfCrudService} from '../../services/jf-crud.service'
 import {JfMessageService} from '../../services/jf-message.service'
 import {JfApiRoute} from '../../support/jf-api-route'
 import {JfUtils} from '../../support/jf-utils'
 import {k} from '../../environments/k'
+import {XFile} from '../../resources/models'
 
 @Component({
   selector: 'base-cms-base-cms-list',
@@ -18,6 +19,7 @@ import {k} from '../../environments/k'
 })
 export class BaseCmsListComponent {
   @ViewChild(JfAddComponentDirective) searchField?: JfAddComponentDirective
+  @ViewChild(JfAddComponentFileDirective) searchFieldWithFile?: JfAddComponentFileDirective
 
   @Input() isSubComponentFrom = '-'
   @Input() isSubComponent = false
@@ -36,10 +38,14 @@ export class BaseCmsListComponent {
   mApi = new JfApiRoute('')
   responseList: JfResponseList<any> = new JfResponseList<any>(0, 0, [])
 
+  csvXFile!: XFile
   modelSearch: any = {}
   operatorOptions: any[] = k.operatorOptions
   conditionalOptions: any[] = k.conditionalOptions
+  conditionalOptionsWithFile: any[] = k.conditionalOptionsWithFile
+
   searchFieldAdded: any[] = []
+  searchFieldAddedWithFile: any[] = []
   fieldsSearchable: any[] = []
   fieldsInList: any[] = []
 
@@ -102,6 +108,32 @@ export class BaseCmsListComponent {
   addFilter(condition?: JfSearchCondition): void {
     const c = JfUtils.addSearchField(this, condition)
     this.searchFieldAdded.push(c)
+  }
+
+  addFilterWithFile(condition?: JfSearchCondition): void {
+    const c = JfUtils.addSearchFieldWithFile(this, condition)
+    this.searchFieldAddedWithFile.push(c)
+  }
+
+  addFilterWithFileShow() {
+    this.modelSearch.itemSearchWithFile = !this.modelSearch.itemSearchWithFile
+    this.modelSearch.conditionsWithFile = []
+    this.modelSearch.massiveWithFile = null
+    this.modelSearch.exactSearch = false
+  }
+
+  massiveWithFile(jCondition: JfCondition): void {
+    // console.log('jCondition', jCondition)
+    const data = jCondition.v
+    this.modelSearch.massiveWithFile = data.name
+    this.modelSearch.exactSearch = false
+    if (this.searchFieldAddedWithFile) {
+      this.searchFieldAddedWithFile.forEach((s) => s?.deleteField())
+    }
+    this.csvXFile.name = data.name
+    for (let i = 0; i < data.columns; i++) {
+      this.addFilterWithFile()
+    }
   }
 
   changePage(event: any): void {

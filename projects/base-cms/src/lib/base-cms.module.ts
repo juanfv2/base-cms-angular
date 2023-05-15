@@ -23,6 +23,7 @@ import {StickyDirective} from './directives/sticky.directive'
 import {StickyTableDirective} from './directives/sticky-table.directive'
 import {JfAddComponentDirective} from './directives/jf-add-component.directive'
 import {JfMultiSortMetaDirective} from './directives/jf-multi-sort-meta.directive'
+import {JfAddComponentFileDirective} from './directives/jf-add-component-file.directive'
 
 import {JfSafePipe} from './pipes/jf-safe.pipe'
 import {JfHasXFilePipe} from './pipes/jf-has-x-file.pipe'
@@ -48,6 +49,7 @@ const _components = [
   StickyDirective,
   StickyTableDirective,
   JfAddComponentDirective,
+  JfAddComponentFileDirective,
   JfMultiSortMetaDirective,
 
   JfSafePipe,

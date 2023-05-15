@@ -55,6 +55,10 @@ export const k: any = {
     {label: 'Mayor o igual', value: '>='},
     {label: 'Menor o igual', value: '<='},
   ],
+  conditionalOptionsWithFile: [
+    {label: 'Contener', value: '='},
+    {label: 'Contenga Similares', value: 'like'},
+  ],
   routes: routes,
   rolesAdmins: [] as never[],
   rolesClients: [] as never[],

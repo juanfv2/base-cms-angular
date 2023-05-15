@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core'
 
 @Component({
-  selector: 'lib-search-input',
+  selector: 'base-cms-search-input',
   templateUrl: './search-input.component.html',
   styleUrls: ['./search-input.component.scss'],
 })

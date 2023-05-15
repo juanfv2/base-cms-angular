@@ -1,8 +1,8 @@
 import {Directive, Input, ViewContainerRef} from '@angular/core'
 
 @Directive({
-  selector: '[baseCmsJfAddComponent]',
+  selector: '[baseCmsJfAddComponentFile]',
 })
-export class JfAddComponentDirective {
+export class JfAddComponentFileDirective {
   constructor(public viewContainerRef: ViewContainerRef) {}
 }

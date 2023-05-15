@@ -24,6 +24,7 @@ export * from './lib/components/base-cms-auto-complete/base-cms-auto-complete.co
 export * from './lib/directives/sticky.directive'
 export * from './lib/directives/sticky-table.directive'
 export * from './lib/directives/jf-add-component.directive'
+export * from './lib/directives/jf-add-component-file.directive'
 export * from './lib/directives/jf-multi-sort-meta.directive'
 
 /* -------------------------------------------------------------------------- */
