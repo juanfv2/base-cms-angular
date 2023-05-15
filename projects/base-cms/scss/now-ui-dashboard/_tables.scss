@@ -34,18 +34,18 @@
   .card-tasks .card-body & {
     margin-bottom: 0;
 
-    > thead > tr > th,
-    > tbody > tr > th,
-    > tfoot > tr > th,
-    > thead > tr > td,
-    > tbody > tr > td,
-    > tfoot > tr > td {
+    >thead>tr>th,
+    >tbody>tr>th,
+    >tfoot>tr>th,
+    >thead>tr>td,
+    >tbody>tr>td,
+    >tfoot>tr>td {
       padding-top: 0;
       padding-bottom: 0;
     }
   }
 
-  > thead > tr > th {
+  >thead>tr>th {
     /* font-size: 1.45em; */
     border-bottom-width: 1px;
     font-weight: $font-weight-light;
@@ -64,6 +64,7 @@
     }
 
     label {
+
       &:after,
       &:before {
         top: -17px;
@@ -71,12 +72,13 @@
       }
     }
   }
-  > thead > tr > th,
-  > tbody > tr > th,
-  > tfoot > tr > th,
-  > thead > tr > td,
-  > tbody > tr > td,
-  > tfoot > tr > td {
+
+  >thead>tr>th,
+  >tbody>tr>th,
+  >tfoot>tr>th,
+  >thead>tr>td,
+  >tbody>tr>td,
+  >tfoot>tr>td {
     padding: 12px 7px;
     vertical-align: middle;
   }
@@ -84,6 +86,7 @@
   .th-description {
     max-width: 150px;
   }
+
   .td-price {
     font-size: 26px;
     font-weight: $font-weight-light;
@@ -92,6 +95,7 @@
     top: 4px;
     text-align: right;
   }
+
   .td-total {
     font-weight: $font-weight-bold;
     font-size: $font-size-h5;
@@ -103,17 +107,18 @@
     margin: 0px;
   }
 
-  > tbody > tr {
+  >tbody>tr {
     position: relative;
   }
 }
 
 .table-shopping {
-  > thead > tr > th {
+  >thead>tr>th {
     font-size: $font-size-h6;
     text-transform: uppercase;
   }
-  > tbody > tr > td {
+
+  >tbody>tr>td {
     font-size: $font-paragraph;
 
     b {
@@ -121,22 +126,27 @@
       margin-bottom: 5px;
     }
   }
+
   .td-name {
     font-weight: $font-weight-normal;
     font-size: 1.5em;
+
     small {
       color: $dark-gray;
       font-size: 0.75em;
       font-weight: $font-weight-light;
     }
   }
+
   .td-number {
     font-weight: $font-weight-light;
     font-size: $font-size-h4;
   }
+
   .td-name {
     min-width: 200px;
   }
+
   .td-number {
     text-align: right;
     min-width: 170px;
@@ -159,26 +169,30 @@
 }
 
 .table-responsive {
-  overflow: scroll;
+  overflow: auto;
   padding-bottom: 10px;
 }
 
 #tables .table-responsive {
   margin-bottom: 30px;
 }
+
 .table thead th {
   border-bottom: none;
 }
+
 .table th {
   border-top: none;
 }
+
 .table-sm {
-  > thead > tr > th,
-  > tbody > tr > th,
-  > tfoot > tr > th,
-  > thead > tr > td,
-  > tbody > tr > td,
-  > tfoot > tr > td {
+
+  >thead>tr>th,
+  >tbody>tr>th,
+  >tfoot>tr>th,
+  >thead>tr>td,
+  >tbody>tr>td,
+  >tfoot>tr>td {
     padding: 0.3rem;
   }
 }

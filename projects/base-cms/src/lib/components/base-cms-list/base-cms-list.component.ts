@@ -57,6 +57,7 @@ export class BaseCmsListComponent {
   constructor() {}
 
   initSearch(): void {}
+
   onLazyLoad(strAction = ''): void {}
 
   onRowSelect(item: JfCondition): void {
