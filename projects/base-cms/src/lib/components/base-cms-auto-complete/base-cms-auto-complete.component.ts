@@ -16,6 +16,7 @@ export class BaseCmsAutoCompleteComponent {
 
   _value?: any
 
+  @Input() acBlur = true
   @Input() acDisabled = false
   @Input() acMultiple = false
   @Input() acId = ''
@@ -81,8 +82,10 @@ export class BaseCmsAutoCompleteComponent {
   setDisabledState(isDisabled: boolean): void {}
 
   actBlur(e: any): void {
-    const mV = typeof this.value === 'object' ? {item: this.value} : null
-    this.select(mV)
+    if (this.acBlur) {
+      const mV = typeof this.value === 'object' ? {item: this.value} : null
+      this.select(mV)
+    }
   }
 
   actClear(): void {
