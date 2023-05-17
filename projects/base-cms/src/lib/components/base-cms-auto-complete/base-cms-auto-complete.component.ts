@@ -14,8 +14,6 @@ import {JfRequestOption} from '../../support/jf-request-option'
 export class BaseCmsAutoCompleteComponent {
   @ViewChild('instance', {static: true}) instance?: NgbTypeahead
 
-  @Output() oSelected = new EventEmitter<any>()
-
   _value?: any
 
   @Input() acDisabled = false
@@ -113,16 +111,15 @@ export class BaseCmsAutoCompleteComponent {
         this.values.push(e.item)
         this.searchFailed = this.values.length === 0
         this.fnChange(this.values)
-        this.oSelected.emit(this.values)
       }
     } else {
       this.previousTerm = ''
       this.value = e ? e.item : undefined
       this.searchFailed = this.value === null
       this.fnChange(this.value)
-      this.oSelected.emit(this.value)
     }
-    this.fnTouched()
+    this.onTouched()
+    this.searching = false
   }
 
   search = (text: Observable<string>) => {

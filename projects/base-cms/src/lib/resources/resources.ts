@@ -61,7 +61,6 @@ export const jfTemplateAutoComplete = `
   [resultTemplate]="rt"
   (selectItem)="select($event)"
   (focus)="focus.next($any($event).target.value)"
-  (blur)="actBlur($event)"
   #instance="ngbTypeahead"
   [(ngModel)]="value"
   [ngbTypeahead]="search"

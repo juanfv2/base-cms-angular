@@ -33,6 +33,7 @@ export class GenericTableComponent {
   constructor(private modalService: NgbModal) {}
 
   clearFilters(): void {
+    this.responseList = {}
     this._onClearFilters.emit('')
   }
 
@@ -108,13 +109,11 @@ export class GenericTableComponent {
   }
 
   saveFields() {
-    this.modelSearch.fieldsSelected = []
+    // this.modelSearch.fieldsSelected = []
+    this.modelSearch.fieldsSelected = this.modelSearch.fields.filter((_f: DBType) => _f.allowInList)
 
-    setTimeout(() => {
-      this.modelSearch.fieldsSelected = this.modelSearch.fields.filter((_f: DBType) => _f.allowInList)
-      this.onLazyLoad()
-      this.modalService.dismissAll()
-    }, 80)
+    this.onLazyLoad()
+    this.modalService.dismissAll()
   }
 
   drop(e: any) {

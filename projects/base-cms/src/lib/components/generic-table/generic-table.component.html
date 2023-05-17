@@ -21,7 +21,7 @@
       {{ responseList?.totalElements | number }}
     </small>
   </div>
-  <div class="card-body position-relative [responseList?.content]" *ngIf="responseList?.content">
+  <div class="card-body position-relative [responseList.content]" *ngIf="responseList?.content">
     <div class="table-full-width t-responsive table-responsive">
       <table jfStickyTable class="table table-xm table-striped table-hover table-bordered">
         <thead class="text-primary text-nowrap">
