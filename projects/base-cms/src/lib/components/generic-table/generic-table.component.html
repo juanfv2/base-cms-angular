@@ -13,11 +13,11 @@
       Crear {{ itemLabels?.ownName }}
     </button>
   </div>
-  <div class="card-header [clearFilters]">
-    <button (click)="clearFilters()" type="button" class="m-1 btn btn-link" *ngIf="!isSubComponent">
+  <div class="card-header d-flex justify-content-between [clearFilters]">
+    <button class="text-dark m-1 btn btn-link" type="button" (click)="clearFilters()" *ngIf="!isSubComponent">
       Limpiar filtros de búsqueda
     </button>
-    <small class="m-1 float-end fw-light p-1">
+    <small class="text-dark m-1">
       {{ responseList?.totalElements | number }}
     </small>
   </div>
