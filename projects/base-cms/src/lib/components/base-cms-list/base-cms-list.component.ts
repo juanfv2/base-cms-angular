@@ -99,8 +99,8 @@ export class BaseCmsListComponent {
   }
 
   clearFilters(m: any): void {
-    this.searchFieldAdded = []
     this.searchFieldAdded.forEach((f: any) => f?.deleteField())
+    this.searchFieldAdded = []
     JfUtils.mStorage.removeItem(this.kConditions, this.storageSession)
     this.initSearch()
     this.onLazyLoad()
