@@ -20,6 +20,8 @@ export class GenericTableComponent {
   @Input() hasPermission2show = false
   @Input() hasPermission2new = false
   @Input() hasPermission2delete = false
+  @Input() showHeader = true
+  @Input() showFooter = true
 
   @Output() _onLazyLoad = new EventEmitter<any>()
   @Output() _onRowSelect = new EventEmitter<any>()
@@ -106,6 +108,13 @@ export class GenericTableComponent {
 
   openScrollableContent(longContent: any) {
     this.modalService.open(longContent, {scrollable: true})
+  }
+
+  unselect() {
+    this.modelSearch.fields.forEach((e: DBType) => {
+      e.allowInList = false
+      console.log('e.name', e.name)
+    })
   }
 
   saveFields() {
