@@ -23,8 +23,12 @@
   </div>
   <div class="card-body position-relative [responseList.content]" *ngIf="responseList?.content">
     <div class="table-full-width t-responsive table-responsive">
-      <table jfStickyTable class="table table-xm table-striped table-hover table-bordered">
-        <thead class="text-primary text-nowrap">
+      <table
+        jfStickyTable
+        class="table table-{{ tableSize }} table-striped table-hover table-bordered"
+        [ngClass]="{'text-nowrap': tableNoWrap}"
+      >
+        <thead class="text-primary">
           <tr>
             <th
               *ngFor="let _field of modelSearch.fieldsSelected"
@@ -40,7 +44,7 @@
             <th *ngIf="hasPermission2delete"></th>
           </tr>
         </thead>
-        <tbody class="text-nowrap">
+        <tbody>
           <tr *ngFor="let model of responseList?.content">
             <td *ngFor="let _field of modelSearch.fieldsSelected" [ngSwitch]="_field.type" [jfSticky]="_field.fixed">
               <div class="w-100 h-100" [class.jf-sticky]="_field.fixed">

@@ -22,6 +22,8 @@ export class GenericTableComponent {
   @Input() hasPermission2delete = false
   @Input() showHeader = true
   @Input() showFooter = true
+  @Input() tableNoWrap = true
+  @Input() tableSize = 'sm'
 
   @Output() _onLazyLoad = new EventEmitter<any>()
   @Output() _onRowSelect = new EventEmitter<any>()
