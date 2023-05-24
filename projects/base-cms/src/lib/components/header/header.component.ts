@@ -10,7 +10,7 @@ import {JfAuthService} from '../../services/jf-auth.service'
 import {JfMessageService} from '../../services/jf-message.service'
 
 import {JfRequestOption} from '../../support/jf-request-option'
-import {JfStorageManagement} from '../../support/jf-storage-management'
+import {JfUtils} from '../../support/jf-utils'
 
 @Component({
   selector: 'base-cms-header',
@@ -41,11 +41,6 @@ export class HeaderComponent implements OnInit {
       JfRequestOption.isAuthorized(`/${k.routes.users}/edit`) || JfRequestOption.isAuthorized(`/${k.routes.users}/show`)
   }
 
-  private setupSideBar() {
-    const val = JfStorageManagement.getItem(k._8_isSidebarVisible) || ''
-    this.sb = JSON.parse(val) || {isSideBarVisible: false}
-  }
-
   ngOnInit() {
     this.getMenuTitles()
     this.router.events.subscribe((event: any) => {
@@ -55,8 +50,13 @@ export class HeaderComponent implements OnInit {
     })
   }
 
+  private setupSideBar() {
+    const val = JfUtils.mStorage.getItem(k._8_isSideBarVisible) || '{"isSideBarVisible": false}'
+    this.sb = JSON.parse(val) || {isSideBarVisible: false}
+  }
+
   sidebarToggle() {
-    if (this.sb?.isSidebarVisible) {
+    if (this.sb?.isSideBarVisible) {
       this.sidebarClose()
     } else {
       this.sidebarOpen()
@@ -64,7 +64,7 @@ export class HeaderComponent implements OnInit {
 
     const val_sb = JSON.stringify(this.sb)
 
-    JfStorageManagement.setItem(k._8_isSidebarVisible, val_sb)
+    JfUtils.mStorage.setItem(k._8_isSideBarVisible, val_sb)
   }
 
   sidebarOpen() {
@@ -85,8 +85,8 @@ export class HeaderComponent implements OnInit {
   }
 
   sidebarClose() {
-    const html = document.getElementsByTagName('html')[0]
     this.toggleButton = false
+    const html = document.getElementsByTagName('html')[0]
     const mainPanel = document.getElementsByClassName('main-panel')[0] as HTMLElement
 
     if (window.innerWidth < 991) {
@@ -148,8 +148,8 @@ export class HeaderComponent implements OnInit {
     // console.log('this.currentRole', this.currentRole);
     this.currentUser!.role = cRole
 
-    JfStorageManagement.setItem(k._1_user, JSON.stringify(this.currentUser))
-    JfStorageManagement.setItem(k._11_permissions, JSON.stringify(cRole.urlPermissions))
+    JfUtils.mStorage.setItem(k._1_user, JSON.stringify(this.currentUser))
+    JfUtils.mStorage.setItem(k._11_permissions, JSON.stringify(cRole.urlPermissions))
 
     this.authService.currentUser.next(this.currentUser!)
     this.getMenuTitles()

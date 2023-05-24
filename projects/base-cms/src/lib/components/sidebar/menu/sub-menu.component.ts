@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
-import {JfStorageManagement} from '../../../support/jf-storage-management'
 import {BehaviorSubject, Observable} from 'rxjs'
 import {k} from '../../../environments/k'
 import {Permission} from '../../../resources/models'
+import {JfUtils} from '../../../support/jf-utils'
 
 @Component({
   selector: 'base-cms-sub-menu',
@@ -50,7 +50,7 @@ export class SubMenuComponent implements OnInit {
   showSubMenu(element: any) {
     this.isSubMenuOpen = element === this.menu.name
 
-    const val = JfStorageManagement.getItem(k._8_isSidebarVisible) || ''
+    const val = JfUtils.mStorage.getItem(k._8_isSideBarVisible) || '{"isSideBarVisible": false}'
     const sb: any = JSON.parse(val) || {isSideBarVisible: false}
 
     if (sb.subMenu === element) {
@@ -69,6 +69,6 @@ export class SubMenuComponent implements OnInit {
 
     this.sideBarObj.next(sb)
 
-    JfStorageManagement.setItem(k._8_isSidebarVisible, JSON.stringify(sb))
+    JfUtils.mStorage.setItem(k._8_isSideBarVisible, JSON.stringify(sb))
   }
 }

@@ -17,13 +17,14 @@ export class GenericTableComponent {
   @Input() loadCsv = false
   @Input() loading = false
   @Input() isSubComponent = false
-  @Input() hasPermission2show = false
   @Input() hasPermission2new = false
+  @Input() hasPermission2show = false
   @Input() hasPermission2delete = false
   @Input() showHeader = true
   @Input() showFooter = true
+  @Input() tableBordered = true
   @Input() tableNoWrap = true
-  @Input() tableSize = 'sm'
+  @Input() tableSm = true
 
   @Output() _onLazyLoad = new EventEmitter<any>()
   @Output() _onRowSelect = new EventEmitter<any>()
@@ -115,7 +116,6 @@ export class GenericTableComponent {
   unselect() {
     this.modelSearch.fields.forEach((e: DBType) => {
       e.allowInList = false
-      console.log('e.name', e.name)
     })
   }
 

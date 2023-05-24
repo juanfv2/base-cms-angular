@@ -24,9 +24,7 @@ export const k: any = {
   entityGlobalK: 'r-country',
   entityGlobalV: '--',
 
-  _8_isSidebarVisible: 8,
-  isSidebarVisibleOpen: 1,
-  isSidebarVisibleClose: 0,
+  _8_isSideBarVisible: 8,
 
   _9_role: 9,
   _10_token: 10,

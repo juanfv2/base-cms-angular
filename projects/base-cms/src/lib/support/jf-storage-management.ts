@@ -35,7 +35,7 @@ export class JfStorageManagement {
       k._4_company,
       k._5_company_name,
       k._7_entityGlobalId,
-      k._8_isSidebarVisible,
+      k._8_isSideBarVisible,
       k._12_entityGlobalTimeZone,
       k._13_entityGlobalTimeZoneStr,
     ]
