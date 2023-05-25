@@ -171,16 +171,14 @@ export class BaseCmsListComponent {
     const csvColumns: any = JfUtils.csvColumns(this.itemLabels, true)
     const csv: any = {}
     // csv.cp = this.mApi.store()
-    csv.table = this.itemLabels.tableName
     csv.primaryKeyName = this.itemLabels.tablePK
+    csv.table = this.itemLabels.tableName
+    csv.keys = JSON.stringify(csvColumns)
     csv.cModel = modelSearch.cModel
     csv.immediate = true
-    csv.keys = JSON.stringify(csvColumns)
 
     modelSearch.csv = csv
-
     modelSearch.fields = this.fieldsInList
-
     modelSearch.fieldsSelected = modelSearch.fields.filter((_f: DBType) => _f.allowInList)
   }
 
