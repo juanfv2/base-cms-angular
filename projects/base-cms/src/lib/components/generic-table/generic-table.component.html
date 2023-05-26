@@ -60,7 +60,7 @@
 
                 <!-- ***** ***** ***** [custom] ***** ***** ***** -->
                 <ng-container *ngSwitchCase="'custom'">
-                  <ng-container *ngIf="!!model.customLabels[_field.name + '_label']">
+                  <ng-container *ngIf="!!model.customLabels ? model.customLabels[_field.name + '_label'] : false">
                     {{ model.customLabels[_field.name + '_label'] }}: <small>( {{ model[_field.name] }} )</small>
                   </ng-container>
                 </ng-container>
