@@ -25,6 +25,7 @@ export class GenericTableComponent {
   @Input() tableBordered = true
   @Input() tableNoWrap = true
   @Input() tableSm = true
+  @Input() tableTruncate = 0
 
   @Output() _onLazyLoad = new EventEmitter<any>()
   @Output() _onRowSelect = new EventEmitter<any>()

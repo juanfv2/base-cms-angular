@@ -33,6 +33,7 @@ export * from './lib/directives/jf-multi-sort-meta.directive'
 
 export * from './lib/pipes/jf-format-item.pipe'
 export * from './lib/pipes/jf-has-x-file.pipe'
+export * from './lib/pipes/jf-truncate.pipe'
 export * from './lib/pipes/jf-safe.pipe'
 
 /* -------------------------------------------------------------------------- */

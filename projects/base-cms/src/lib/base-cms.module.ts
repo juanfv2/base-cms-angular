@@ -28,6 +28,7 @@ import {JfAddComponentFileDirective} from './directives/jf-add-component-file.di
 import {JfSafePipe} from './pipes/jf-safe.pipe'
 import {JfHasXFilePipe} from './pipes/jf-has-x-file.pipe'
 import {JfFormatItemPipe} from './pipes/jf-format-item.pipe'
+import {JfTruncatePipe} from './pipes/jf-truncate.pipe'
 
 import {HeaderComponent} from './components/header/header.component'
 import {FooterComponent} from './components/footer/footer.component'
@@ -53,6 +54,7 @@ const _components = [
   JfMultiSortMetaDirective,
 
   JfSafePipe,
+  JfTruncatePipe,
   JfHasXFilePipe,
   JfFormatItemPipe,
 

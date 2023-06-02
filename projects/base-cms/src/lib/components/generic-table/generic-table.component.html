@@ -106,7 +106,7 @@
 
                 <!-- ***** ***** ***** [default] ***** ***** ***** -->
                 <ng-container *ngSwitchDefault>
-                  {{ model[_field.name] }}
+                  {{ model[_field.name] | jfTruncate : tableTruncate : ' ...' }}
                 </ng-container>
               </div>
             </td>
