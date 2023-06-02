@@ -14,7 +14,8 @@ export class GenericTableComponent {
   @Input() modelSearch: any = {}
   @Input() itemLabels?: any
   @Input() responseList: any = {}
-  @Input() loadCsv = false
+  @Input() allowExport = true
+  @Input() allowImport = false
   @Input() loading = false
   @Input() isSubComponent = false
   @Input() hasPermission2new = false

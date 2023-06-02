@@ -187,8 +187,8 @@
         </div>
       </div>
       <div class="col-12 col-md-6">
-        <div class="d-block w-100">
-          <div class="ui-paginator ui-dropdown d-inline-block p-1 m-0">
+        <div *ngIf="allowExport" class="d-block w-100">
+          <div class="d-inline-block ui-paginator ui-dropdown p-1 m-0">
             <select
               id="select-type-table"
               name="select-type-table"
@@ -206,7 +206,7 @@
         </div>
 
         <base-cms-file-upload
-          *ngIf="loadCsv && hasPermission2new"
+          *ngIf="allowImport && hasPermission2new"
           [additionalParameter]="modelSearch.csv"
           [labels]="labels"
           id="model-importer"
