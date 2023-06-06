@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core'
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
 import {Location} from '@angular/common'
 import {Router} from '@angular/router'
 
@@ -18,6 +18,11 @@ import {JfUtils} from '../../support/jf-utils'
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  @Output() onProfileEvent = new EventEmitter()
+  @Output() onLogOutEvent = new EventEmitter()
+  @Output() onChangeRoleBeforeEvent = new EventEmitter()
+  @Input() allowChangeRole = true
+  @Input() hasPermission2edit = false
   @Input() labels: any
   $layer: any
   currentUser: any
@@ -25,7 +30,6 @@ export class HeaderComponent implements OnInit {
   private listTitles: Permission[] = []
 
   isCollapsed = true
-  hasPermission2edit = false
   project_name = k.project_name
   currentPage = ''
   sb: any
@@ -37,8 +41,7 @@ export class HeaderComponent implements OnInit {
     private messageService: JfMessageService
   ) {
     authService.currentUser.subscribe((u: any) => (this.currentUser = u))
-    this.hasPermission2edit =
-      JfRequestOption.isAuthorized(`/${k.routes.users}/edit`) || JfRequestOption.isAuthorized(`/${k.routes.users}/show`)
+    this.hasPermission2edit = JfRequestOption.isAuthorized(`/${k.routes.users}/edit`)
   }
 
   ngOnInit() {
@@ -68,8 +71,9 @@ export class HeaderComponent implements OnInit {
   }
 
   sidebarOpen() {
-    const mainPanel = document.getElementsByClassName('main-panel')[0] as HTMLElement
     const html = document.getElementsByTagName('html')[0]
+    const mainPanel = document.getElementsByClassName('main-panel')[0] as HTMLElement
+
     if (window.innerWidth < 991) {
       if (mainPanel) {
         mainPanel.style.position = 'fixed'
@@ -85,7 +89,6 @@ export class HeaderComponent implements OnInit {
   }
 
   sidebarClose() {
-    this.toggleButton = false
     const html = document.getElementsByTagName('html')[0]
     const mainPanel = document.getElementsByClassName('main-panel')[0] as HTMLElement
 
@@ -96,6 +99,11 @@ export class HeaderComponent implements OnInit {
         }
       }, 500)
     }
+
+    setTimeout(() => {
+      this.toggleButton = false
+    }, 500)
+
     html.classList.remove('nav-open')
     this.sb.isSideBarVisible = false
   }
@@ -126,26 +134,40 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  profile() {
+    this.onProfileEvent.emit(this.currentUser)
+    if (!this.hasPermission2edit) {
+      return
+    }
+
+    // [routerLink]="labels.k.routes.users + '/' + currentUser.id + '/profile'"
+    this.router.navigate(['/', k.routes.users, '/', this.currentUser.id, '/', 'profile'])
+  }
+
   onLogOut() {
     this.authService.logout().subscribe({
-      next: (data) => {
+      next: () => {
         // remove user from local storage to log user out
         this.messageService.success(k.project_name, 'Ahora estás desconectado.')
       },
-      error: (error) => {
+      error: (error: any) => {
         console.log('HeaderComponent.onLogOut error', error)
       },
     })
     this.router.navigate(['login'])
   }
 
-  onChangeRole(cRole: Role) {
+  onChangeRole(cRole: any) {
+    this.onChangeRoleBeforeEvent.emit(cRole)
+
+    if (!this.allowChangeRole) {
+      return
+    }
+
     cRole.urlPermissions.push('/dashboard')
     cRole.urlPermissions.push('/not-authorized')
     cRole.urlPermissions.push('/not-found')
-    //   this.currentRole = cRole;
 
-    // console.log('this.currentRole', this.currentRole);
     this.currentUser!.role = cRole
 
     JfUtils.mStorage.setItem(k._1_user, JSON.stringify(this.currentUser))
