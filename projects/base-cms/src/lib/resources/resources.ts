@@ -72,7 +72,7 @@ export const jfTemplateAutoComplete = `
   (click)="actClear()"
   type="button"
 >
-  <i class="fa fa-times text-danger"></i>
+  <i class="fa fa-times text-white"></i>
 </button>
 <button
   title="Ver detalle"
@@ -81,7 +81,7 @@ export const jfTemplateAutoComplete = `
   (click)="actGo2Detail()"
   type="button"
 >
-  <i class="fa fa-info text-info"></i>
+  <i class="fa fa-info text-white"></i>
 </button>
 </div>
 <base-cms-spinner-searching *ngIf="searching"></base-cms-spinner-searching>
