@@ -137,6 +137,10 @@ export class BaseCmsListComponent {
     }
   }
 
+  addFilterGlobalShow() {
+    this.modelSearch.gSearchGlobal = !this.modelSearch.gSearchGlobal
+  }
+
   changePage(event: any): void {
     if (this.loading) {
       return
