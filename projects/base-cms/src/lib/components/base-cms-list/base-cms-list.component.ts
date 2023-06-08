@@ -46,8 +46,8 @@ export class BaseCmsListComponent {
 
   searchFieldAdded: any[] = []
   searchFieldAddedWithFile: any[] = []
-  fieldsSearchable: any[] = []
-  fieldsInList: any[] = []
+  fieldsSearchable: DBType[] = []
+  fieldsInList: DBType[] = []
 
   public router!: Router
   public modalService!: NgbModal
@@ -135,10 +135,6 @@ export class BaseCmsListComponent {
     for (let i = 0; i < data.columns; i++) {
       this.addFilterWithFile()
     }
-  }
-
-  addFilterGlobalShow() {
-    this.modelSearch.gSearchGlobal = !this.modelSearch.gSearchGlobal
   }
 
   changePage(event: any): void {

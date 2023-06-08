@@ -7,7 +7,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop'
 
 import {FileUploadModule} from 'ng2-file-upload'
 import {OwlDateTimeModule, OwlNativeDateTimeModule, OwlDateTimeIntl} from 'ng-pick-datetime-ex'
-import {JfDefaultIntlService} from './services/jf-default.intl.service'
+import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown'
 
 import {
   NgbCollapseModule,
@@ -18,6 +18,8 @@ import {
   NgbTypeaheadModule,
   NgbPaginationModule,
 } from '@ng-bootstrap/ng-bootstrap'
+
+import {JfDefaultIntlService} from './services/jf-default.intl.service'
 
 import {StickyDirective} from './directives/sticky.directive'
 import {StickyTableDirective} from './directives/sticky-table.directive'
@@ -45,6 +47,7 @@ import {MessageModalComponent} from './components/message-modal/message-modal.co
 import {BaseCmsListComponent} from './components/base-cms-list/base-cms-list.component'
 import {ManyToManyComponent} from './components/many-to-many/many-to-many.component'
 import {GenericTableComponent} from './components/generic-table/generic-table.component'
+import {SearchGlobalComponent} from './components/search-global/search-global.component'
 
 const _components = [
   StickyDirective,
@@ -65,8 +68,11 @@ const _components = [
   NotFoundComponent,
   FileUploadComponent,
   ManyToManyComponent,
+
   SearchInputComponent,
+  SearchGlobalComponent,
   GenericTableComponent,
+
   BaseCmsListComponent,
   MessageModalComponent,
   ToastContainerComponent,
@@ -96,6 +102,7 @@ const _components = [
 
     DragDropModule,
 
+    NgMultiSelectDropDownModule.forRoot(),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
   ],
