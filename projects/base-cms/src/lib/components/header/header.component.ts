@@ -18,11 +18,11 @@ import {JfUtils} from '../../support/jf-utils'
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  @Output() onProfileEvent = new EventEmitter()
   @Output() onLogOutEvent = new EventEmitter()
-  @Output() onChangeRoleBeforeEvent = new EventEmitter()
+  @Output() onProfileEvent = new EventEmitter()
+  @Output() onChangeRoleEvent = new EventEmitter()
   @Input() allowChangeRole = true
-  @Input() hasPermission2edit = false
+  @Input() allowChangeProfile = false
   @Input() labels: any
   $layer: any
   currentUser: any
@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit {
     private messageService: JfMessageService
   ) {
     authService.currentUser.subscribe((u: any) => (this.currentUser = u))
-    this.hasPermission2edit = JfRequestOption.isAuthorized(`/${k.routes.users}/edit`)
+    this.allowChangeProfile = JfRequestOption.isAuthorized(`/${k.routes.users}/edit`)
   }
 
   ngOnInit() {
@@ -135,13 +135,12 @@ export class HeaderComponent implements OnInit {
   }
 
   profile() {
-    this.onProfileEvent.emit(this.currentUser)
-    if (!this.hasPermission2edit) {
+    if (!this.allowChangeProfile) {
+      this.onProfileEvent.emit(this.currentUser)
       return
     }
 
-    // [routerLink]="labels.k.routes.users + '/' + currentUser.id + '/profile'"
-    this.router.navigate(['/', k.routes.users, '/', this.currentUser.id, '/', 'profile'])
+    this.router.navigate([k.routes.users, this.currentUser.id, 'profile'])
   }
 
   onLogOut() {
@@ -158,9 +157,8 @@ export class HeaderComponent implements OnInit {
   }
 
   onChangeRole(cRole: any) {
-    this.onChangeRoleBeforeEvent.emit(cRole)
-
     if (!this.allowChangeRole) {
+      this.onChangeRoleEvent.emit(cRole)
       return
     }
 
