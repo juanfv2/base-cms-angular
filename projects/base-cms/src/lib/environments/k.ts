@@ -21,6 +21,7 @@ export const k: any = {
 
   _6_entityGlobal: 6,
   _7_entityGlobalId: 7,
+  entityOriginK: 'r-origin',
   entityGlobalK: 'r-country',
   entityGlobalV: '--',
 

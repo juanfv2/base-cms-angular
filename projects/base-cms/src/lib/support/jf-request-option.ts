@@ -18,6 +18,12 @@ export class JfRequestOption {
       }
       h[k.authorizationK] = 'Bearer ' + token
     }
+
+    const mCompanyName = JfUtils.mStorage.getItem(k._5_company_name)
+    if (mCompanyName) {
+      h[k.entityOriginK] = mCompanyName
+    }
+
     const mItem = JfStorageManagement.getItem(k._7_entityGlobalId)
     if (mItem) {
       h[k.entityGlobalK] = mItem
