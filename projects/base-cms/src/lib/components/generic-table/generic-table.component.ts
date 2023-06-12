@@ -1,7 +1,8 @@
-import {Component, ContentChild, EventEmitter, Input, Output, TemplateRef} from '@angular/core'
+import {Component, ContentChild, EventEmitter, Input, Output, TemplateRef, ViewChild} from '@angular/core'
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap'
 import {JfCondition, DBType} from '../../resources/classes'
 import {MessageModalComponent} from '../message-modal/message-modal.component'
+import {FileUploadComponent} from '../file-upload/file-upload.component'
 
 @Component({
   selector: 'base-cms-generic-table',
@@ -9,6 +10,8 @@ import {MessageModalComponent} from '../message-modal/message-modal.component'
   styleUrls: ['./generic-table.component.scss'],
 })
 export class GenericTableComponent {
+  @ViewChild(FileUploadComponent) fileUploadComponent?: FileUploadComponent
+
   @Input() labels: any
   @Input() csv: any
   @Input() modelSearch: any = {}
@@ -16,6 +19,7 @@ export class GenericTableComponent {
   @Input() responseList: any = {}
   @Input() allowExport = true
   @Input() allowImport = false
+  @Input() url2send?: string
   @Input() loading = false
   @Input() isSubComponent = false
   @Input() hasPermission2new = false
@@ -34,6 +38,7 @@ export class GenericTableComponent {
   @Output() _onDelete = new EventEmitter<any>()
   @Output() _onClearFilters = new EventEmitter<any>()
   @Output() _onMassiveInsert = new EventEmitter<any>()
+  @Output() _onFileUploader = new EventEmitter<any>()
 
   @ContentChild(TemplateRef) templateRef!: TemplateRef<any>
 
@@ -105,6 +110,10 @@ export class GenericTableComponent {
       this.modelSearch.lazyLoadEvent.first = 1
       this.onLazyLoad()
     }
+  }
+
+  gFileUploader(jCondition: JfCondition): void {
+    this._onFileUploader.emit(jCondition)
   }
 
   massiveInsert(jCondition: JfCondition): void {

@@ -60,6 +60,7 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
 
   @Output() finish = new EventEmitter<any>()
   @Output() uploaderQueue = new EventEmitter<any>()
+  @Output() fileUploader = new EventEmitter<any>()
 
   url2uploadStr = ''
   snapshot: any
@@ -73,6 +74,8 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
   ngOnInit(): void {
     this.imgLoading = this.labels.k.loading
     this.prepare2server()
+
+    this.fileUploader.emit(new JfCondition(this.name, this.uploader))
   }
 
   prepareOptions(): void {
@@ -132,6 +135,10 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
     //     // fileItem.withCredentials = false;
     //     console.log('process', progress);
     // };
+
+    this.uploader.onBeforeUploadItem = (item: any) => {
+      this.uploaderQueue.emit(item)
+    }
 
     if (!this.url2showStaticImage || !this.autoUpload) {
       this.uploader.onAfterAddingFile = (item: any) => {

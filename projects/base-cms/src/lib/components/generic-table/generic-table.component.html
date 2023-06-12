@@ -216,10 +216,12 @@
           name="massive-inserts"
           [showPublicPath]="false"
           [error]="csv?.error?.error"
+          (fileUploader)="gFileUploader($event)"
           (finish)="massiveInsert($event)"
           [url2showStaticImage]="labels.misc.csv"
-          [value]="{id: -1, entity: itemLabels?.tableName, field: 'massive-inserts'}"
           [allowedTypes]="['text/csv', 'application/vnd.ms-excel']"
+          [url2send]="url2send"
+          [value]="{id: -1, entity: itemLabels?.tableName, field: 'massive-inserts'}"
         ></base-cms-file-upload>
       </div>
     </div>

@@ -5,6 +5,8 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap'
 import {JfResponseList, JfSearchCondition, JfCondition, JfResponse, DBType} from '../../resources/classes'
 import {JfAddComponentDirective} from '../../directives/jf-add-component.directive'
 import {JfAddComponentFileDirective} from '../../directives/jf-add-component-file.directive'
+import {GenericTableComponent} from '../generic-table/generic-table.component'
+
 import {JfCrudService} from '../../services/jf-crud.service'
 import {JfMessageService} from '../../services/jf-message.service'
 import {JfApiRoute} from '../../support/jf-api-route'
@@ -20,6 +22,7 @@ import {XFile} from '../../resources/models'
 export class BaseCmsListComponent {
   @ViewChild(JfAddComponentDirective) searchField?: JfAddComponentDirective
   @ViewChild(JfAddComponentFileDirective) searchFieldWithFile?: JfAddComponentFileDirective
+  @ViewChild(GenericTableComponent) genericTableComponent?: GenericTableComponent
 
   @Input() isSubComponentFrom = '-'
   @Input() isSubComponent = false
@@ -161,27 +164,6 @@ export class BaseCmsListComponent {
     }
   }
 
-  massiveInsert(jCondition: JfCondition): void {
-    // console.log('jCondition', jCondition)
-    this.onLazyLoad()
-    this.messageService.success(k.project_name, jCondition.v?.updated + ' Guardados')
-  }
-
-  currentFields(modelSearch: any): void {
-    const csvColumns: any = JfUtils.csvColumns(this.itemLabels, true)
-    const csv: any = {}
-    // csv.cp = this.mApi.store()
-    csv.primaryKeyName = this.itemLabels.tablePK
-    csv.table = this.itemLabels.tableName
-    csv.keys = JSON.stringify(csvColumns)
-    csv.cModel = modelSearch.cModel
-    csv.immediate = true
-
-    modelSearch.csv = csv
-    modelSearch.fields = this.fieldsInList
-    modelSearch.fieldsSelected = modelSearch.fields.filter((_f: DBType) => _f.allowInList)
-  }
-
   onLazyLoadExport(strAction: string, fDate = true) {
     const tFile = this.modelSearch.exportFileType || k.exportFileTypes[0].c
     const csvColumns: any = {}
@@ -192,7 +174,6 @@ export class BaseCmsListComponent {
 
     const csvColumnsStr = JSON.stringify(csvColumns)
 
-    // const csvColumns: any = JfUtils.csvColumns(this.itemLabels)
     this.modelSearch.lazyLoadEvent.additional.push(new JfCondition('action', strAction))
     this.modelSearch.lazyLoadEvent.additional.push(new JfCondition('title', this.itemLabels.ownNamePlural))
     this.modelSearch.lazyLoadEvent.additional.push(new JfCondition('fields', csvColumnsStr))
@@ -225,5 +206,26 @@ export class BaseCmsListComponent {
         this.messageService.danger(k.project_name, error, this.itemLabels.ownName)
       },
     })
+  }
+
+  currentFields(modelSearch: any): void {
+    const csvColumns: any = JfUtils.csvColumns(this.itemLabels, true)
+    const csv: any = {}
+    // csv.cp = this.mApi.store()
+    csv.primaryKeyName = this.itemLabels.tablePK
+    csv.table = this.itemLabels.tableName
+    csv.keys = JSON.stringify(csvColumns)
+    csv.cModel = modelSearch.cModel
+    csv.immediate = true
+
+    modelSearch.csv = csv
+    modelSearch.fields = this.fieldsInList
+    modelSearch.fieldsSelected = modelSearch.fields.filter((_f: DBType) => _f.allowInList)
+  }
+
+  massiveInsert(jCondition: JfCondition): void {
+    // console.log('jCondition', jCondition)
+    this.onLazyLoad()
+    this.messageService.success(k.project_name, jCondition.v?.updated + ' Guardados')
   }
 }
