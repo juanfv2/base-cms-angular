@@ -153,6 +153,7 @@ export class HeaderComponent implements OnInit {
         console.log('HeaderComponent.onLogOut error', error)
       },
     })
+    this.onLogOutEvent.emit(this.currentUser)
     this.router.navigate(['login'])
   }
 
