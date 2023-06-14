@@ -102,29 +102,7 @@ body {
 @include bottombar-x-rotation();
 @include bottombar-back-rotation();
 
-.cursor-pointer {
-  cursor: pointer;
-}
 
-.cursor-crosshair {
-  cursor: crosshair;
-}
-
-.cursor-e-resize {
-  cursor: e-resize;
-}
-
-.cursor-none {
-  cursor: none !important;
-}
-
-.cursor-default {
-  cursor: default !important;
-}
-
-.cursor-move {
-  cursor: move;
-}
 
 .bad-value {
   border-color: $danger-color;
@@ -212,40 +190,4 @@ body {
 .navbar .navbar-nav>a.btn-search-clear:not([data-action]):hover {
   box-shadow: 0 0 0 0;
   color: rgba(0, 0, 0, 0.8);
-}
-
-.minHeight500 {
-  min-height: 500px;
-}
-
-.r-0 {
-  right: 0;
-}
-
-.l-0 {
-  left: 0;
-}
-
-.t-0 {
-  top: 0;
-}
-
-.b-0 {
-  bottom: 0;
-}
-
-.w-100-px {
-  width: 100px;
-}
-
-.w-50-px {
-  width: 50px;
-}
-
-.h-100-px {
-  height: 100px;
-}
-
-.h-50-px {
-  height: 50px;
 }
