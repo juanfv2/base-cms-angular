@@ -21,14 +21,20 @@
       {{ responseList?.totalElements | number }}
     </small>
   </div>
-  <div class="card-body position-relative [responseList.content]" *ngIf="responseList?.content">
-    <div class="table-full-width t-responsive table-responsive">
+  <div
+    class="card-body position-relative [responseList.content-{{ responseList?.content?.length }}]"
+    *ngIf="responseList?.content"
+  >
+    <div
+      class="table-full-width t-responsive table-responsive"
+      [class.max-h-500]="modelSearch.tableScrolled && modelSearch.lazyLoadEvent.rows > 10"
+    >
       <table
         jfStickyTable
         class="table table-striped table-hover"
         [ngClass]="{'text-nowrap': tableNoWrap, 'table-bordered': tableBordered, 'table-sm': tableSm}"
       >
-        <thead class="text-primary">
+        <thead class="text-primary" [jfStickyHeader]="modelSearch.tableScrolled">
           <tr>
             <th
               *ngFor="let _field of modelSearch.fieldsSelected"

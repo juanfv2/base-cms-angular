@@ -14,22 +14,22 @@ export class GenericTableComponent {
 
   @Input() labels: any
   @Input() csv: any
-  @Input() modelSearch: any = {}
   @Input() itemLabels?: any
+  @Input() modelSearch: any = {}
   @Input() responseList: any = {}
-  @Input() allowExport = true
-  @Input() allowImport = false
   @Input() url2send?: string
   @Input() loading = false
+  @Input() showHeader = true
+  @Input() showFooter = true
+  @Input() allowExport = true
+  @Input() allowImport = false
   @Input() isSubComponent = false
   @Input() hasPermission2new = false
   @Input() hasPermission2show = false
   @Input() hasPermission2delete = false
-  @Input() showHeader = true
-  @Input() showFooter = true
-  @Input() tableBordered = true
-  @Input() tableNoWrap = true
   @Input() tableSm = true
+  @Input() tableNoWrap = true
+  @Input() tableBordered = true
   @Input() tableTruncate = 0
 
   @Output() _onLazyLoad = new EventEmitter<any>()
@@ -131,10 +131,13 @@ export class GenericTableComponent {
   }
 
   saveFields() {
-    // this.modelSearch.fieldsSelected = []
-    this.modelSearch.fieldsSelected = this.modelSearch.fields.filter((_f: DBType) => _f.allowInList)
+    this.modelSearch.fieldsSelected = []
 
-    this.onLazyLoad()
+    setTimeout(() => {
+      this.modelSearch.fieldsSelected = this.modelSearch.fields.filter((_f: DBType) => _f.allowInList)
+      this.onLazyLoad()
+    }, 1)
+
     this.modalService.dismissAll()
   }
 

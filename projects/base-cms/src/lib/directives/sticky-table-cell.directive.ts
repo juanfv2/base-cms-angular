@@ -5,7 +5,7 @@ import {StickyTableDirective} from './sticky-table.directive'
   selector: '[jfSticky]',
   exportAs: 'jfSticky',
 })
-export class StickyDirective {
+export class StickyTableCellDirective {
   @Input() jfSticky = true
   constructor(private tableCell: ElementRef, @Optional() private table: StickyTableDirective) {}
 
@@ -16,6 +16,7 @@ export class StickyDirective {
         const tableRow = tableCell.parentElement as HTMLTableRowElement
         const cells = tableRow.cells
 
+        // console.log('tableCell', tableCell.textContent)
         // console.log('tableCell', tableCell)
 
         let _width = 0
@@ -36,8 +37,8 @@ export class StickyDirective {
         tableCell.style.position = 'sticky'
         tableCell.style.background = 'white'
         tableCell.style.borderStyle = 'solid'
-        // tableCell.style.padding = '0'
-      }, 100)
+        // tableCell.style.zIndex = '1000'
+      }, 5)
     }
   }
 }

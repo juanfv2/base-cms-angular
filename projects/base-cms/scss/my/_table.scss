@@ -29,9 +29,12 @@
 
 /* Section two */
 
-@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px) {
+
   /* Section three */
   .t-responsive {
+
     table,
     thead,
     tbody,
@@ -70,4 +73,8 @@
 .ui-paginator.ui-dropdown {
   min-width: 4em;
   margin-left: 0.375em;
+}
+
+.max-h-500 {
+  max-height: 500px;
 }
