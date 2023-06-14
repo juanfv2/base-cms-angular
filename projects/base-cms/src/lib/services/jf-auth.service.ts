@@ -40,6 +40,7 @@ export class JfAuthService {
     const r = this.http.post(`${this.api}${k.routes.login}`, user, JfRequestOption.getRequestOptions(false))
 
     JfStorageManagement.clearEnvironment()
+    JfStorageManagement.clearEnvironment(sessionStorage)
 
     return r
   }
@@ -48,6 +49,7 @@ export class JfAuthService {
     const r = this.http.post(`${this.api}${k.routes.logout}`, null, JfRequestOption.getRequestOptions())
 
     JfStorageManagement.clearEnvironment()
+    JfStorageManagement.clearEnvironment(sessionStorage)
 
     return r
   }
@@ -69,7 +71,7 @@ export class JfAuthService {
   }
 
   entityGlobal(g = k._6_entityGlobal): any {
-    // can be country, company , etc
+    // this can be country, company, etc
     return JSON.parse(`${JfStorageManagement.getItem(g)}`)
   }
 }
