@@ -2,15 +2,15 @@ import {Directive, ElementRef, Input, Optional} from '@angular/core'
 import {StickyTableDirective} from './sticky-table.directive'
 
 @Directive({
-  selector: '[jfSticky]',
-  exportAs: 'jfSticky',
+  selector: '[jfStickyTableCell]',
+  exportAs: 'jfStickyTableCell',
 })
 export class StickyTableCellDirective {
-  @Input() jfSticky = true
+  @Input() jfStickyTableCell = true
   constructor(private tableCell: ElementRef, @Optional() private table: StickyTableDirective) {}
 
   ngAfterViewInit() {
-    if (this.jfSticky) {
+    if (this.jfStickyTableCell) {
       setTimeout(() => {
         const tableCell = this.tableCell.nativeElement as HTMLTableCellElement
         const tableRow = tableCell.parentElement as HTMLTableRowElement

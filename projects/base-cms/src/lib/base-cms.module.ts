@@ -21,9 +21,8 @@ import {
 
 import {JfDefaultIntlService} from './services/jf-default.intl.service'
 
-import {StickyTableHeaderDirective} from './directives/sticky-table-header.directive'
-import {StickyTableCellDirective} from './directives/sticky-table-cell.directive'
 import {StickyTableDirective} from './directives/sticky-table.directive'
+import {StickyTableCellDirective} from './directives/sticky-table-cell.directive'
 import {JfMultiSortMetaDirective} from './directives/jf-multi-sort-meta.directive'
 import {JfAddComponentDirective} from './directives/jf-add-component.directive'
 import {JfAddComponentFileDirective} from './directives/jf-add-component-file.directive'
@@ -51,9 +50,8 @@ import {GenericTableComponent} from './components/generic-table/generic-table.co
 import {SearchGlobalComponent} from './components/search-global/search-global.component'
 
 const _components = [
-  StickyTableHeaderDirective,
-  StickyTableCellDirective,
   StickyTableDirective,
+  StickyTableCellDirective,
   JfAddComponentDirective,
   JfAddComponentFileDirective,
   JfMultiSortMetaDirective,
