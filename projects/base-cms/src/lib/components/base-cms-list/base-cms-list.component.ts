@@ -216,7 +216,7 @@ export class BaseCmsListComponent {
     csv.table = this.itemLabels.tableName
     csv.keys = JSON.stringify(csvColumns)
     csv.cModel = modelSearch.cModel
-    csv.immediate = true
+    csv.immediate = 'immediate'
 
     modelSearch.csv = csv
     modelSearch.fields = this.fieldsInList
