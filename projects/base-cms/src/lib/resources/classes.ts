@@ -14,6 +14,7 @@ export class DBType {
   public key?: string
   public defaultValue?: any
   public alias = ''
+  public model = ''
 
   constructor(public me?: DBType) {
     Object.assign(this, this.me)
