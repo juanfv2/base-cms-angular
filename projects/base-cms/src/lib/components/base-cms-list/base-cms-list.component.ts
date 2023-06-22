@@ -102,11 +102,17 @@ export class BaseCmsListComponent {
   }
 
   clearFilters(m?: any): void {
-    this.searchFieldAdded.forEach((f: any) => f?.deleteField())
-    this.searchFieldAdded = []
-    JfUtils.mStorage.removeItem(this.kConditions, this.storageSession)
+    this.resetModelSearch()
     this.initSearch()
     this.onLazyLoad()
+  }
+
+  resetModelSearch(storageRemoveItem = true) {
+    this.searchFieldAdded.forEach((f: any) => f?.deleteField())
+    this.searchFieldAdded = []
+    if (storageRemoveItem) {
+      JfUtils.mStorage.removeItem(this.kConditions, this.storageSession)
+    }
   }
 
   addFilter(condition?: JfSearchCondition): void {
