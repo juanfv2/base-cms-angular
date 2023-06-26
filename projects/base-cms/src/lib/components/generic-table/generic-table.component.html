@@ -138,66 +138,68 @@
   </div>
   <div class="card-footer [export]" *ngIf="showFooter">
     <div class="row">
-      <div *ngIf="responseList?.totalElements" class="col-12 col-md-6">
-        <button
-          (click)="openScrollableContent(longContent)"
-          type="button"
-          class="btn btn-sm btn-round btn-icon text-white bg-primary p-1 m-1"
-        >
-          <i class="fas fa-cog"></i>
-        </button>
-
-        <ngb-pagination
-          [collectionSize]="responseList.totalElements"
-          [page]="modelSearch.lazyLoadEvent.first"
-          [pageSize]="modelSearch.lazyLoadEvent.rows"
-          size="sm"
-          [maxSize]="5"
-          [boundaryLinks]="true"
-          (pageChange)="changePage($event)"
-          class="d-inline-block"
-        ></ngb-pagination>
-
-        <div class="ui-paginator ui-dropdown d-inline-block p-1 m-0">
-          <select
-            id="select-qty-table"
-            name="select-qty-table"
-            class="form-control"
-            [(ngModel)]="modelSearch.lazyLoadEvent.rows"
-            (change)="changePageLimit($event)"
-            aria-placeholder="Máximo de filas"
-            placeholder="Máximo de filas"
-            ngbTooltip="Máximo de filas"
+      <div class="col">
+        <div class="d-block w-100 text-start" *ngIf="responseList?.totalElements">
+          <button
+            (click)="openScrollableContent(longContent)"
+            type="button"
+            class="btn btn-sm btn-round btn-icon text-white bg-primary p-1 m-1"
           >
-            <option *ngFor="let q of labels.misc.pageLimit" [value]="q.v">{{ q.c }}</option>
-          </select>
-        </div>
+            <i class="fas fa-cog"></i>
+          </button>
 
-        <div class="ui-paginator ui-dropdown d-inline-block p-1 m-0" *ngIf="responseList.totalElements > 100">
-          <div class="input-group">
-            <input
-              #i
-              type="number"
-              inputmode="numeric"
-              pattern="[0-9]*"
+          <ngb-pagination
+            [collectionSize]="responseList.totalElements"
+            [page]="modelSearch.lazyLoadEvent.first"
+            [pageSize]="modelSearch.lazyLoadEvent.rows"
+            size="sm"
+            [maxSize]="5"
+            [boundaryLinks]="true"
+            (pageChange)="changePage($event)"
+            class="d-inline-block"
+          ></ngb-pagination>
+
+          <div class="ui-paginator ui-dropdown d-inline-block p-1 m-0">
+            <select
+              id="select-qty-table"
+              name="select-qty-table"
               class="form-control"
-              ngbTooltip="Ir a Nro de página"
-              id="go-to-page-input"
-              aria-describedby="got-to-page-button"
-            />
-            <button
-              class="btn btn-outline-secondary"
-              type="button"
-              id="got-to-page-button"
-              (click)="changePage(+i.value); i.value = ''"
+              [(ngModel)]="modelSearch.lazyLoadEvent.rows"
+              (change)="changePageLimit($event)"
+              aria-placeholder="Máximo de filas"
+              placeholder="Máximo de filas"
+              ngbTooltip="Máximo de filas"
             >
-              Nro de página
-            </button>
+              <option *ngFor="let q of labels.misc.pageLimit" [value]="q.v">{{ q.c }}</option>
+            </select>
+          </div>
+
+          <div class="ui-paginator ui-dropdown d-inline-block p-1 m-0" *ngIf="responseList.totalElements > 100">
+            <div class="input-group">
+              <input
+                #i
+                type="number"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                class="form-control"
+                ngbTooltip="Ir a Nro de página"
+                id="go-to-page-input"
+                aria-describedby="got-to-page-button"
+              />
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                id="got-to-page-button"
+                (click)="changePage(+i.value); i.value = ''"
+              >
+                Nro de página
+              </button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-12 col-md-6">
-        <div *ngIf="allowExport" class="d-block w-100">
+      <div class="col">
+        <div class="d-block w-100 text-end" *ngIf="allowExport">
           <div class="d-inline-block ui-paginator ui-dropdown p-1 m-0">
             <select
               id="select-type-table"
@@ -214,24 +216,47 @@
             </button>
           </div>
         </div>
-
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <base-cms-file-upload
+          *ngIf="allowImport && hasPermission2delete && csvFileDelete?.field"
+          [additionalParameter]="csvDelete"
+          [labels]="labels"
+          id="model-deleter"
+          cardClass="border border-danger"
+          minHeight="100px"
+          label="Eliminar ( CSV )"
+          [name]="csvFileDelete.field"
+          [showPublicPath]="false"
+          [error]="csv?.error?.error"
+          [url2showStaticImage]="labels.misc.csv"
+          [allowedTypes]="['text/csv', 'application/vnd.ms-excel']"
+          [url2send]="url2send"
+          [value]="csvFileDelete"
+          (fileUploader)="gFileUploader($event)"
+          (finish)="massiveInsert($event)"
+        ></base-cms-file-upload>
+      </div>
+      <div class="col">
         <base-cms-file-upload
           *ngIf="allowImport && hasPermission2new"
           [additionalParameter]="modelSearch.csv"
           [labels]="labels"
           id="model-importer"
-          class="h-100"
+          cardClass="border"
           minHeight="100px"
-          label="Importar CSV"
-          name="massive-inserts"
+          label="Importar ( CSV )"
+          [name]="csvFile.field"
           [showPublicPath]="false"
           [error]="csv?.error?.error"
-          (fileUploader)="gFileUploader($event)"
-          (finish)="massiveInsert($event)"
           [url2showStaticImage]="labels.misc.csv"
           [allowedTypes]="['text/csv', 'application/vnd.ms-excel']"
           [url2send]="url2send"
-          [value]="{id: -1, entity: itemLabels?.tableName, field: 'massive-inserts'}"
+          [value]="csvFile"
+          (fileUploader)="gFileUploader($event)"
+          (finish)="massiveInsert($event)"
         ></base-cms-file-upload>
       </div>
     </div>

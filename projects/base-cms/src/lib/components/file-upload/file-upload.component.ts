@@ -28,6 +28,7 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
   @Input() labels: any = {}
   @Input() label = ''
   @Input() name = ''
+  @Input() cardClass = ''
   @Input() allowedTypes?: string[]
   @Input() landscape = 'landscape'
   @Input() minHeight = '125px'

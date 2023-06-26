@@ -1,19 +1,22 @@
-import {Component, ContentChild, EventEmitter, Input, Output, TemplateRef, ViewChild} from '@angular/core'
+import {Component, ContentChild, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core'
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap'
 import {JfCondition, DBType} from '../../resources/classes'
 import {MessageModalComponent} from '../message-modal/message-modal.component'
 import {FileUploadComponent} from '../file-upload/file-upload.component'
+import {XFile} from '../../resources/models'
 
 @Component({
   selector: 'base-cms-generic-table',
   templateUrl: './generic-table.component.html',
   styleUrls: ['./generic-table.component.scss'],
 })
-export class GenericTableComponent {
+export class GenericTableComponent implements OnInit {
   @ViewChild(FileUploadComponent) fileUploadComponent?: FileUploadComponent
 
   @Input() labels: any
   @Input() csv: any
+  @Input() csvFile!: XFile
+  @Input() csvFileDelete!: XFile
   @Input() itemLabels?: any
   @Input() modelSearch: any = {}
   @Input() responseList: any = {}
@@ -41,8 +44,16 @@ export class GenericTableComponent {
   @Output() _onFileUploader = new EventEmitter<any>()
 
   @ContentChild(TemplateRef) templateRef!: TemplateRef<any>
+  csvDelete: any
 
   constructor(private modalService: NgbModal) {}
+
+  ngOnInit(): void {
+    this.csvDelete = JSON.parse(JSON.stringify(this.modelSearch.csv))
+    this.csvDelete.immediate = 'delete'
+
+    this.csvFile = this.csvFile || ({id: -1, entity: this.itemLabels?.tableName, field: 'massive-insert'} as XFile)
+  }
 
   clearFilters(): void {
     this.responseList = {}
@@ -136,7 +147,7 @@ export class GenericTableComponent {
     setTimeout(() => {
       this.modelSearch.fieldsSelected = this.modelSearch.fields.filter((_f: DBType) => _f.allowInList)
       this.onLazyLoad()
-    }, 1)
+    }, 0.01)
 
     this.modalService.dismissAll()
   }

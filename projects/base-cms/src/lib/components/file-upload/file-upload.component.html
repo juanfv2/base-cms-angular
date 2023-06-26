@@ -1,153 +1,157 @@
 <input type="hidden" [name]="name" [(ngModel)]="mXXfile" />
-<div class="card p-2">
-  <!-- show errors -->
-  <div class="row" *ngIf="error">
-    <div class="col-12">
-      <div class="alert alert-danger form-text" role="alert">
-        <div class="d-block" [innerHtml]="error?.message | jfSafe : 'html'"></div>
-        <div class="d-block">
-          <small [innerHtml]="error?.data?.message | jfSafe : 'html'"> {{ error?.data?.message }} </small>
-        </div>
+<div class="card {{ cardClass }}">
+  <div class="card-header" *ngIf="error">
+    <!-- show errors -->
+    <div class="alert alert-danger form-text" role="alert">
+      <div class="d-block" [innerHtml]="error?.message | jfSafe : 'html'"></div>
+      <div class="d-block">
+        <small [innerHtml]="error?.data?.message | jfSafe : 'html'"> {{ error?.data?.message }} </small>
       </div>
     </div>
+    <!-- show errors .end -->
   </div>
-  <!-- show errors .end -->
-  <div
-    class="modelFieldWrap position-relative overflow-hidden text-center"
-    [style.min-height]="minHeight"
-    [style.max-height]="maxHeight"
-  >
-    <img
-      [src]="url2showStaticImage || (mXXfile | jfHasXFile : iWidth : iHeight : '?rCountry=' + labels.k.entityGlobalV)"
-      class="img-fluid img-field {{ landscape }}"
-    />
+
+  <div class="card-body">
     <div
-      class="dropzone position-absolute"
-      ng2FileDrop
-      [ngClass]="{hovering: hasBaseDropZoneOver}"
-      (fileOver)="fileOverBase($event)"
-      (onFileDrop)="dropped($event)"
-      [uploader]="uploader"
+      class="modelFieldWrap position-relative overflow-hidden text-center"
+      [style.min-height]="minHeight"
+      [style.max-height]="maxHeight"
     >
-      <span>
-        <b>{{ label }}</b>
-      </span>
-      <div class="file">
-        <label class="file-label m-1">
-          <div *ngIf="allowMultiples; else noMultiple">
-            <input type="file" class="file-input no-firebase" ng2FileSelect multiple [uploader]="uploader" />
-          </div>
-          <ng-template #noMultiple>
-            <input type="file" class="file-input no-firebase" ng2FileSelect [uploader]="uploader" />
-          </ng-template>
-          <span class="file-cta"> <i class="fa fa-upload"></i>o elige un archivo…</span>
-        </label>
-      </div>
-    </div>
-    <a
-      *ngIf="showPublicPath"
-      [href]="mXXfile | jfHasXFile : iWidth : iHeight : '?rCountry=' + labels.k.entityGlobalV"
-      target="_blank"
-      rel="noopener"
-      class="watch-file ..."
-    >
-      <i class="fa fa-search m-1"></i>
-    </a>
-  </div>
-  <p class="text-center" *ngIf="maxFileSize">
-    Tamaño máximo de archivo: {{ maxFileSize / 1024 / 1024 | number : '.2' }} MB
-  </p>
-  <!-- Subir a servidor -->
-  <div class="row" *ngIf="!hideProcess && uploader?.queue?.length">
-    <div class="col-12">
-      <div class="position-realtive">
-        <div class="position-absolute bg-white z-i-100">
-          <h3>Archivos en cola</h3>
-          <p>Longitud de la cola: {{ uploader?.queue?.length }}</p>
-          <table class="table table-sm table-striped table-hover">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Progreso</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of uploader.queue">
-                <td>
-                  <strong>{{ item?.file?.name }}</strong>
-                  <p>{{ item?.file?.size / 1024 / 1024 | number : '.2' }} MB</p>
-                  <p class="text-center">
-                    <span *ngIf="item.isSuccess"><i class="fa fa-check-circle"></i></span>
-                    <span *ngIf="item.isCancel"><i class="fa fa-ban"></i></span>
-                    <span *ngIf="item.isError"><i class="fa fa-exclamation-triangle"></i></span>
-                  </p>
-                </td>
-                <td>
-                  <div class="progress">
-                    <div class="progress-bar" role="progressbar" [ngStyle]="{width: item.progress + '%'}"></div>
-                  </div>
-                </td>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-success btn-sm m-1"
-                    (click)="item.upload()"
-                    [disabled]="item.isReady || item.isUploading || item.isSuccess"
-                  >
-                    <span class="fa fa-upload"></span> Subir
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-warning btn-sm m-1"
-                    (click)="item.cancel()"
-                    [disabled]="!item.isUploading"
-                  >
-                    <span class="fa fa-ban"></span> Cancelar
-                  </button>
-                  <button type="button" class="btn btn-danger btn-sm m-1" (click)="item.remove()">
-                    <span class="fa fa-trash"></span> Remover
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div>
-            <div>
-              Progreso:
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" [ngStyle]="{width: uploader.progress + '%'}"></div>
-              </div>
+      <img
+        [src]="url2showStaticImage || (mXXfile | jfHasXFile : iWidth : iHeight : '?rCountry=' + labels.k.entityGlobalV)"
+        class="img-fluid img-field {{ landscape }}"
+      />
+      <div
+        class="dropzone position-absolute"
+        ng2FileDrop
+        [ngClass]="{hovering: hasBaseDropZoneOver}"
+        (fileOver)="fileOverBase($event)"
+        (onFileDrop)="dropped($event)"
+        [uploader]="uploader"
+      >
+        <span>
+          <b>{{ label }}</b>
+        </span>
+        <div class="file">
+          <label class="file-label m-1">
+            <div *ngIf="allowMultiples; else noMultiple">
+              <input type="file" class="file-input no-firebase" ng2FileSelect multiple [uploader]="uploader" />
             </div>
-            <button
-              type="button"
-              class="btn btn-success btn-sm m-1"
-              (click)="uploader.uploadAll()"
-              [disabled]="!uploader.getNotUploadedItems().length"
-            >
-              <span class="fa fa-upload"></span> Subir
-            </button>
-            <button
-              type="button"
-              class="btn btn-warning btn-sm m-1"
-              (click)="uploader.cancelAll()"
-              [disabled]="!uploader.isUploading"
-            >
-              <span class="fa fa-ban"></span> Cancelar
-            </button>
-            <button
-              type="button"
-              class="btn btn-danger btn-sm m-1"
-              (click)="uploader.clearQueue()"
-              [disabled]="!uploader.queue.length"
-            >
-              <span class="fa fa-trash"></span> Remover
-            </button>
+            <ng-template #noMultiple>
+              <input type="file" class="file-input no-firebase" ng2FileSelect [uploader]="uploader" />
+            </ng-template>
+            <span class="file-cta"> <i class="fa fa-upload"></i>o elige un archivo…</span>
+          </label>
+        </div>
+      </div>
+      <a
+        *ngIf="showPublicPath"
+        [href]="mXXfile | jfHasXFile : iWidth : iHeight : '?rCountry=' + labels.k.entityGlobalV"
+        target="_blank"
+        rel="noopener"
+        class="watch-file ..."
+      >
+        <i class="fa fa-search m-1"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="card-footer" *ngIf="maxFileSize || (!hideProcess && uploader?.queue?.length)">
+    <p class="text-center" *ngIf="maxFileSize">
+      Tamaño máximo de archivo: {{ maxFileSize / 1024 / 1024 | number : '.2' }} MB
+    </p>
+    <!-- Subir a servidor -->
+    <div class="row" *ngIf="!hideProcess && uploader?.queue?.length">
+      <div class="col-12">
+        <div class="position-realtive">
+          <div class="position-absolute bg-white z-i-100">
+            <h3>Archivos en cola</h3>
+            <p>Longitud de la cola: {{ uploader?.queue?.length }}</p>
+            <table class="table table-sm table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Progreso</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of uploader.queue">
+                  <td>
+                    <strong>{{ item?.file?.name }}</strong>
+                    <p>{{ item?.file?.size / 1024 / 1024 | number : '.2' }} MB</p>
+                    <p class="text-center">
+                      <span *ngIf="item.isSuccess"><i class="fa fa-check-circle"></i></span>
+                      <span *ngIf="item.isCancel"><i class="fa fa-ban"></i></span>
+                      <span *ngIf="item.isError"><i class="fa fa-exclamation-triangle"></i></span>
+                    </p>
+                  </td>
+                  <td>
+                    <div class="progress">
+                      <div class="progress-bar" role="progressbar" [ngStyle]="{width: item.progress + '%'}"></div>
+                    </div>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-success btn-sm m-1"
+                      (click)="item.upload()"
+                      [disabled]="item.isReady || item.isUploading || item.isSuccess"
+                    >
+                      <span class="fa fa-upload"></span> Subir
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-warning btn-sm m-1"
+                      (click)="item.cancel()"
+                      [disabled]="!item.isUploading"
+                    >
+                      <span class="fa fa-ban"></span> Cancelar
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm m-1" (click)="item.remove()">
+                      <span class="fa fa-trash"></span> Remover
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div>
+              <div>
+                Progreso:
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{width: uploader.progress + '%'}"></div>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="btn btn-success btn-sm m-1"
+                (click)="uploader.uploadAll()"
+                [disabled]="!uploader.getNotUploadedItems().length"
+              >
+                <span class="fa fa-upload"></span> Subir
+              </button>
+              <button
+                type="button"
+                class="btn btn-warning btn-sm m-1"
+                (click)="uploader.cancelAll()"
+                [disabled]="!uploader.isUploading"
+              >
+                <span class="fa fa-ban"></span> Cancelar
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger btn-sm m-1"
+                (click)="uploader.clearQueue()"
+                [disabled]="!uploader.queue.length"
+              >
+                <span class="fa fa-trash"></span> Remover
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- Subir a servidor . end -->
+    <!-- Subir a firebase - -> <div class="row" *ngIf="percentage | async as pct"> <div class="col-12"> <div> <progress class="progress is-info" [value]="pct" max="100"> </progress> {{ pct | number }}% </div> <div *ngIf="(snapshot | async) as snap"> {{ snap.bytesTransferred | fileSize }} de {{ snap.totalBytes | fileSize }} <br> <button (click)="task.pause()" class="btn btn-warning m-1" [disabled]="!isActive(snap)"> Pausar </button> <button (click)="task.cancel()" class="btn btn-danger m-1" [disabled]="!isActive(snap)"> Cancelar </button> <button (click)="task.resume()" class="btn btn-info m-1" [disabled]="!(snap?.state === 'paused')"> Continuar </button> </div> </div> </div> < !-- Subir a firebase -->
   </div>
-  <!-- Subir a servidor . end -->
-  <!-- Subir a firebase - -> <div class="row" *ngIf="percentage | async as pct"> <div class="col-12"> <div> <progress class="progress is-info" [value]="pct" max="100"> </progress> {{ pct | number }}% </div> <div *ngIf="(snapshot | async) as snap"> {{ snap.bytesTransferred | fileSize }} de {{ snap.totalBytes | fileSize }} <br> <button (click)="task.pause()" class="btn btn-warning m-1" [disabled]="!isActive(snap)"> Pausar </button> <button (click)="task.cancel()" class="btn btn-danger m-1" [disabled]="!isActive(snap)"> Cancelar </button> <button (click)="task.resume()" class="btn btn-info m-1" [disabled]="!(snap?.state === 'paused')"> Continuar </button> </div> </div> </div> < !-- Subir a firebase -->
 </div>
