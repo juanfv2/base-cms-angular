@@ -85,7 +85,7 @@ export class HeaderComponent implements OnInit {
     }, 500)
 
     html.classList.add('nav-open')
-    this.sb.isSideBarVisible = true
+    if (this.sb) this.sb.isSideBarVisible = true
   }
 
   sidebarClose() {
@@ -105,7 +105,7 @@ export class HeaderComponent implements OnInit {
     }, 500)
 
     html.classList.remove('nav-open')
-    this.sb.isSideBarVisible = false
+    if (this.sb) this.sb.isSideBarVisible = false
   }
 
   getTitle() {
