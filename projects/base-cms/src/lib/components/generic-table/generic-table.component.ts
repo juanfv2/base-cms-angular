@@ -90,7 +90,7 @@ export class GenericTableComponent implements OnInit {
   }
 
   formatInput(input: HTMLInputElement) {
-    input.value = input.value.replace(this.labels.misc.filter_pag_regex, '')
+    input.value = input.value.replace(/[^0-9]/g, '')
   }
 
   changePage(event: number): void {
