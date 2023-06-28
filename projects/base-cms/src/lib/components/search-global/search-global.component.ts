@@ -32,7 +32,7 @@ export class SearchGlobalComponent implements OnInit {
   }
 
   onItemSelect(item: any) {
-    console.log(item)
+    // console.log(item)
     this.onSelect.emit(item)
   }
 }

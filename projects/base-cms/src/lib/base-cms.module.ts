@@ -7,7 +7,6 @@ import {DragDropModule} from '@angular/cdk/drag-drop'
 
 import {FileUploadModule} from 'ng2-file-upload'
 import {OwlDateTimeModule, OwlNativeDateTimeModule, OwlDateTimeIntl} from 'ng-pick-datetime-ex'
-import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown'
 
 import {
   NgbCollapseModule,
@@ -22,15 +21,16 @@ import {
 import {JfDefaultIntlService} from './services/jf-default.intl.service'
 
 import {StickyTableDirective} from './directives/sticky-table.directive'
+import {JfAddComponentDirective} from './directives/jf-add-component.directive'
 import {StickyTableCellDirective} from './directives/sticky-table-cell.directive'
 import {JfMultiSortMetaDirective} from './directives/jf-multi-sort-meta.directive'
-import {JfAddComponentDirective} from './directives/jf-add-component.directive'
 import {JfAddComponentFileDirective} from './directives/jf-add-component-file.directive'
 
 import {JfSafePipe} from './pipes/jf-safe.pipe'
+import {JfTruncatePipe} from './pipes/jf-truncate.pipe'
 import {JfHasXFilePipe} from './pipes/jf-has-x-file.pipe'
 import {JfFormatItemPipe} from './pipes/jf-format-item.pipe'
-import {JfTruncatePipe} from './pipes/jf-truncate.pipe'
+import {JfListFilterPipe} from './pipes/jf-list-filter.pipe'
 
 import {HeaderComponent} from './components/header/header.component'
 import {FooterComponent} from './components/footer/footer.component'
@@ -48,18 +48,22 @@ import {BaseCmsListComponent} from './components/base-cms-list/base-cms-list.com
 import {ManyToManyComponent} from './components/many-to-many/many-to-many.component'
 import {GenericTableComponent} from './components/generic-table/generic-table.component'
 import {SearchGlobalComponent} from './components/search-global/search-global.component'
+import {SelectMultipleComponent} from './components/select-multiple/select-multiple.component'
+import {JfClickOutsideDirective} from './directives/jf-click-outside.directive'
 
 const _components = [
   StickyTableDirective,
   StickyTableCellDirective,
   JfAddComponentDirective,
   JfAddComponentFileDirective,
+  JfClickOutsideDirective,
   JfMultiSortMetaDirective,
 
   JfSafePipe,
   JfTruncatePipe,
   JfHasXFilePipe,
   JfFormatItemPipe,
+  JfListFilterPipe,
 
   SubMenuComponent,
   HeaderComponent,
@@ -72,6 +76,7 @@ const _components = [
   SearchInputComponent,
   SearchGlobalComponent,
   GenericTableComponent,
+  SelectMultipleComponent,
 
   BaseCmsListComponent,
   MessageModalComponent,
@@ -102,10 +107,9 @@ const _components = [
 
     DragDropModule,
 
-    NgMultiSelectDropDownModule.forRoot(),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
   ],
-  providers: [{provide: OwlDateTimeIntl, useClass: JfDefaultIntlService}],
+  providers: [{provide: OwlDateTimeIntl, useClass: JfDefaultIntlService}, JfListFilterPipe],
 })
 export class BaseCmsModule {}

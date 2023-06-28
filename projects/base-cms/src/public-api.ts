@@ -18,6 +18,7 @@ export * from './lib/components/toast-container/toast-container.component'
 export * from './lib/components/spinner-loading/spinner-loading.component'
 export * from './lib/components/spinner-searching/spinner-searching.component'
 export * from './lib/components/base-cms-auto-complete/base-cms-auto-complete.component'
+export * from './lib/components/select-multiple/select-multiple.component'
 
 /* -------------------------------------------------------------------------- */
 /* directives                                                                 */
@@ -26,12 +27,14 @@ export * from './lib/directives/sticky-table.directive'
 export * from './lib/directives/sticky-table-cell.directive'
 export * from './lib/directives/jf-add-component.directive'
 export * from './lib/directives/jf-add-component-file.directive'
+export * from './lib/directives/jf-click-outside.directive'
 export * from './lib/directives/jf-multi-sort-meta.directive'
 
 /* -------------------------------------------------------------------------- */
 /* pipes                                                                      */
 /* -------------------------------------------------------------------------- */
 
+export * from './lib/pipes/jf-list-filter.pipe'
 export * from './lib/pipes/jf-format-item.pipe'
 export * from './lib/pipes/jf-has-x-file.pipe'
 export * from './lib/pipes/jf-truncate.pipe'

@@ -9,7 +9,7 @@
   </button>
 </div>
 
-<ng-multiselect-dropdown
+<base-cms-select-multiple
   [id]="modelSearch.cModel + '-dd'"
   [name]="modelSearch.cModel + '-dd'"
   [placeholder]="gDropDownPlaceholder"
@@ -18,7 +18,7 @@
   (onSelect)="onItemSelect($event)"
   [data]="fieldsSearchable"
 >
-</ng-multiselect-dropdown>
+</base-cms-select-multiple>
 <!-- name . init -->
 <div class="form-group mt-2">
   <input
