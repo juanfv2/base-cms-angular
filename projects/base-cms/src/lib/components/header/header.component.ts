@@ -55,7 +55,7 @@ export class HeaderComponent implements OnInit {
 
   private setupSideBar() {
     const val = JfUtils.mStorage.getItem(k._8_isSideBarVisible) || '{"isSideBarVisible": false}'
-    this.sb = JSON.parse(val) || {isSideBarVisible: false}
+    this.sb = JfUtils.jsonValidated(val) || {isSideBarVisible: false}
   }
 
   sidebarToggle() {
