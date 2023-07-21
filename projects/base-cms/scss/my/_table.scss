@@ -1,5 +1,4 @@
 /* tables */
-
 .no-sorting {
   cursor: default;
 }
@@ -8,27 +7,42 @@
   cursor: pointer;
 }
 
-.asc::after {
-  content: '↑';
+.asc {
+  div::after {
+    content: '↑';
+  }
 }
 
-.desc::after {
-  content: '↓';
+.desc {
+  div::after {
+    content: '↓';
+  }
 }
 
 .asc,
 .desc {
   background-color: #0772bb !important;
-  color: white;
+  color: white !important;
   cursor: pointer;
 }
 
-.table .td-actions .btn {
-  padding: 0.375rem 0.75rem;
+.table {
+  >thead>tr>th {
+    font-weight: 600;
+  }
+
+  > :not(caption)>*>* {
+    color: inherit;
+    background-color: inherit;
+  }
+}
+
+.ui-paginator.ui-dropdown {
+  min-width: 4em;
+  margin-left: 0.375em;
 }
 
 /* Section two */
-
 @media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px) {
 
@@ -68,9 +82,4 @@
       font-weight: bold;
     }
   }
-}
-
-.ui-paginator.ui-dropdown {
-  min-width: 4em;
-  margin-left: 0.375em;
 }
