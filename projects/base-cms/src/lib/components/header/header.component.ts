@@ -125,13 +125,11 @@ export class HeaderComponent implements OnInit {
   }
 
   getMenuTitles() {
-    const menus = this.currentUser?.role.menus
-    if (menus) {
-      menus.forEach((m: Permission) => {
-        this.listTitles.push(m)
-        m.subMenus?.forEach((sm) => this.listTitles.push(sm))
-      })
-    }
+    const menus = this.currentUser?.role?.menus
+    menus?.forEach((m: Permission) => {
+      this.listTitles.push(m)
+      m.subMenus?.forEach((sm) => this.listTitles.push(sm))
+    })
   }
 
   profile() {
