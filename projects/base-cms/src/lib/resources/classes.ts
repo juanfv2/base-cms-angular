@@ -3,6 +3,7 @@ export class DBType {
   public label = ''
   public field = ''
   public type = ''
+  public allowSearch = true
   public allowExport = true
   public allowImport = true
   public allowInList = true
