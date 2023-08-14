@@ -21,6 +21,7 @@
         [src]="url2showStaticImage || (mXXfile | jfHasXFile : iWidth : iHeight : '?rCountry=' + labels.k.entityGlobalV)"
         class="img-fluid img-field {{ landscape }}"
       />
+
       <div
         class="dropzone position-absolute"
         ng2FileDrop
@@ -30,7 +31,7 @@
         [uploader]="uploader"
       >
         <span>
-          <b>{{ label }}</b>
+          <b>{{ url2showStaticImage && mXXfile.nameOriginal && !allowMultiples ? mXXfile.nameOriginal : label }}</b>
         </span>
         <div class="file">
           <label class="file-label m-1">
@@ -44,14 +45,25 @@
           </label>
         </div>
       </div>
+
       <a
-        *ngIf="showPublicPath"
-        [href]="mXXfile | jfHasXFile : iWidth : iHeight : '?rCountry=' + labels.k.entityGlobalV"
+        *ngIf="mXXfile.id > 0 && showDelete"
+        ngbTooltip="Borrar archivo"
+        rel="noopener"
+        (click)="onDelete(mXXfile)"
+        class="position-absolute t-0 l-0 text-white bg-primary cursor-pointer"
+      >
+        <i class="fa fa-trash m-1"></i>
+      </a>
+
+      <a
+        *ngIf="mXXfile.id > 0 && showPublicPath"
         target="_blank"
         rel="noopener"
-        class="watch-file ..."
+        [href]="mXXfile | jfHasXFile : iWidth : iHeight : '?rCountry=' + labels.k.entityGlobalV"
+        class="position-absolute t-0 r-0 text-white bg-primary"
       >
-        <i class="fa fa-search m-1"></i>
+        <i class="fa fa-eye m-1"></i>
       </a>
     </div>
   </div>

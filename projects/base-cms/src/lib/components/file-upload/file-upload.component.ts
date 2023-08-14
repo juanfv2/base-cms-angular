@@ -8,8 +8,9 @@ import {JfMessageService} from '../../services/jf-message.service'
 import {JfRequestOption} from '../../support/jf-request-option'
 import {JfUtils} from '../../support/jf-utils'
 
-import {JfCondition} from '../../resources/classes'
+import {JfCondition, JfResponse} from '../../resources/classes'
 import {XFile} from '../../resources/models'
+import {JfCrudService} from '../../services/jf-crud.service'
 
 export const FILE_UPLOAD_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -39,6 +40,7 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
   @Input() url2showStaticImage?: string
   @Input() url2send?: string
   @Input() additionalParameter: any
+  @Input() showDelete = false
   @Input() autoUpload = true
   @Input() hideProcess = false
   @Input() showPublicPath = true
@@ -70,7 +72,7 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
   imgLoading = ''
   uploader = new FileUploader({} as FileUploaderOptions)
 
-  constructor(private messageService: JfMessageService) {}
+  constructor(private messageService: JfMessageService, private crudService: JfCrudService) {}
 
   ngOnInit(): void {
     this.imgLoading = this.labels.k.loading
@@ -81,8 +83,6 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
 
   prepareOptions(): void {
     this.url2upload()
-
-    this.setUpUrlsImageAndFile()
 
     this.uploader.setOptions(this.getOptions())
   }
@@ -177,8 +177,6 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
 
       this.url2showInSquare = this.imgLoading
 
-      this.setUpUrlsImageAndFile(true)
-
       item.remove()
 
       if (!this.allowMultiples) {
@@ -207,14 +205,19 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
     } as FileUploaderOptions
   }
 
-  private setUpUrlsImageAndFile(uploaded: boolean = false): void {
-    if (this.url2showStaticImage) {
-      if (this.mXXfile && this.mXXfile.nameOriginal && !this.allowMultiples) {
-        this.label = this.mXXfile.nameOriginal
-      }
-    }
+  onDelete(model: any): void {
+    const id = model.id
+    this.crudService.deleteEntity(this.labels.k.routes.misc.xFiles, id).subscribe({
+      next: (resp: JfResponse) => {
+        this.mXXfile = {} as XFile
+        // this.messageService.info(k.project_name, `Archivo Eliminado`)
+      },
+      error: (error: any) => {
+        console.log('error', error)
+        //  this.messageService.danger(k.project_name, error, this.itemLabels.ownName)
+      },
+    })
   }
-
   // Determines if the upload task is active
 
   isActive(snapshot: any): boolean {
