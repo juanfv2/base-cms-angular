@@ -9,18 +9,26 @@
     >
       Buscar
     </button>
+
     <button (click)="onAddNew()" type="button" class="btn btn-warning m-1" *ngIf="hasPermission2new">
       Crear {{ itemLabels?.ownName }}
     </button>
   </div>
+
   <div class="card-header d-flex justify-content-between [clearFilters]" *ngIf="showHeader">
-    <button class="text-dark m-1 btn btn-link" type="button" (click)="clearFilters()" *ngIf="!isSubComponent">
-      Limpiar filtros de búsqueda
-    </button>
+    <div class="d-block">
+      <button class="text-dark m-1 btn btn-link" type="button" (click)="clearFilters()" *ngIf="!isSubComponent">
+        Limpiar filtros de búsqueda
+      </button>
+
+      &nbsp;
+    </div>
+
     <small class="text-dark m-1">
       {{ responseList?.totalElements | number }}
     </small>
   </div>
+
   <div
     class="card-body position-relative [responseList.content-{{ responseList?.content?.length }}]"
     *ngIf="responseList?.content"
