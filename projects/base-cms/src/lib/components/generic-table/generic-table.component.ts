@@ -136,8 +136,10 @@ export class GenericTableComponent implements OnInit {
   }
 
   unselect() {
+    const selected = this.modelSearch.fields.filter((_f: any) => _f.allowInList).length === 0
+
     this.modelSearch.fields.forEach((e: DBType) => {
-      e.allowInList = false
+      e.allowInList = selected
     })
   }
 
