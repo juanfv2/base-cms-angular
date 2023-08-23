@@ -16,6 +16,7 @@
   [settings]="modelSearch.ddSettings || ddSettings"
   [(ngModel)]="modelSearch.gDropDownSelected"
   (onSelect)="onItemSelect($event)"
+  (onDeSelect)="onItemDeSelect($event)"
   [data]="fieldsSearchable"
 >
 </base-cms-select-multiple>

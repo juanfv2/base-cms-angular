@@ -15,6 +15,7 @@ export class SearchGlobalComponent implements OnInit {
   @Input() gDropDownPlaceholder = 'Seleccione campos'
 
   @Output() onSelect = new EventEmitter()
+  @Output() onDeSelect = new EventEmitter()
 
   msgToolTip = 'Open|Close'
   ddSettings: any = {
@@ -34,5 +35,10 @@ export class SearchGlobalComponent implements OnInit {
   onItemSelect(item: any) {
     // console.log(item)
     this.onSelect.emit(item)
+  }
+
+  onItemDeSelect(item: any) {
+    // console.log(item)
+    this.onDeSelect.emit(item)
   }
 }
