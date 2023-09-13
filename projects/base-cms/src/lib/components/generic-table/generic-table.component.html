@@ -300,6 +300,7 @@
             <input
               class="form-check-input mx-1"
               type="checkbox"
+              [id]="_field.field + '-selected'"
               [name]="_field.field + '-selected'"
               [(ngModel)]="_field.allowInList"
             />
@@ -308,6 +309,7 @@
             <input
               class="form-check-input mx-1"
               type="checkbox"
+              [id]="_field.field + '-fixed'"
               [name]="_field.field + '-fixed'"
               [(ngModel)]="_field.fixed"
             />
