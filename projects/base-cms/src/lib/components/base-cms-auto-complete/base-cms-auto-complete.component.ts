@@ -62,7 +62,7 @@ export class BaseCmsAutoCompleteComponent {
   writeValue(value: any): void {
     // console.log('value', value)
     if (this.acMultiple) {
-      this.values = value as any[]
+      this.values = value ? value : []
     } else {
       this.value = value
     }
@@ -132,7 +132,7 @@ export class BaseCmsAutoCompleteComponent {
     if (this.selectable && this.selectable.length > 0) {
       return merge(debouncedText, inputFocus).pipe(
         tap(() => (this.searching = true)),
-        map((term) =>
+        map((term: string) =>
           (term === ''
             ? this.selectable
             : this.selectable.filter((x) => this.formatter(x).toLowerCase().indexOf(term.toLowerCase()) > -1)
@@ -144,7 +144,7 @@ export class BaseCmsAutoCompleteComponent {
 
     return merge(debouncedText, inputFocus).pipe(
       tap(() => (this.searching = true)),
-      switchMap((term) => this.searchTerm(term)),
+      switchMap((term: string) => this.searchTerm(term)),
       tap(() => (this.searching = false))
     )
   }
