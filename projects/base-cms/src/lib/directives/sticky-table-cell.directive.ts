@@ -14,7 +14,7 @@ export class StickyTableCellDirective {
       setTimeout(() => {
         const tableCell = this.tableCell.nativeElement as HTMLTableCellElement
         const tableRow = tableCell.parentElement as HTMLTableRowElement
-        const cells = tableRow.cells
+        const cells = tableRow.cells || []
 
         // console.log('tableCell', tableCell.textContent)
         // console.log('tableCell', tableCell)
