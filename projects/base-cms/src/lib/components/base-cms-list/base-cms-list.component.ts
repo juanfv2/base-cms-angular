@@ -38,6 +38,7 @@ export class BaseCmsListComponent {
   storageSession = true
   kRoute = ''
   kConditions = ''
+  name2export = ''
   mApi = new JfApiRoute('')
   responseList: JfResponseList<any> = new JfResponseList<any>(0, 0, [])
 
@@ -171,7 +172,8 @@ export class BaseCmsListComponent {
   }
 
   onLazyLoadExport(strAction: string, fDate = true) {
-    const tFile = this.modelSearch.exportFileType || k.exportFileTypes[0].c
+    const extensionFile = this.modelSearch.exportFileType || k.exportFileTypes[0].c
+    const name2export = this.name2export || JfUtils.kebabCase(this.itemLabels.ownNamePlural)
     const csvColumns: any = {}
 
     this.modelSearch.fields.forEach((_f: DBType) => {
@@ -181,14 +183,14 @@ export class BaseCmsListComponent {
     const csvColumnsStr = JSON.stringify(csvColumns)
 
     this.modelSearch.lazyLoadEvent.additional.push(new JfCondition('action', strAction))
-    this.modelSearch.lazyLoadEvent.additional.push(new JfCondition('title', this.itemLabels.ownNamePlural))
+    this.modelSearch.lazyLoadEvent.additional.push(new JfCondition('title', name2export))
     this.modelSearch.lazyLoadEvent.additional.push(new JfCondition('fields', csvColumnsStr))
-    this.modelSearch.lazyLoadEvent.additional.push(new JfCondition('ext', tFile))
+    this.modelSearch.lazyLoadEvent.additional.push(new JfCondition('ext', extensionFile))
 
     this.crudService.export(this.kRoute, this.modelSearch.lazyLoadEvent, true).subscribe({
       next: (resp: any) => {
         this.loading = false
-        JfUtils.downloadFile(resp, this.itemLabels.ownNamePlural, tFile, fDate)
+        JfUtils.downloadFile(resp, name2export, extensionFile, fDate)
       },
       error: (error: any) => {
         this.loading = false
