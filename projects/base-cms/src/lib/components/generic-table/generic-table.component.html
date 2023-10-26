@@ -112,7 +112,13 @@
 
                 <!-- ***** ***** ***** [boolean] ***** ***** ***** -->
                 <ng-container *ngSwitchCase="'boolean'">
-                  {{ model[_field.name] ? 'Si' : 'No' }}
+                  <div
+                    [innerHTML]="
+                      model[_field.name]
+                        ? '<i class=\'fas fa-check-circle text-success\'></i>'
+                        : '<i class=\'fas fa-times-circle text-danger\'></i>'
+                    "
+                  ></div>
                 </ng-container>
                 <!-- ***** ***** ***** [boolean] ***** ***** ***** -->
 
