@@ -68,7 +68,6 @@ export class BaseCmsListComponent {
     if (this.isSubComponent) {
       this.itemCurrent = {id: item?.v?.id}
     } else {
-      // todo: #if($entity.hasCompositePk())
       const id = item?.v?.id
       this.router.navigate([this.kRoute, id])
     }
