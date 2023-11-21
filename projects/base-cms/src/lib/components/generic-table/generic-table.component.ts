@@ -49,7 +49,7 @@ export class GenericTableComponent implements OnInit {
   constructor(private modalService: NgbModal) {}
 
   ngOnInit(): void {
-    this.csvDelete = JSON.parse(JSON.stringify(this.modelSearch.csv))
+    this.csvDelete = JSON.parse(JSON.stringify(this.modelSearch.csv || {}))
     this.csvDelete.immediate = 'delete'
 
     this.csvFile = this.csvFile || ({id: -1, entity: this.itemLabels?.tableName, field: 'massive-insert'} as XFile)
