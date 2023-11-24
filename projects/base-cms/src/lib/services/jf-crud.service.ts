@@ -58,7 +58,7 @@ export class JfCrudService {
   }
 
   /**
-   * Get a User by id.
+   * Get a Entity by id.
    */
   getEntity(entities: string, id: any, withAuth = true): Observable<any> {
     const urlStr = `${this.api}${entities}/${id}`
@@ -66,7 +66,7 @@ export class JfCrudService {
   }
 
   /**
-   * Update the passed Entity.
+   * Save the Entity.
    */
   updateEntity(entities: string, entity: any): Observable<any> {
     /**
