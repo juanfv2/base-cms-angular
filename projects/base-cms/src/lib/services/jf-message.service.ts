@@ -29,7 +29,7 @@ export class JfMessageService {
     this.show(msg, {className: 'bg-success text-light', delay: this.timeOut, header})
   }
 
-  danger(header: any, msg: string, page: string = '') {
+  danger(header: any, msg: any, page: string = '') {
     const msg1 = JfMessageService.getErrors(msg, page)
     this.timeOut = 1000 * 60 * 2
     this.show(msg1, {className: 'bg-danger text-light', delay: this.timeOut, header})
