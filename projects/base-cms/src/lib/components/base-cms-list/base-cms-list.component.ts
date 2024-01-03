@@ -102,7 +102,7 @@ export class BaseCmsListComponent {
   }
 
   clearFilters(m?: any): void {
-    this.resetModelSearch()
+    this.resetModelSearch(m)
     this.initSearch()
     this.onLazyLoad()
   }
@@ -226,8 +226,6 @@ export class BaseCmsListComponent {
     csv.immediate = 'immediate'
 
     modelSearch.csv = csv
-    modelSearch.fields = this.fieldsInList
-    modelSearch.fieldsSelected = modelSearch.fields.filter((_f: DBType) => _f.allowInList)
   }
 
   massiveInsert(jCondition: JfCondition): void {
