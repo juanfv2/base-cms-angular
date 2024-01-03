@@ -7,9 +7,10 @@ export class DBType {
   public allowExport = true
   public allowImport = true
   public allowInList = true
-  public allowNull?: string
-  public fixed = false
+  public hidden = false
   public sorting = true
+  public fixed = false
+  public allowNull?: string
   public table?: string
   public extra?: any
   public key?: string
