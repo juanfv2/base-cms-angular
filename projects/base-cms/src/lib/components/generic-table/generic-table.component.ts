@@ -57,7 +57,7 @@ export class GenericTableComponent implements OnInit {
 
   clearFilters(): void {
     this.responseList = {}
-    this._onClearFilters.emit('')
+    this._onClearFilters.emit(true)
   }
 
   onLazyLoad(strAction = ''): void {
