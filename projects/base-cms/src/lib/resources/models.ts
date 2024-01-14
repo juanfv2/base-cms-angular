@@ -74,10 +74,10 @@ export interface Permission {
 
 export interface Person {
   id?: number
-  firstName: string
-  lastName: string
+  first_name: string
+  last_name: string
   cell_phone: string
-  birthDate: any
+  birth_date: any
   address: string
   neighborhood: string
   dui: string
@@ -92,12 +92,12 @@ export interface Account {
   area_id: number
   branch_id: number
   client_id: number
-  firstName: string
-  lastName: string
+  first_name: string
+  last_name: string
   job: string
   phone: string
   cell_phone: string
-  birthDate: any
+  birth_date: any
   address: string
   neighborhood: string
   dui: string
