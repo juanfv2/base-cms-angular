@@ -10,7 +10,7 @@ export interface User {
   email_verified_at: any
   disabled: boolean
   userCanDownload: boolean
-  phoneNumber: string
+  phone_number: string
   uid: string
   token: string
   remember_token: string
