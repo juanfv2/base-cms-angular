@@ -1,12 +1,13 @@
 <div class="jf-toasts">
-  <ngb-toast
-    *ngFor="let toast of messageService.toasts"
-    [class]="toast.className"
-    [autohide]="true"
-    [delay]="toast.delay || 5000"
-    (hidden)="messageService.remove(toast)"
-    [header]="toast.header || ''"
-  >
-    <div [innerHtml]="toast.textOrTpl | jfSafe: 'html'"></div>
-  </ngb-toast>
+  @for (toast of messageService.toasts; track toast) {
+    <ngb-toast
+      [class]="toast.className"
+      [autohide]="true"
+      [delay]="toast.delay || 5000"
+      (hidden)="messageService.remove(toast)"
+      [header]="toast.header || ''"
+      >
+      <div [innerHtml]="toast.textOrTpl | jfSafe: 'html'"></div>
+    </ngb-toast>
+  }
 </div>

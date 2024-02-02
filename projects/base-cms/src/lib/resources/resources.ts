@@ -45,46 +45,61 @@ export const exportFileTypes = [new JfCondition('csv', 'CSV'), new JfCondition('
 
 export const jfTemplateAutoComplete = `
 <div class="form-group position-relative">
-<label for="{{ acId }}-entity-typeahead">{{ acName }}:</label>
-<ng-template #rt let-r="result" let-t="term"> {{ formatter | jfFormatItem: r }} </ng-template>
-<div class="input-group">
-<input
-  type="text"
-  class="form-control"
-  id="{{ acId }}-entity-typeahead"
-  name="{{ acId }}-entity-typeahead"
-  [class.bad-value]="searchFailed"
-  [placeholder]="'Escriba para filtrar...'"
-  [disabled]="acDisabled"
-  [editable]="false"
-  [inputFormatter]="formatter"
-  [resultTemplate]="rt"
-  (selectItem)="select($event)"
-  (focus)="focus.next($any($event).target.value)"
-  #instance="ngbTypeahead"
-  [(ngModel)]="value"
-  [ngbTypeahead]="search"
-/>
-<button
-  title="Limpiar"
-  class="btn btn-outline-danger m-0"
-  *ngIf="value && !acDisabled"
-  (click)="actClear()"
-  type="button"
->
-  <i class="fa fa-times text-white"></i>
-</button>
-<button
-  title="Ver detalle"
-  class="btn btn-outline-info m-0"
-  *ngIf="value && hasPermission2show"
-  (click)="actGo2Detail()"
-  type="button"
->
-  <i class="fa fa-info text-white"></i>
-</button>
+  <label for="{{ acId }}-entity-typeahead">{{ acName }}:</label>
+  <ng-template
+    #rt
+    let-r="result"
+    let-t="term"
+  >
+    {{ formatter | jfFormatItem: r }}
+  </ng-template>
+  <div class="input-group">
+    <input
+      type="text"
+      class="form-control"
+      id="{{ acId }}-entity-typeahead"
+      name="{{ acId }}-entity-typeahead"
+      [class.bad-value]="searchFailed"
+      [placeholder]="'Escriba para filtrar...'"
+      [disabled]="acDisabled"
+      [editable]="false"
+      [inputFormatter]="formatter"
+      [resultTemplate]="rt"
+      (selectItem)="select($event)"
+      (focus)="focus.next($any($event).target.value)"
+      #instance="ngbTypeahead"
+      [(ngModel)]="value"
+      [ngbTypeahead]="search"
+    />
+
+    @if (value && !acDisabled) {
+      <button
+        title="Limpiar"
+        class="btn btn-outline-danger m-0"
+        (click)="actClear()"
+        type="button"
+      >
+        <i class="fa fa-times text-white"></i>
+      </button>
+    }
+
+    @if(value && hasPermission2show) {
+      <button
+        title="Ver detalle"
+        class="btn btn-outline-info m-0"
+        (click)="actGo2Detail()"
+        type="button"
+      >
+        <i class="fa fa-info text-white"></i>
+      </button>
+    }
+  </div>
+  @if (searching) {
+    <base-cms-spinner-searching />
+  }
+  @if (searchFailed) {
+    <div class="invalid-feedback">Lo sentimos, las sugerencias no se pudieron cargar.</div>
+  }
 </div>
-<base-cms-spinner-searching *ngIf="searching"></base-cms-spinner-searching>
-<div *ngIf="searchFailed" class="invalid-feedback">Lo sentimos, las sugerencias no se pudieron cargar.</div>
-</div>
+
 `

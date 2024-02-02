@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
 import {Router} from '@angular/router'
 import {BehaviorSubject, Observable} from 'rxjs'
 import {JfUtils} from '../../support/jf-utils'
-import {k} from '../../environments/k'
+import {Constants} from '../../environments/constants'
 import {Permission} from '../../resources/models'
 
 @Component({
@@ -11,7 +11,7 @@ import {Permission} from '../../resources/models'
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
-  project_name = k.project_name
+  project_name = Constants.project_name
   @Input() menus: any[] = []
 
   isActive = false
@@ -81,11 +81,11 @@ export class SidebarComponent implements OnInit {
     this.sideBarObj.next(sb)
     const val = JSON.stringify(sb)
 
-    JfUtils.mStorage.setItem(k._8_isSideBarVisible, val)
+    JfUtils.mStorage.setItem(Constants._8_isSideBarVisible, val)
   }
 
   setupSideBar() {
-    const val = JfUtils.mStorage.getItem(k._8_isSideBarVisible) || '{"isSideBarVisible": false}'
+    const val = JfUtils.mStorage.getItem(Constants._8_isSideBarVisible) || '{"isSideBarVisible": false}'
     return JfUtils.jsonValidated(val) || {isSideBarVisible: false}
   }
 }

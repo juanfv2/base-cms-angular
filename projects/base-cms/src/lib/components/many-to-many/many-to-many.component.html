@@ -1,33 +1,35 @@
 <small>{{ lModel.ownNamePlural }} seleccionados:</small>
 <ul class="list-group">
-  <li *ngFor="let model of gOptions" class="list-group-item">
-    <div class="form-group">
-      <div class="input-group">
-        <textarea
-          name="user-roles-text"
-          [(ngModel)]="model[lField]"
-          class="form-control bg-transparent text-primary border-0 resize-none cursor-default"
-          placeholder="Requerido"
-          required
-          readonly
-        ></textarea>
-        <button
-          title="Remover {{ lModel.ownName }}"
-          class="btn btn-outline-secondary m-0"
-          (click)="rm2model(model)"
-          type="button"
-        >
-          <i class="fa fa-times text-danger"></i>
-        </button>
-        <button
-          title="Ver detalle {{ lModel.ownName }}"
-          class="btn btn-outline-secondary m-0"
-          (click)="go2model(model)"
-          type="button"
-        >
-          <i class="fa fa-info text-info"></i>
-        </button>
+  @for (model of gOptions; track model) {
+    <li class="list-group-item">
+      <div class="form-group">
+        <div class="input-group">
+          <textarea
+            name="user-roles-text"
+            [(ngModel)]="model[lField]"
+            class="form-control text-primary cursor-default resize-none border-0 bg-transparent"
+            placeholder="Requerido"
+            required
+            readonly
+          ></textarea>
+          <button
+            title="Remover {{ lModel.ownName }}"
+            class="btn btn-outline-secondary m-0"
+            (click)="rm2model(model)"
+            type="button"
+          >
+            <i class="fa fa-times text-danger"></i>
+          </button>
+          <button
+            title="Ver detalle {{ lModel.ownName }}"
+            class="btn btn-outline-secondary m-0"
+            (click)="go2model(model)"
+            type="button"
+          >
+            <i class="fa fa-info text-info"></i>
+          </button>
+        </div>
       </div>
-    </div>
-  </li>
+    </li>
+  }
 </ul>

@@ -1,37 +1,52 @@
-<div *ngIf="menus" class="sidebar" data-color="primary">
-  <div class="logo">
-    <a [routerLink]="['/dashboard']" class="simple-text logo-mini">
-      <div class="logo-img">
-        <ng-content select="[imgLogo]"></ng-content>
-      </div>
-    </a>
-    <a [routerLink]="['/dashboard']" class="simple-text logo-normal text-center"> {{ project_name }} </a>
-  </div>
-  <div class="sidebar-wrapper with-scrollbar">
-    <ul class="nav">
-      <li
-        *ngFor="let menu of menus"
-        class="nav-item --{{ menu.name }}--{{ (sideBarObj | async)?.menu }} "
-        [class.active]="menu.name === (sideBarObj | async)?.menu || menu.urlFrontEnd === linkSelected"
+@if (menus) {
+  <div
+    class="sidebar"
+    data-color="primary"
+  >
+    <div class="logo">
+      <a
+        [routerLink]="['/dashboard']"
+        class="simple-text logo-mini"
       >
-        <a
-          (click)="menu.subMenus?.length ? showSubMenu(menu.name) : navTo(menu.urlFrontEnd!)"
-          [disableTooltip]="!!(sideBarObj | async)?.isSideBarVisible"
-          [ngbTooltip]="menu.name"
-          container="body"
-          placement="right"
-        >
-          <i class="fas fa-{{ menu.icon }}"></i>
-          <p>{{ menu.name }}</p>
-        </a>
-        <base-cms-sub-menu
-          *ngIf="menu.name === (sideBarObj | async)?.menu"
-          [menu]="menu"
-          [sideBarObj]="sideBarObj"
-          [linkSelected]="linkSelected"
-          (navToOutput)="navTo($event)"
-        ></base-cms-sub-menu>
-      </li>
-    </ul>
+        <div class="logo-img">
+          <ng-content select="[imgLogo]"></ng-content>
+        </div>
+      </a>
+      <a
+        [routerLink]="['/dashboard']"
+        class="simple-text logo-normal text-center"
+      >
+        {{ project_name }}
+      </a>
+    </div>
+    <div class="sidebar-wrapper with-scrollbar">
+      <ul class="nav">
+        @for (menu of menus; track menu) {
+          <li
+            class="nav-item --{{ menu.name }}--{{ (sideBarObj | async)?.menu }} "
+            [class.active]="menu.name === (sideBarObj | async)?.menu || menu.urlFrontEnd === linkSelected"
+          >
+            <a
+              (click)="menu.subMenus?.length ? showSubMenu(menu.name) : navTo(menu.urlFrontEnd!)"
+              [disableTooltip]="!!(sideBarObj | async)?.isSideBarVisible"
+              [ngbTooltip]="menu.name"
+              container="body"
+              placement="right"
+            >
+              <i class="fas fa-{{ menu.icon }}"></i>
+              <p>{{ menu.name }}</p>
+            </a>
+            @if (menu.name === (sideBarObj | async)?.menu) {
+              <base-cms-sub-menu
+                [menu]="menu"
+                [sideBarObj]="sideBarObj"
+                [linkSelected]="linkSelected"
+                (navToOutput)="navTo($event)"
+              ></base-cms-sub-menu>
+            }
+          </li>
+        }
+      </ul>
+    </div>
   </div>
-</div>
+}

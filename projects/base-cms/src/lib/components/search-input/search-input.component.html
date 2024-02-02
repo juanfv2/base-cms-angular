@@ -3,94 +3,107 @@
   <div class="col-12 col-md-3">
     <div class="form-group">
       <select class="form-control" [(ngModel)]="condition.field" [compareWith]="compareFn">
-        <option *ngFor="let xField of fieldsSearchable" [ngValue]="xField">{{ xField?.label }}</option>
+        @for (xField of fieldsSearchable; track xField) {
+          <option [ngValue]="xField">{{ xField?.label }}</option>
+        }
       </select>
     </div>
   </div>
   <div class="col-12 col-md-2">
     <div class="form-group">
       <select class="form-control" [(ngModel)]="condition.cond">
-        <option *ngFor="let o of conditionalOptions" value="{{ o.value }}">{{ o.label }}</option>
+        @for (o of conditionalOptions; track o) {
+          <option value="{{ o.value }}">{{ o.label }}</option>
+        }
       </select>
     </div>
   </div>
   <div class="col-12 col-md-5">
     <div class="form-group">
-      <div [ngSwitch]="condition.field?.type">
-        <!-- ***** ***** ***** [date] ***** ***** ***** -->
-        <div *ngSwitchCase="'date'">
-          <div class="input-group">
-            <input
-              name="condition-value-date"
-              class="form-control"
-              placeholder="yyyy-mm-dd"
-              [(ngModel)]="condition.value"
-              #objectSearchQuery="ngModel"
-              [owlDateTime]="dateOnly"
-            />
-            <button
-              title="Fecha y hora de inicio"
-              class="btn btn-info m-0"
-              [owlDateTimeTrigger]="dateOnly"
-              type="button"
-            >
-              <i class="fa fa-calendar text-white"></i>
-            </button>
-          </div>
-
-          <owl-date-time [pickerType]="'calendar'" #dateOnly></owl-date-time>
-        </div>
-        <!-- ***** ***** ***** [date] ***** ***** ***** -->
-        <!-- ***** ***** ***** [date-time] ***** ***** ***** -->
-        <div *ngSwitchCase="'date-time'">
-          <div class="input-group">
-            <input
-              name="condition-value-date-time"
-              class="form-control"
-              placeholder="yyyy-mm-dd hh:mm"
-              [(ngModel)]="condition.value"
-              #objectSearchQuery="ngModel"
-              [owlDateTime]="dateAndTime"
-            />
-
-            <button
-              title="Fecha y hora de inicio"
-              class="btn btn-info m-0"
-              [owlDateTimeTrigger]="dateAndTime"
-              type="button"
-            >
-              <i class="fa fa-calendar text-white"></i>
-            </button>
-          </div>
-
-          <owl-date-time [startAt]="condition.value || startAt" #dateAndTime></owl-date-time>
-        </div>
-        <!-- ***** ***** ***** [date-time] ***** ***** ***** -->
-        <div *ngSwitchCase="'boolean'">
-          <div class="d-flex p-1">
-            <label for="condition-value-boolean" class="switch">
-              <input
-                id="condition-value-boolean"
-                name="condition-value-boolean"
-                type="checkbox"
-                [(ngModel)]="condition.value"
-                #objectSearchQuery="ngModel"
-              />
-              <span class="slider round"></span>
-            </label>
-            <span class="p-1">{{ condition.value ? 'Si' : 'No' }}</span>
-          </div>
-        </div>
-        <div *ngSwitchDefault>
-          <input class="form-control" [(ngModel)]="condition.value" #objectSearchQuery="ngModel" />
-        </div>
+      <div>
+        @switch (condition.field?.type) {
+          <!-- ***** ***** ***** [date] ***** ***** ***** -->
+          @case ('date') {
+            <div>
+              <div class="input-group">
+                <input
+                  name="condition-value-date"
+                  class="form-control"
+                  placeholder="yyyy-mm-dd"
+                  [(ngModel)]="condition.value"
+                  #objectSearchQuery="ngModel"
+                  [owlDateTime]="dateOnly"
+                  />
+                <button
+                  title="Fecha y hora de inicio"
+                  class="btn btn-info m-0"
+                  [owlDateTimeTrigger]="dateOnly"
+                  type="button"
+                  >
+                  <i class="fa fa-calendar text-white"></i>
+                </button>
+              </div>
+              <owl-date-time [pickerType]="'calendar'" #dateOnly></owl-date-time>
+            </div>
+          }
+          <!-- ***** ***** ***** [date] ***** ***** ***** -->
+          <!-- ***** ***** ***** [date-time] ***** ***** ***** -->
+          @case ('date-time') {
+            <div>
+              <div class="input-group">
+                <input
+                  name="condition-value-date-time"
+                  class="form-control"
+                  placeholder="yyyy-mm-dd hh:mm"
+                  [(ngModel)]="condition.value"
+                  #objectSearchQuery="ngModel"
+                  [owlDateTime]="dateAndTime"
+                  />
+                <button
+                  title="Fecha y hora de inicio"
+                  class="btn btn-info m-0"
+                  [owlDateTimeTrigger]="dateAndTime"
+                  type="button"
+                  >
+                  <i class="fa fa-calendar text-white"></i>
+                </button>
+              </div>
+              <owl-date-time [startAt]="condition.value || startAt" #dateAndTime></owl-date-time>
+            </div>
+          }
+          <!-- ***** ***** ***** [date-time] ***** ***** ***** -->
+          @case ('boolean') {
+            <div>
+              <div class="d-flex p-1">
+                <label for="condition-value-boolean" class="switch">
+                  <input
+                    id="condition-value-boolean"
+                    name="condition-value-boolean"
+                    type="checkbox"
+                    [(ngModel)]="condition.value"
+                    #objectSearchQuery="ngModel"
+                    />
+                  <span class="slider round"></span>
+                </label>
+                <span class="p-1">{{ condition.value ? 'Si' : 'No' }}</span>
+              </div>
+            </div>
+          }
+          @default {
+            <div>
+              <input class="form-control" [(ngModel)]="condition.value" #objectSearchQuery="ngModel" />
+            </div>
+          }
+        }
       </div>
     </div>
   </div>
   <div class="col-12 col-md-1">
     <div class="form-group">
       <select class="form-control" [(ngModel)]="condition.oper">
-        <option *ngFor="let o of operatorOptions" value="{{ o.value }}">{{ o.label }}</option>
+        @for (o of operatorOptions; track o) {
+          <option value="{{ o.value }}">{{ o.label }}</option>
+        }
       </select>
     </div>
   </div>
@@ -102,7 +115,7 @@
         title="Borrar"
         class="btn btn-sm btn-danger btn-round btn-icon btn-icon-mini btn-neutral m-0"
         data-original-title="Borrar"
-      >
+        >
         <i class="fas fa-trash"></i>
       </button>
     </div>

@@ -1,7 +1,7 @@
-import {k} from '../environments/k'
+import {Constants} from '../environments/constants'
 
 export class JfStorageManagement {
-  static kkkEntityGlobalId = `${k.project_name_short}:${k._4_company}:${k._7_entityGlobalId}`
+  static kkkEntityGlobalId = `${Constants.project_name_short}:${Constants._4_company}:${Constants._7_entityGlobalId}`
 
   static saveCountryInLocalStorage(): any {
     const paths = JfStorageManagement.getPath()
@@ -11,33 +11,33 @@ export class JfStorageManagement {
     // console.log('saveCountryInLocalStorage.paths', location.hash)
     // console.log('saveCountryInLocalStorage.paths', k.path)
 
-    const dev = paths[k.path.dev] === 'dev' ? 'dev' : ''
-    const cName = paths[k.path.company] || 'admin'
-    const entityGlobalId = paths[k.path.country] || 'sv'
+    const dev = paths[Constants.path.dev] === 'dev' ? 'dev' : ''
+    const cName = paths[Constants.path.company] || 'admin'
+    const entityGlobalId = paths[Constants.path.country] || 'sv'
 
-    JfStorageManagement.setItem(k._7_entityGlobalId, entityGlobalId)
-    JfStorageManagement.setItem(k._5_company_name, cName)
-    JfStorageManagement.setItem(k.dev, dev)
+    JfStorageManagement.setItem(Constants._7_entityGlobalId, entityGlobalId)
+    JfStorageManagement.setItem(Constants._5_company_name, cName)
+    JfStorageManagement.setItem(Constants.dev, dev)
 
-    k.routes.frontEnd.name = cName
-    k.entityGlobalV = entityGlobalId
+    Constants.routes.frontEnd.name = cName
+    Constants.entityGlobalV = entityGlobalId
 
     return {dev, entityGlobalId, cName}
   }
 
   static clearEnvironment(storage = localStorage): void {
     const paths = JfStorageManagement.getPath()
-    const cName = paths[k.path.company] || 'admin'
-    const entityGlobalId = paths[k.path.country] || 'sv'
-    const sessionKey = `${k.project_name_short}:${cName}:${entityGlobalId}`
+    const cName = paths[Constants.path.company] || 'admin'
+    const entityGlobalId = paths[Constants.path.country] || 'sv'
+    const sessionKey = `${Constants.project_name_short}:${cName}:${entityGlobalId}`
     const _2save = [
-      k.dev,
-      k._4_company,
-      k._5_company_name,
-      k._7_entityGlobalId,
-      k._8_isSideBarVisible,
-      k._12_entityGlobalTimeZone,
-      k._13_entityGlobalTimeZoneStr,
+      Constants.dev,
+      Constants._4_company,
+      Constants._5_company_name,
+      Constants._7_entityGlobalId,
+      Constants._8_isSideBarVisible,
+      Constants._12_entityGlobalTimeZone,
+      Constants._13_entityGlobalTimeZoneStr,
     ]
     const saved = []
 
@@ -65,9 +65,9 @@ export class JfStorageManagement {
 
   static currentKey(key: any): string {
     const paths = JfStorageManagement.getPath()
-    const cName = paths[k.path.company] || 'admin'
-    const entityGlobalId = paths[k.path.country] || 'sv'
-    const sessionKey = `${k.project_name_short}:${cName}:${entityGlobalId}`
+    const cName = paths[Constants.path.company] || 'admin'
+    const entityGlobalId = paths[Constants.path.country] || 'sv'
+    const sessionKey = `${Constants.project_name_short}:${cName}:${entityGlobalId}`
     const kk = `${sessionKey}:${JfStorageManagement.today()}:${key}`
     return kk
   }

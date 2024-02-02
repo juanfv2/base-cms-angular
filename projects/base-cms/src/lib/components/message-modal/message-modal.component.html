@@ -1,13 +1,31 @@
 <div class="modal-header">
   <h4 class="modal-title">{{ header }}</h4>
-  <button type="button" class="btn-close" aria-label="Cerrar" (click)="activeModal.dismiss('close')"></button>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Cerrar"
+    (click)="activeModal.dismiss('close')"
+  ></button>
 </div>
 <div class="modal-body">
-  <div [innerHtml]="message | jfSafe : 'html'"></div>
+  <div [innerHtml]="message | jfSafe: 'html'"></div>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-primary m-1" (click)="activeModal.close('ok')" *ngIf="withOk" ngbAutofocus>
-    Aceptar
+  @if (withOk) {
+    <button
+      type="button"
+      class="btn btn-primary m-1"
+      (click)="activeModal.close('ok')"
+      ngbAutofocus
+    >
+      Aceptar
+    </button>
+  }
+  <button
+    type="button"
+    class="btn btn-light m-1"
+    (click)="activeModal.dismiss('close')"
+  >
+    Cerrar
   </button>
-  <button type="button" class="btn btn-light m-1" (click)="activeModal.dismiss('close')">Cerrar</button>
 </div>

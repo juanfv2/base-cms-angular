@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core'
-import {k} from '../environments/k'
+import {Constants} from '../environments/constants'
 
 /**
  *
@@ -12,7 +12,7 @@ import {k} from '../environments/k'
 export class JfHasXFilePipe implements PipeTransform {
   transform(image: any, w = 0, h = 0, params = ''): string {
     // console.log('image', image)
-    const p = k.routes.backEnd.rootServer + k.routes.api + k.routes.misc.file
+    const p = Constants.routes.backEnd.rootServer + Constants.routes.api + Constants.routes.misc.file
     const cc = params ? `${params}` : ''
     let ui = `${p}e/f/0/${w}/${h}/---${cc}`
 
@@ -20,7 +20,7 @@ export class JfHasXFilePipe implements PipeTransform {
       ui = `${p}${image.entity}/${image.field}/${image.entity_id}/${w}/${h}/${image.name}${cc}`
 
       if (w === 0 && h === 0) {
-        ui = `${k.routes.backEnd.sRoot}${image.publicPath}${cc}`
+        ui = `${Constants.routes.backEnd.sRoot}${image.publicPath}${cc}`
       }
     }
 

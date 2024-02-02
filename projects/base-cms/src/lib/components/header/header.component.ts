@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
 import {Location} from '@angular/common'
 import {Router} from '@angular/router'
 
-import {k} from '../../environments/k'
+import {Constants} from '../../environments/constants'
 
 import {Permission, Role} from '../../resources/models'
 
@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
   private listTitles: Permission[] = []
 
   isCollapsed = true
-  project_name = k.project_name
+  project_name = Constants.project_name
   currentPage = ''
   sb: any
 
@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit {
     private messageService: JfMessageService
   ) {
     authService.currentUser.subscribe((u: any) => (this.currentUser = u))
-    this.allowChangeProfile = JfRequestOption.isAuthorized(`/${k.routes.users}/edit`)
+    this.allowChangeProfile = JfRequestOption.isAuthorized(`/${Constants.routes.users}/edit`)
   }
 
   ngOnInit() {
@@ -54,7 +54,7 @@ export class HeaderComponent implements OnInit {
   }
 
   private setupSideBar() {
-    const val = JfUtils.mStorage.getItem(k._8_isSideBarVisible) || '{"isSideBarVisible": false}'
+    const val = JfUtils.mStorage.getItem(Constants._8_isSideBarVisible) || '{"isSideBarVisible": false}'
     this.sb = JfUtils.jsonValidated(val) || {isSideBarVisible: false}
   }
 
@@ -67,7 +67,7 @@ export class HeaderComponent implements OnInit {
 
     const val_sb = JSON.stringify(this.sb)
 
-    JfUtils.mStorage.setItem(k._8_isSideBarVisible, val_sb)
+    JfUtils.mStorage.setItem(Constants._8_isSideBarVisible, val_sb)
   }
 
   sidebarOpen() {
@@ -121,7 +121,7 @@ export class HeaderComponent implements OnInit {
 
     const mTitle = item?.name ?? 'Dashboard'
 
-    this.currentPage = `${k.project_name} - ${mTitle}`
+    this.currentPage = `${Constants.project_name} - ${mTitle}`
   }
 
   getMenuTitles() {
@@ -138,14 +138,14 @@ export class HeaderComponent implements OnInit {
       return
     }
 
-    this.router.navigate([k.routes.users, this.currentUser.id, 'profile'])
+    this.router.navigate([Constants.routes.users, this.currentUser.id, 'profile'])
   }
 
   onLogOut() {
     this.authService.logout().subscribe({
       next: () => {
         // remove user from local storage to log user out
-        this.messageService.success(k.project_name, 'Ahora estás desconectado.')
+        this.messageService.success(Constants.project_name, 'Ahora estás desconectado.')
       },
       error: (error: any) => {
         console.log('HeaderComponent.onLogOut error', error)
@@ -167,8 +167,8 @@ export class HeaderComponent implements OnInit {
 
     this.currentUser!.role = cRole
 
-    JfUtils.mStorage.setItem(k._1_user, JSON.stringify(this.currentUser))
-    JfUtils.mStorage.setItem(k._11_permissions, JSON.stringify(cRole.urlPermissions))
+    JfUtils.mStorage.setItem(Constants._1_user, JSON.stringify(this.currentUser))
+    JfUtils.mStorage.setItem(Constants._11_permissions, JSON.stringify(cRole.urlPermissions))
 
     this.authService.currentUser.next(this.currentUser!)
     this.getMenuTitles()

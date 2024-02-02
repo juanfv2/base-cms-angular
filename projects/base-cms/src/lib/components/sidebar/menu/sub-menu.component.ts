@@ -1,40 +1,44 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
 import {BehaviorSubject, Observable} from 'rxjs'
-import {k} from '../../../environments/k'
+import {Constants} from '../../../environments/constants'
 import {Permission} from '../../../resources/models'
 import {JfUtils} from '../../../support/jf-utils'
 
 @Component({
   selector: 'base-cms-sub-menu',
   template: `
-    <ul *ngIf="menu.subMenus?.length" class="nav" id="{{ menu.icon }}" role="menu">
-      <li
-        *ngFor="let subMenu of menu.subMenus"
+    @if (menu.subMenus?.length) {
+      <ul class="nav" id="{{ menu.icon }}" role="menu">
+        @for (subMenu of menu.subMenus; track subMenu) {
+          <li
         class="nav-item --{{ subMenu.name }}--{{ (sideBarObj | async)?.subMenu }}--{{ subMenu.urlFrontEnd }}--{{
           linkSelected
         }}"
-        [class.active]="subMenu.name === (sideBarObj | async)?.subMenu || subMenu.urlFrontEnd === linkSelected"
-      >
-        <a
-          (click)="subMenu.subMenus?.length ? showSubMenu(subMenu.name) : navToOutput.emit(subMenu)"
-          [disableTooltip]="!!(sideBarObj | async)?.isSideBarVisible"
-          [ngbTooltip]="subMenu.name"
-          container="body"
-          placement="right"
-        >
-          <i class="fas fa-{{ subMenu.icon }}"></i>
-          <p>{{ subMenu.name }}</p>
-        </a>
-        <base-cms-sub-menu
-          *ngIf="subMenu.name === (sideBarObj | async)?.subMenu"
-          [menu]="subMenu"
-          [sideBarObj]="sideBarObj"
-          [linkSelected]="linkSelected"
-          (navToOutput)="navToOutput.emit($event)"
-        ></base-cms-sub-menu>
-      </li>
-    </ul>
-  `,
+            [class.active]="subMenu.name === (sideBarObj | async)?.subMenu || subMenu.urlFrontEnd === linkSelected"
+            >
+            <a
+              (click)="subMenu.subMenus?.length ? showSubMenu(subMenu.name) : navToOutput.emit(subMenu)"
+              [disableTooltip]="!!(sideBarObj | async)?.isSideBarVisible"
+              [ngbTooltip]="subMenu.name"
+              container="body"
+              placement="right"
+              >
+              <i class="fas fa-{{ subMenu.icon }}"></i>
+              <p>{{ subMenu.name }}</p>
+            </a>
+            @if (subMenu.name === (sideBarObj | async)?.subMenu) {
+              <base-cms-sub-menu
+                [menu]="subMenu"
+                [sideBarObj]="sideBarObj"
+                [linkSelected]="linkSelected"
+                (navToOutput)="navToOutput.emit($event)"
+              ></base-cms-sub-menu>
+            }
+          </li>
+        }
+      </ul>
+    }
+    `,
 })
 export class SubMenuComponent implements OnInit {
   isSubMenuOpen = false
@@ -50,7 +54,7 @@ export class SubMenuComponent implements OnInit {
   showSubMenu(element: any) {
     this.isSubMenuOpen = element === this.menu.name
 
-    const val = JfUtils.mStorage.getItem(k._8_isSideBarVisible) || '{"isSideBarVisible": false}'
+    const val = JfUtils.mStorage.getItem(Constants._8_isSideBarVisible) || '{"isSideBarVisible": false}'
     const sb: any = JSON.parse(val) || {isSideBarVisible: false}
 
     if (sb.subMenu === element) {
@@ -69,6 +73,6 @@ export class SubMenuComponent implements OnInit {
 
     this.sideBarObj.next(sb)
 
-    JfUtils.mStorage.setItem(k._8_isSideBarVisible, JSON.stringify(sb))
+    JfUtils.mStorage.setItem(Constants._8_isSideBarVisible, JSON.stringify(sb))
   }
 }

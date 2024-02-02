@@ -1,5 +1,5 @@
 import {HttpHeaders} from '@angular/common/http'
-import {k} from '../environments/k'
+import {Constants} from '../environments/constants'
 import {JfStorageManagement} from './jf-storage-management'
 import {JfUtils} from './jf-utils'
 
@@ -16,34 +16,34 @@ export class JfRequestOption {
         // si el token actual es nulo
         JfUtils.go2login()
       }
-      h[k.authorizationK] = 'Bearer ' + token
+      h[Constants.authorizationK] = 'Bearer ' + token
     }
 
-    const mCompanyName = JfUtils.mStorage.getItem(k._5_company_name)
+    const mCompanyName = JfUtils.mStorage.getItem(Constants._5_company_name)
     if (mCompanyName) {
-      h[k.entityOriginK] = mCompanyName
+      h[Constants.entityOriginK] = mCompanyName
     }
 
-    const mItem = JfStorageManagement.getItem(k._7_entityGlobalId)
+    const mItem = JfStorageManagement.getItem(Constants._7_entityGlobalId)
     if (mItem) {
-      h[k.entityGlobalK] = mItem
+      h[Constants.entityGlobalK] = mItem
     }
-    const mDev = JfStorageManagement.getItem(k.dev)
+    const mDev = JfStorageManagement.getItem(Constants.dev)
     if (mDev) {
-      h[k.dev] = mDev
+      h[Constants.dev] = mDev
     }
     return {headers: new HttpHeaders(h)}
   }
 
   static isAuthenticate(): string | boolean {
-    const expire = +`${JfStorageManagement.getItem(k.expire)}`
+    const expire = +`${JfStorageManagement.getItem(Constants.expire)}`
     if (expire) {
       const now = new Date().getTime()
 
       if (expire > now) {
-        JfStorageManagement.setItem(k.expire, `${new Date().getTime() + k.expireTime * 60 * 60 * 1000}`)
+        JfStorageManagement.setItem(Constants.expire, `${new Date().getTime() + Constants.expireTime * 60 * 60 * 1000}`)
 
-        const token = `${JfStorageManagement.getItem(k._10_token)}`
+        const token = `${JfStorageManagement.getItem(Constants._10_token)}`
         return token
       }
     }
@@ -52,7 +52,7 @@ export class JfRequestOption {
   }
 
   static isAuthorized(realUrl: string): boolean {
-    const permissions = JSON.parse(`${JfStorageManagement.getItem(k._11_permissions)}`) || []
+    const permissions = JSON.parse(`${JfStorageManagement.getItem(Constants._11_permissions)}`) || []
 
     const re = /[0-9]+/
     const str = 'show'

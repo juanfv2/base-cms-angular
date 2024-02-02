@@ -1,4 +1,4 @@
-import {k} from '../environments/k'
+import {Constants} from '../environments/constants'
 import {JfStorageManagement} from './jf-storage-management'
 
 class LocalStorageMock {
@@ -46,15 +46,15 @@ describe('JfStorageManagement', () => {
     expect(result.cName).toBe('-')
     expect(result.dev).toBe('')
 
-    expect(localStorage.getItem(`${k.project_name}:${k.entityGlobalId}`)).toBe('sv')
+    expect(localStorage.getItem(`${Constants.project_name}:${Constants.entityGlobalId}`)).toBe('sv')
   })
 
   it('base-path should be "clear" storage', () => {
     const result = JfStorageManagement.saveCountryInLocalStorage()
-    const cCode = localStorage.getItem(`${k.project_name}:${k.entityGlobalId}`)
-    const gIdKey = `${k.project_name}:${cCode}:${JfStorageManagement.today()}:${k._10_token}`
+    const cCode = localStorage.getItem(`${Constants.project_name}:${Constants.entityGlobalId}`)
+    const gIdKey = `${Constants.project_name}:${cCode}:${JfStorageManagement.today()}:${Constants._10_token}`
 
-    JfStorageManagement.setItem(k._10_token, 'toke-e-en')
+    JfStorageManagement.setItem(Constants._10_token, 'toke-e-en')
 
     expect(result.entityGlobalId).toBe('sv')
     expect(result.cName).toBe('-')
@@ -68,7 +68,7 @@ describe('JfStorageManagement', () => {
 
     expect(cCode).toBe('sv')
 
-    const newLocal2 = JfStorageManagement.getItem(k._10_token)
+    const newLocal2 = JfStorageManagement.getItem(Constants._10_token)
 
     // console.log('newLocal2', gIdKey, newLocal2)
     // console.log('newLocal', localStore)

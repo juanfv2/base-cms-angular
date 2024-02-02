@@ -1,6 +1,6 @@
 import {exportFileTypes, routes} from '../resources/resources'
 
-export const k: any = {
+export const Constants: any = {
   project_name: 'project_name',
   path: {
     root: 0,

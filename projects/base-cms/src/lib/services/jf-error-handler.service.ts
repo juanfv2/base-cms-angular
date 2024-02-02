@@ -1,6 +1,6 @@
 import {ErrorHandler, Injectable} from '@angular/core'
 
-import {k} from '../environments/k'
+import {Constants} from '../environments/constants'
 import {JfUtils} from '../support/jf-utils'
 import {JfCrudService} from './jf-crud.service'
 
@@ -16,8 +16,8 @@ export class JfErrorHandlerService implements ErrorHandler {
     const location = window.location.href
     const navigator: any = {}
 
-    const _id = JfUtils.mStorage.getItem(k._3_user_id)
-    const _cc = JfUtils.mStorage.getItem(k._7_entityGlobalId)
+    const _id = JfUtils.mStorage.getItem(Constants._3_user_id)
+    const _cc = JfUtils.mStorage.getItem(Constants._7_entityGlobalId)
     const _td = new Date().toISOString()
     const queue = JfUtils.snakeCase(`${_cc}__admin-angular-u_${_id}_d_${_td}`)
 
@@ -26,7 +26,7 @@ export class JfErrorHandlerService implements ErrorHandler {
     navigator.language = window.navigator.language
     navigator.platform = window.navigator.platform
     navigator.hardwareConcurrency = window.navigator.hardwareConcurrency
-    navigator.version = k.versionV
+    navigator.version = Constants.versionV
 
     const err = {message, stack, location, navigator}
     const e = {} as any
@@ -38,7 +38,7 @@ export class JfErrorHandlerService implements ErrorHandler {
   }
 
   sent2server(e: any) {
-    this.crudService.post(k.routes.misc.visorLogErrors + '-index', e).subscribe({
+    this.crudService.post(Constants.routes.misc.visorLogErrors + '-index', e).subscribe({
       next: (resp: any) => {
         // console.log('Main.getPermission AngularFireMessaging.4: resp', resp);
       },

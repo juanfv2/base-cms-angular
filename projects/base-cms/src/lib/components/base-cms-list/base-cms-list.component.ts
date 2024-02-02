@@ -11,7 +11,7 @@ import {JfCrudService} from '../../services/jf-crud.service'
 import {JfMessageService} from '../../services/jf-message.service'
 import {JfApiRoute} from '../../support/jf-api-route'
 import {JfUtils} from '../../support/jf-utils'
-import {k} from '../../environments/k'
+import {Constants} from '../../environments/constants'
 import {XFile} from '../../resources/models'
 
 @Component({
@@ -44,9 +44,9 @@ export class BaseCmsListComponent {
 
   csvXFile!: XFile
   modelSearch: any = {}
-  operatorOptions: any[] = k.operatorOptions
-  conditionalOptions: any[] = k.conditionalOptions
-  conditionalOptionsWithFile: any[] = k.conditionalOptionsWithFile
+  operatorOptions: any[] = Constants.operatorOptions
+  conditionalOptions: any[] = Constants.conditionalOptions
+  conditionalOptionsWithFile: any[] = Constants.conditionalOptionsWithFile
 
   searchFieldAdded: any[] = []
   searchFieldAddedWithFile: any[] = []
@@ -90,9 +90,9 @@ export class BaseCmsListComponent {
     this.crudService.deleteEntity(this.kRoute, id).subscribe({
       next: (resp: JfResponse) => {
         JfUtils.remove(this.responseList, model)
-        this.messageService.info(k.project_name, `${this.itemLabels.ownName} Eliminado`)
+        this.messageService.info(Constants.project_name, `${this.itemLabels.ownName} Eliminado`)
       },
-      error: (error: any) => this.messageService.danger(k.project_name, error, this.itemLabels.ownName),
+      error: (error: any) => this.messageService.danger(Constants.project_name, error, this.itemLabels.ownName),
     })
   }
 
@@ -171,7 +171,7 @@ export class BaseCmsListComponent {
   }
 
   onLazyLoadExport(strAction: string, fDate = true) {
-    const extensionFile = this.modelSearch.exportFileType || k.exportFileTypes[0].c
+    const extensionFile = this.modelSearch.exportFileType || Constants.exportFileTypes[0].c
     const name2export = this.name2export || JfUtils.kebabCase(this.itemLabels.ownNamePlural)
     const csvColumns: any = {}
 
@@ -193,7 +193,7 @@ export class BaseCmsListComponent {
       },
       error: (error: any) => {
         this.loading = false
-        this.messageService.danger(k.project_name, error, this.itemLabels.ownName)
+        this.messageService.danger(Constants.project_name, error, this.itemLabels.ownName)
       },
     })
     this.modelSearch.lazyLoadEvent.additional = []
@@ -210,7 +210,7 @@ export class BaseCmsListComponent {
       },
       error: (error: any) => {
         this.loading = false
-        this.messageService.danger(k.project_name, error, this.itemLabels.ownName)
+        this.messageService.danger(Constants.project_name, error, this.itemLabels.ownName)
       },
     })
   }
@@ -231,6 +231,6 @@ export class BaseCmsListComponent {
   massiveInsert(jCondition: JfCondition): void {
     // console.log('jCondition', jCondition)
     this.onLazyLoad()
-    this.messageService.success(k.project_name, jCondition.v?.updated + ' Guardados')
+    this.messageService.success(Constants.project_name, jCondition.v?.updated + ' Guardados')
   }
 }
