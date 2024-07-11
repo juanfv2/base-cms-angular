@@ -37,6 +37,7 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
   @Input() maxFileSize?: number
   @Input() iWidth = 0
   @Input() iHeight = 0
+  @Input() params = ''
   @Input() url2showStaticImage?: string
   @Input() url2send?: string
   @Input() additionalParameter: any

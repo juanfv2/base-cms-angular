@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit {
   @Input() allowChangeRole = true
   @Input() allowChangeProfile = false
   @Input() labels: any
+  @Input() params = ''
   $layer: any
   currentUser: any
   toggleButton = false
