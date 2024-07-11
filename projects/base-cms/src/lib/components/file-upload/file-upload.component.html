@@ -30,7 +30,7 @@
       [style.max-height]="maxHeight"
     >
       <img
-        [src]="url2showStaticImage || (mXXfile | jfHasXFile: iWidth : iHeight : '?rCountry=' + labels.k.entityGlobalV)"
+        [src]="url2showStaticImage || (mXXfile | jfHasXFile: iWidth : iHeight : labels.k.entityGlobalV)"
         class="img-fluid img-field {{ landscape }}"
       />
 
@@ -86,7 +86,7 @@
         <a
           target="_blank"
           rel="noopener"
-          [href]="mXXfile | jfHasXFile: iWidth : iHeight : '?rCountry=' + labels.k.entityGlobalV"
+          [href]="mXXfile | jfHasXFile: iWidth : iHeight : labels.k.entityGlobalV"
           class="position-absolute t-0 r-0 bg-primary text-white"
         >
           <i class="fa fa-eye m-1"></i>

@@ -10,17 +10,17 @@ import {Constants} from '../environments/constants'
   name: 'jfHasXFile',
 })
 export class JfHasXFilePipe implements PipeTransform {
-  transform(image: any, w = 0, h = 0, params = ''): string {
+  transform(image: any, w = 0, h = 0, c = '', params = ''): string {
     // console.log('image', image)
     const p = Constants.routes.backEnd.rootServer + Constants.routes.api + Constants.routes.misc.file
     const cc = params ? `${params}` : ''
-    let ui = `${p}e/f/0/${w}/${h}/---${cc}`
+    let ui = `${p}e/f/0/${w}/${h}/${c}/---`
 
     if (image && image.id) {
-      ui = `${p}${image.entity}/${image.field}/${image.entity_id}/${w}/${h}/${image.name}${cc}`
+      ui = `${p}${image.entity}/${image.field}/${image.entity_id}/${w}/${h}/${c}/${image.name}${cc}`
 
       if (w === 0 && h === 0) {
-        ui = `${Constants.routes.backEnd.sRoot}${image.publicPath}${cc}`
+        ui = `${Constants.routes.backEnd.sRoot}${image.publicPath}`
       }
     }
 

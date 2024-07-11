@@ -7,7 +7,7 @@ describe('Pipes/JfHasXFilePipe', () => {
   })
 
   it('should return url basic "not found" XFile empty', () => {
-    expect(pipe.transform({})).toEqual('/api/file/e/f/0/0/0/---?rCountry=sv')
+    expect(pipe.transform({})).toEqual('/api/file/e/f/0/0/0/sv/---')
   })
 
   it('should return url basic  XFile from photo user', () => {
@@ -23,7 +23,7 @@ describe('Pipes/JfHasXFilePipe', () => {
       data: null,
     }
     expect(pipe.transform(photo)).toEqual(
-      '/storage/assets/adm/sv/auth_users/photo/Bt1HLRHRWIe91CqXfrbCkckVVCyPQPE339nM45Hs.jpg?rCountry=sv'
+      '/storage/assets/adm/sv/auth_users/photo/Bt1HLRHRWIe91CqXfrbCkckVVCyPQPE339nM45Hs.jpg'
     )
   })
 
@@ -41,7 +41,7 @@ describe('Pipes/JfHasXFilePipe', () => {
     }
     const width = 500
     expect(pipe.transform(photo, width, width)).toEqual(
-      `/api/file/${photo.entity}/${photo.field}/${photo.entity_id}/${width}/${width}/${photo.name}?rCountry=sv`
+      `/api/file/${photo.entity}/${photo.field}/${photo.entity_id}/${width}/${width}/sv/${photo.name}`
     )
   })
 })
