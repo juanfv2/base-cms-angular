@@ -19,6 +19,8 @@ export class JfRequestOption {
       h[Constants.authorizationK] = 'Bearer ' + token
     }
 
+    h[Constants.versionK] = Constants.versionV
+
     const mCompanyName = JfUtils.mStorage.getItem(Constants._5_company_name)
     if (mCompanyName) {
       h[Constants.entityOriginK] = mCompanyName
